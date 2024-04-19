@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:01:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 16:17:28 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:39:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct s_env_var
 /*
  * Get an env variable, if not found return NULL pointer
  */
-char	*get_env_var(t_list *lst, char *name);
+char	*get_env_var(t_list *env, char *name);
 /*
  * Add Environment variable
  * if Envirnoment variable already  exist modify their value
@@ -33,7 +33,7 @@ char	*get_env_var(t_list *lst, char *name);
  * 2. MEMERROR
  * 3. SYSERROR
  */
-int		set_env_var(t_list **lst, char *name, char *value);
+int		set_env_var(t_list **env, char *name, char *value);
 /*
  * Remove Environment variable
  * if not fail returns 0
@@ -42,10 +42,14 @@ int		set_env_var(t_list **lst, char *name, char *value);
  * 2. NOT_FOUND
  * 3. THERE AREN'T ENVIRONMENT
  */
-int		rem_env_var(t_list **lst, char *name);
+int		rem_env_var(t_list **env, char *name);
 /*
-* Print the environment
+ * Get the environment with the same format of getenv 
 */
-int		print_env(t_list *lst);
+char	**ft_getenv(t_list *env);
+/*
+ * Print the environment
+*/
+int		print_env(t_list *env);
 
 #endif
