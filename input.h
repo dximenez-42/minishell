@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 16:08:02 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/19 16:09:44 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/19 16:09:45 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <libft.h>
-# include <stdint.h>
-# include "parser.h"
-# include "environment.h"
-# include "command.h"
-/*Common*/
-//FDS
-enum
-{
-	FDIN = 0,
-	FDOUT = 1,
-	FDERROR = 2
-};
-/*End of common*/
+#ifndef INPUT_H
+# define INPUT_H
+# include "minishell.h"
 
+typedef struct s_input
+{
+	__uint8_t	noc;
+	t_command	*cmds;
+	t_list		*env;
+	__uint8_t	info;
+}				t_input;
 #endif
