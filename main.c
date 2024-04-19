@@ -7,6 +7,6 @@ int main(int argc, char *argv[], char *envp[])
 	char	*line;
 
 	env = parse_env(envp);
-	ft_putendl_fd(get_env_var(env, "TERM"), 1);
+	ft_putendl_fd(get_env_var(env, argv[1]), 1);
 	return (0);
 }
