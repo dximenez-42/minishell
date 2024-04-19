@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/18 16:16:46 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:32:33 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 # include <libft.h>
 # include <stdint.h>
 # include "parser.h"
+# include "environment.h"
+# include "command.h"
+# include "input.h"
 
-/*Common Structs*/
-
+//FDS
 enum
 {
 	FDIN = 0,
@@ -25,18 +27,4 @@ enum
 	FDERROR = 2
 };
 
-typedef struct s_commmand
-{
-	char	**args;
-	int		fds[3];
-}				t_command;
-
-typedef struct s_input
-{
-	__uint8_t	noc;
-	t_command	*cmds;
-	char		**env;
-	__uint8_t	errc;
-}				t_input;
-/*End of common structs*/
 #endif
