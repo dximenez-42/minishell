@@ -1,4 +1,23 @@
+NAME = minishell
 SRCS = environment.c main.c parser.c
+OBJS = $(SRCS:.c=.o)
+CFLAGS = -Ilibft/include
+CC		= clang
+all:	$(NAME)
 
-all:
-	clang -fuse-ld=lld -Ilibft/include -Llibft/lib -lft $(SRCS) -o minishell
+$(NAME):	deps $(OBJS)
+	if [ $(shell uname) = Linux ]; then \
+	 $(CC) $(CFLAGS) -fuse-ld=lld -Llibft/lib -lft $(OBJS) -o $(NAME); \
+	else \
+	 $(CC) $(CFLAGS) -Llibft/lib -lft $(OBJS) -o $(NAME); \
+	fi
+
+clean:
+	rm -f $(OBJS)
+
+fclean:	clean
+	rm -f $(NAME)
+
+re:		fclean all
+deps:
+	make -C libft
