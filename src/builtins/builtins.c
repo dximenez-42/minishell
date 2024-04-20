@@ -1,38 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 22:41:20 by dximenez         ###   ########.fr       */
+/*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
+/*   Updated: 2024/04/19 22:19:50 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <libft.h>
-# include <stdint.h>
-# include "parser.h"
-# include "environment.h"
-# include "command.h"
-# include "input.h"
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "../../minishell.h"
 
-//FDS
-enum
+void	cd_builtin(t_command *cmd, t_list *env)
 {
-	FDIN = 0,
-	FDOUT = 1,
-	FDERROR = 2
-};
+	char	*path;
+	char	*old;
 
-
-void	cd_builtin(t_command *cmd, t_list *env);
-
-// Utils
-char	*ft_joinpaths(char *p1, char *p2);
-
-#endif
+	old = get_env_var(env, "PWD");
+	if (cmd->args[1] == NULL)
+		path = get_env_var(env, "PATH");
+	else if (cmd->args[1] == "-")
+		path = get_env_var(env, "OLDPWD");
+	else
+		path = ft_joinpaths(get_env_var(env, "PWD"), cmd->args[1]);
+	set_env_var(&env, "OLDPWD", old);
+	set_env_var(&env, "PWD", path);
+}
