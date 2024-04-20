@@ -6,13 +6,20 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 19:37:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/20 12:20:46 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char *argv[], char *envp[])
+void	loop()
+{
+	char	*rl;
+
+	rl = readline("minishell$ ");
+}
+
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_input *input;
 	t_list	*env;
@@ -20,10 +27,13 @@ int main(int argc, char *argv[], char *envp[])
 	char 	**envc;
 
 	env = parse_env(envp);
-	ft_putendl_fd(get_env_var(env, argv[1]), 1);
-	set_env_var(&env, argv[1], ft_strdup(argv[2]));
-	envc = ft_getenv(env);
-	for (int i = 0; envc[i]; i++)
-		printf("%s", envc[i]);
+	loop();
+	// ft_putendl_fd(get_env_var(env, "PWD"), 1);
+
+	// ft_putendl_fd(get_env_var(env, argv[1]), 1);
+	// set_env_var(&env, argv[1], ft_strdup(argv[2]));
+	// envc = ft_getenv(env);
+	// for (int i = 0; envc[i]; i++)
+	// 	printf("%s", envc[i]);
 	return (0);
 }

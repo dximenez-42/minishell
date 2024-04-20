@@ -9,7 +9,7 @@ $(NAME):	deps $(OBJS)
 	if [ $(shell uname) = Linux ]; then \
 	 $(CC) $(CFLAGS) -fuse-ld=lld -Llibft/lib -lft $(OBJS) -o $(NAME); \
 	else \
-	 $(CC) $(CFLAGS) -Llibft/lib -lft $(OBJS) -o $(NAME); \
+	 $(CC) $(CFLAGS) -Llibft/lib -lft -lreadline $(OBJS) -o $(NAME); \
 	fi
 
 clean:

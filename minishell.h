@@ -18,6 +18,8 @@
 # include "environment.h"
 # include "command.h"
 # include "input.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 //FDS
 enum
