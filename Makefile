@@ -2,7 +2,7 @@ NAME = minishell
 SRCS = environment.c main.c parser.c \
 		src/utils/paths.c src/exec/exec.c src/utils/commands.c
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Ilibft/include
+CFLAGS = -Ilibft/include -g
 CC		= clang
 all:	$(NAME)
 

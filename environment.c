@@ -6,11 +6,11 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 19:39:01 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:18:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "includes/minishell.h"
 
 char	*get_env_var(t_list *env, char *name)
 {
@@ -84,10 +84,11 @@ char **ft_getenv(t_list *env)
 	current = env;
 	while (current)
 	{
-		i++;
 		current = current->next;
+		i++;
 	}
-	ret = malloc(i * sizeof(char *));
+	ft_printf("no roto");
+	ret = malloc(i * sizeof(char *) + 1);
 	j = 0;
 	while (j < i)
 	{
@@ -100,6 +101,7 @@ char **ft_getenv(t_list *env)
 		ft_strlcat(ret[j++], "\n", len);
 		env = env->next;
 	}
+	ret[j] = NULL;
 	return (ret);
 }
 

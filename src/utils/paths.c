@@ -6,11 +6,11 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 21:27:51 by dximenez          #+#    #+#             */
-/*   Updated: 2024/04/19 22:42:53 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:59:15 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_joinpaths(char *p1, char *p2)
 {
