@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 13:56:46 by dximenez         ###   ########.fr       */
+/*   Created: 2024/04/21 18:29:48 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/21 18:30:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

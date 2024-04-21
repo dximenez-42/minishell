@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 13:56:39 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:18:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,11 @@ char **ft_getenv(t_list *env)
 	current = env;
 	while (current)
 	{
-		i++;
 		current = current->next;
+		i++;
 	}
-	ret = malloc(i * sizeof(char *));
+	ft_printf("no roto");
+	ret = malloc(i * sizeof(char *) + 1);
 	j = 0;
 	while (j < i)
 	{
@@ -100,6 +101,7 @@ char **ft_getenv(t_list *env)
 		ft_strlcat(ret[j++], "\n", len);
 		env = env->next;
 	}
+	ret[j] = NULL;
 	return (ret);
 }
 
