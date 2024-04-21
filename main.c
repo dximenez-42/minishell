@@ -6,26 +6,22 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 12:51:29 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:24:22 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_input(t_input *input)
+void	init_input(t_input **input, char *line)
 {
-	input = malloc(sizeof(t_input));
-	input->noc = 1;
-	input->cmds = malloc(1 * sizeof(t_command));
-	input->cmds->info = 0;
-	input->cmds->args = malloc(2 * sizeof(char *));
-	input->cmds->args[0] = malloc(3 * sizeof(char));
-	input->cmds->args[0] = "cd";
-	input->cmds->args[1] = malloc(6 * sizeof(char));
-	input->cmds->args[1] = "libft";
-	input->cmds->fds[FDIN] = FDIN;
-	input->cmds->fds[FDOUT] = FDOUT;
-	input->cmds->fds[FDERROR] = FDERROR;
+	(*input) = malloc(sizeof(t_input));
+	(*input)->noc = 1;
+	(*input)->cmds = malloc(1 * sizeof(t_command));
+	(*input)->cmds[0].info = 1;
+	(*input)->cmds[0].args = ft_split(line, ' ');
+	(*input)->cmds[0].fds[FDIN] = FDIN;
+	(*input)->cmds[0].fds[FDOUT] = FDOUT;
+	(*input)->cmds[0].fds[FDERROR] = FDERROR;
 }
 
 
@@ -44,11 +40,11 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			add_history(line);
 			// parse();
-			init_input(input);
+			init_input(&input, line);
 			if (input->noc == 1)
-				exec_one(&input->cmds[0], input->env);
+				exec_one(&input->cmds[0], env);
 			else
-				exec_multiple(&input->cmds, input->env);
+				exec_multiple(&input->cmds, env);
 		}
 	}
 	return (0);
