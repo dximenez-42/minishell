@@ -1,5 +1,6 @@
 NAME = minishell
-SRCS = environment.c main.c parser.c src/utils/paths.c
+SRCS = environment.c main.c parser.c \
+		src/utils/paths.c src/exec/exec.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Ilibft/include
 CC		= clang
