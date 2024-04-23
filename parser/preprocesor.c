@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:26:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/23 19:19:31 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/23 21:27:34 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*proc_quoques(char *quoque, char type, int len)
 				continue ;
 			}
 		}
-		result = expand_vars();
+		result = expand_vars(quoque, expanded);
 	}
 	return (result);
 }
