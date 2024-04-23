@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 18:18:29 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:27:58 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ char **ft_getenv(t_list *env)
 	while (j < i)
 	{
 		len  = ft_strlen(((t_env_var *)env->content.oth)->name)
-			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 3;
+			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 2;
 		ret[j] = malloc(len);
 		ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
 		ft_strlcat(ret[j], "=", len);
 		ft_strlcat(ret[j], ((t_env_var *) env->content.oth)->value, len);
-		ft_strlcat(ret[j++], "\n", len);
 		env = env->next;
+		j++;
 	}
 	ret[j] = NULL;
 	return (ret);
