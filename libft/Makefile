@@ -77,7 +77,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 
 all:		${NAME}
 ${NAME}:	${SRCS} ${OBJS}
-	ar rc ${NAME} ${OBJS}
+	ar r ${NAME} ${OBJS}
 clean:
 	rm -f ${OBJS}
 fclean:		clean 

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/23 15:27:58 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:48:26 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char **ft_getenv(t_list *env)
 		current = current->next;
 		i++;
 	}
-	ft_printf("no roto");
 	ret = malloc(i * sizeof(char *) + 1);
 	j = 0;
 	while (j < i)

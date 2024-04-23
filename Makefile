@@ -6,14 +6,11 @@ CC		= clang
 all:	$(NAME)
 
 $(NAME):	deps $(OBJS)
-	if [ $(shell uname) = Linux ]; then \
-	 $(CC) $(CFLAGS) -fuse-ld=lld -Llibft/lib -lft $(OBJS) -o $(NAME); \
-	else \
-	 $(CC) $(CFLAGS) -Llibft/lib -lft $(OBJS) -o $(NAME); \
-	fi
+		$(CC) $(OBJS) -o $(NAME) -Llibft/lib -lft ;
 
 clean:
 	rm -f $(OBJS)
+	make -C libft fclean
 
 fclean:	clean
 	rm -f $(NAME)
