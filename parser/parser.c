@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 13:56:52 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:08:40 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "includes/minishell.h"
+#include "includes/minishell.h"
 
 t_list	*parse_env(char **envp)
 {
@@ -30,9 +30,9 @@ t_list	*parse_env(char **envp)
 			return (ft_lstclear_type(&env, NULL), NULL);
 		env_var->name = ft_substr(envp[i], 0, separator - envp[i]);
 		env_var->value = ft_strdup(separator + 1);
-		node = ft_lstnew_type(PTR, (t_content) ((void *)env_var));
-		/*if (!node)
-			return (free(env_var), NULL);*/
+		node = ft_lstnew_type(PTR, (t_content)((void *)env_var));
+		if (!node)
+			return (free(env_var), ft_lstclear_type(&env, clear_env_list) NULL);
 		ft_lstadd_back(&env, node);
 		i++;
 	}

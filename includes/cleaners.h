@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   cleaners.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/24 12:09:21 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/24 10:20:44 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/24 12:09:05 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <libft.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include "environment.h"
-# include "command.h"
-# include "input.h"
-# include "parser.h"
-# include "cleaners.h"
+#ifndef CLEANERS_H
+# define CLEANERS_H
+# include "minishell.h"
 
-//FDS
-enum
-{
-	FDIN = 0,
-	FDOUT = 1,
-	FDERROR = 2
-};
-
+void	clean_env_list(t_content cnt, t_type type);
 #endif
