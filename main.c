@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 18:29:48 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/24 15:04:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:05:25 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[], char *envp[])
 	env = parse_env(envp);
 	set_env_var(&env, "hola", "adios");
 	envc = ft_getenv(env);
-	rem_env_var(&env, "hola");
+	set_env_var(&env, "hola", "mundo");
 	ft_lstclear_type(&env, clear_env_list);
 	ft_free_ptr_array(envc);
 	return (0);

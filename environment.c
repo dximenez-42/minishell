@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/24 15:04:09 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:08:27 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	set_env_var(t_list **env, char *name, char *value)
 {
 	t_env_var	*var;
 	t_list		*node;
+	char		*buff;
 
 	var = malloc(sizeof(t_env_var));
 	if (!var)
@@ -47,8 +48,10 @@ int	set_env_var(t_list **env, char *name, char *value)
 		free(node);
 		return (MEMERROR);
 	}
-	if (get_env_var(*env, name))
+	buff = get_env_var(*env, name);
+	if (buff)
 		rem_env_var(env, name);
+	free(buff);
 	ft_lstadd_back(env, node);
 	return (0);
 }
