@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/24 14:31:43 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:04:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	set_env_var(t_list **env, char *name, char *value)
 		return (MEMERROR);
 	}
 	if (get_env_var(*env, name))
-		rem_env_var(env, name);		
+		rem_env_var(env, name);
 	ft_lstadd_back(env, node);
 	return (0);
 }
@@ -57,14 +57,20 @@ int	rem_env_var(t_list **env, char *name)
 {
 	t_env_var	*var;
 	t_list		*current;
+
 	current = *env;
 	while (current)
 	{
 		var = current->content.oth;
 		if (!ft_strncmp(name, var->name, ft_strlen(name) + 1))
 		{
-			current->prev->next = current->next;
-			current->next->prev = current->prev;
+			if (current->prev)
+				current->prev->next = current->next;
+			if (current->next)
+				current->next->prev = current->prev;
+			free(var->name);
+			free(var->value);
+			free((void *)var);
 			free(current);
 			return (0);
 		}
@@ -73,14 +79,14 @@ int	rem_env_var(t_list **env, char *name)
 	return (NOT_FOUND);
 }
 
-char **ft_getenv(t_list *env)
+char	**ft_getenv(t_list *env)
 {
-	int 	i;
+	int		i;
 	int		j;
 	int		len;
 	t_list	*current;
 	char	**ret;
-	
+
 	i = 0;
 	current = env;
 	i = ft_lstsize(env);
@@ -88,7 +94,7 @@ char **ft_getenv(t_list *env)
 	j = 0;
 	while (j < i)
 	{
-		len  = ft_strlen(((t_env_var *)env->content.oth)->name)
+		len = ft_strlen(((t_env_var *)env->content.oth)->name)
 			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 1;
 		ret[j] = malloc(len);
 		ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
@@ -103,7 +109,7 @@ char **ft_getenv(t_list *env)
 
 int	print_env(t_list *env, int fd)
 {
-	t_list	*current;
+	t_list		*current;
 	t_env_var	*var;
 
 	current = env;
