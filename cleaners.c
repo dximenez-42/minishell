@@ -1,7 +1,7 @@
 
 #include "includes/cleaners.h"
 
-void	clean_env_list(t_content cnt, t_type type)
+void	clear_env_list(t_content cnt, t_type type)
 {
 	const t_env_var *var = cnt.oth;
 
@@ -10,6 +10,6 @@ void	clean_env_list(t_content cnt, t_type type)
 	if (!var)
 		return ;
 	free(var->name);
-	free(var->value)
-	free(var);
+	free(var->value);
+	free((void *)var);
 }
