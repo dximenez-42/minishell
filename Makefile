@@ -8,6 +8,7 @@ SRCS 				= src/builtins/builtins.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/paths.c\
+						src/error.c\
 						src/main.c
 OBJS				= $(SRCS:.c=.o)
 LIBFT_PATH			= libft

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/29 17:56:41 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:23:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ enum
 	FDOUT = 1,
 	FDERROR = 2
 };
+//GENERAL ERRORS
+typedef enum e_error
+{
+	VIEW = 0,
+	NOT_IDENTIFIED = 1,
+	ERRMEM = 2,
+	ERRNFOUND = 3,
+}			t_error;
+//ERROR FUNCTIONS
+t_error	error(t_error errnum);
 
 void	exec_one(t_command *cmd, t_list *env);
 void	exec_multiple(t_command **cmd, t_list *env);

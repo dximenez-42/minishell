@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/29 17:52:22 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/29 22:22:10 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	set_env_var(t_list **env, char *name, char *value)
 
 	var = malloc(sizeof(t_env_var));
 	if (!var)
-		return (MEMERROR);
+		return (ERRMEM);
 	var->name = ft_strdup(name);
 	var->value = ft_strdup(value);
 	node = ft_lstnew_type(OTHER, (t_content)((void *) var));
@@ -46,7 +46,7 @@ int	set_env_var(t_list **env, char *name, char *value)
 		free(var->value);
 		free(var);
 		free(node);
-		return (MEMERROR);
+		return (ERRMEM);
 	}
 	buff = get_env_var(*env, name);
 	if (buff)
@@ -79,7 +79,7 @@ int	rem_env_var(t_list **env, char *name)
 		}
 		current = current->next;
 	}
-	return (NOT_FOUND);
+	return (ERRNFOUND);
 }
 
 char	**ft_getenv(t_list *env)
