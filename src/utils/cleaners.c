@@ -1,5 +1,5 @@
 
-#include "includes/cleaners.h"
+#include "../../includes/cleaners.h"
 
 void	clear_env_list(t_content cnt, t_type type)
 {
