@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaners.c                                         :+:      :+:    :+:   */
+/*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 22:27:44 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/29 22:28:30 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/29 22:41:06by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cleaners.h"
+#include "../../includes/minishell.h"
 
-void	clear_env_list(t_content cnt, t_type type)
+char	*get_varname(char *str)
 {
-	const t_env_var	*var = cnt.oth;
+	int		i;
+	char	*result;
 
-	if (type != OTHER)
-		return ;
-	if (!var)
-		return ;
-	free(var->name);
-	free(var->value);
-	free((void *)var);
+	i = 0;
+	if (str[i++] != '$')
+		return (0);
+	while (str[i] && !ft_isspace(str[i]))
+		i++;
+	result = ft_substr(str, 1, i - 1);
+	if (!result)
+		return (error(ERRMEM), NULL);
+	return (result);
 }
