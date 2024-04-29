@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
 /*   Updated: 2024/04/21 18:59:23 by dximenez         ###   ########.fr       */
@@ -14,12 +14,14 @@
 # define MINISHELL_H
 # include <libft.h>
 # include <stdint.h>
-# include "parser.h"
+# include <stdlib.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include "environment.h"
 # include "command.h"
 # include "input.h"
-# include <readline/history.h>
-# include <readline/readline.h>
+# include "parser.h"
+# include "cleaners.h"
 
 //FDS
 enum
