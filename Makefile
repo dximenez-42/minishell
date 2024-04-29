@@ -1,5 +1,7 @@
 NAME = minishell
-SRCS = environment.c main.c parser.c cleaners.c
+
+SRCS = environment.c main.c parser.c \
+		src/utils/paths.c src/exec/exec.c src/utils/commands.c
 OBJS = $(SRCS:.c=.o)
 LIBFT_PATH	= libft
 LIBFT_INC_PATH = $(LIBFT_PATH)/include
@@ -11,6 +13,7 @@ CFLAGS = $(LIBFT_INC_FLAGS) -g3
 CC		= gcc
 
 all:	$(NAME)
+
 
 $(NAME):	$(LIBFT_LIB_FILE) $(OBJS)
 		$(CC) $(OBJS) -o $(NAME) $(LIBFT_LINK_FLAGS)
