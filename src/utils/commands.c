@@ -6,13 +6,13 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/04/21 18:59:57 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:50:27 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_command_location(char *cmd, t_list *env)
+char	*get_cmd(char *cmd, t_list *env)
 {
 	int		i;
 	char	**env_split;
