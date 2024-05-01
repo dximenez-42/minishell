@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/29 22:23:09 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:26:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_error
 	NOT_IDENTIFIED = 1,
 	ERRMEM = 2,
 	ERRNFOUND = 3,
+	ERRFORMAT = 4
 }			t_error;
 //ERROR FUNCTIONS
 t_error	error(t_error errnum);
