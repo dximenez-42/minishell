@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/29 17:52:17 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/03 19:50:08 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ t_list	*parse_env(char **envp)
 		i++;
 	}
 	return (env);
+}
+t_input	*parse_line(t_list *env, char *line)
+
+{
+	t_input *result;
+	char	*pproc_line;
+
+	pproc_line = preprocesor(env, line);
+	printf("preprocesed: %s\n", pproc_line);
+	return (NULL);
 }
