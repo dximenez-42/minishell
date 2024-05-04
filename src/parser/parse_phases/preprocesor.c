@@ -84,7 +84,7 @@ static char	*get_preprocesed_line(t_list *varlist, char *rstr)
 	int			counters[2];
 
 	ft_bzero(counters, 2 * sizeof(int));
-	str = malloc(len);
+	str = ft_calloc(len, 1);
 	if (!str)
 		return (error(ERRMEM), NULL);
 	str[0] = '\0';
