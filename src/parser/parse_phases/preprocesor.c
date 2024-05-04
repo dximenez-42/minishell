@@ -55,8 +55,11 @@ static int	get_real_size(t_list *varlist, char *str)
 	{
 		if (str[i] == '\'')
 		{
-			while (str[++i] != '\'');
+			while (str[++i] != '\'')
+				noc++;
 			i++;
+			noc += 2;
+			continue ;
 		}
 		if (str[i] == '$')
 		{
