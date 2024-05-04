@@ -136,8 +136,6 @@ char	*preprocesor(t_list *env, char *str)
 			i++;
 			while (str[i] && str[i] != '\'')
 				i++;
-			i++;
-			continue ;
 		}
 		if (str[i] == '$')
 		{
