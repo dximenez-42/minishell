@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 13:46:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 19:31:52 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:15:42 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/29 22:29:48 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../includes/minishell.h"
 
-size_t	ft_strlen(const char *s)
+t_error	error(t_error errnum)
 {
-	int	i;
+	static t_error	current_error = 0;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != 0)
-		i++;
-	return (i);
+	if (errnum == VIEW)
+		return (current_error);
+	current_error = errnum;
+	return (errnum);
 }

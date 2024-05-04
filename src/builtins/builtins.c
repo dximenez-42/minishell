@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 13:46:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 19:31:52 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
+/*   Updated: 2024/04/29 17:50:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../../includes/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	cd_builtin(t_command *cmd, t_list *env)
 {
-	int	i;
+	char	*path;
+	char	*old;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != 0)
-		i++;
-	return (i);
+	old = get_env_var(env, "PWD");
+	if (cmd->args[1] == NULL)
+		path = get_env_var(env, "PATH");
+	else if (cmd->args[1] == "-")
+		path = get_env_var(env, "OLDPWD");
+	else
+		path = ft_joinpaths(get_env_var(env, "PWD"), cmd->args[1]);
+	set_env_var(&env, "OLDPWD", old);
+	set_env_var(&env, "PWD", path);
 }

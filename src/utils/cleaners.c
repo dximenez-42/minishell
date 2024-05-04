@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 13:46:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 19:31:52 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:27:44 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/29 22:28:30 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../../includes/cleaners.h"
 
-size_t	ft_strlen(const char *s)
+void	clear_env_list(t_content cnt, t_type type)
 {
-	int	i;
+	const t_env_var	*var = cnt.oth;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != 0)
-		i++;
-	return (i);
+	if (type != OTHER)
+		return ;
+	if (!var)
+		return ;
+	free(var->name);
+	free(var->value);
+	free((void *)var);
 }

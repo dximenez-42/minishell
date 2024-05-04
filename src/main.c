@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/01 13:46:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 19:31:52 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/04 13:57:41 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../includes/minishell.h"
 
-size_t	ft_strlen(const char *s)
+int main(int argc, char *argv[], char *envp[])
 {
-	int	i;
+	t_list	*env;
+	t_input	*input;
+	char	*rawline;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != 0)
-		i++;
-	return (i);
+	env = parse_env(envp);
+	rawline = readline("mini$ell: ");
+	while (rawline)
+	{
+		input = parse_line(env, rawline);
+		free(input);
+		free(rawline);
+		rawline = readline("mini$ell: ");
+	}
+	ft_lstclear_type(&env, clear_env_list);
+	return (0);
 }
