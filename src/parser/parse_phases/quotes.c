@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 18:19:08 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/04 18:55:08 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:16:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,24 @@ int get_quotelen(char *quote)
 	int	clen;
 
 	clen = 0;
-	++clen;
-	while (quote[clen] && quote[clen] != '\'')
+	while (quote[++clen] && quote[clen] != '\'');
+	if (quote[clen] == '\'')
 		clen++;
-	clen++;
 	return (clen);
 }
-void copy_simple_quoute(char *rstr, char *str, int *i, int *j)
+void copy_simple_quoute(char *rstr, char *str, int *rc, int *pc)
 {
-	int	tcounter;
+	int	limit;
+	int	i;
 
-	tcounter = get_quotelen(rstr);
-	*i += tcounter;
-	*j += tcounter;
-	ft_strlcat(str, rstr, tcounter + 1);
+	i = 0;
+	limit = get_quotelen(rstr + *rc);
+	while (i <= limit)
+	{
+		*(str + *pc + i) = *(rstr + *rc + i);
+		i++;
+	}
+	*rc += i;
+	*pc += i;
 }
 

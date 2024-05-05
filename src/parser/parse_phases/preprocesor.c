@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:26:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/04 18:47:59 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/05 14:14:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static char	*get_preprocesed_line(t_list *varlist, char *rstr)
 	while (rstr[counters[0]])
 	{
 		if (rstr[counters[0]] == '\'')
+		{
 			copy_simple_quoute(rstr, str, &counters[0], &counters[1]);
+			continue;
+		}
 		if (rstr[counters[0]] == '$')
 		{
 			counters[0] += get_varlen(rstr + ++counters[0]);
@@ -88,7 +91,6 @@ static char	*get_preprocesed_line(t_list *varlist, char *rstr)
 		}
 		str[counters[1]++] = rstr[counters[0]++];
 	}	
-	str[counters[1]] = '\0';
 	return (str);
 }
 
@@ -104,9 +106,8 @@ char	*preprocesor(t_list *env, char *str)
 	{
 		if (str[i] == '\'')
 		{
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
+			i += get_quotelen(str + i);
+			continue ;
 		}
 		if (str[i] == '$')
 		{
