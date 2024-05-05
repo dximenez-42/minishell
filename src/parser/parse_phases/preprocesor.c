@@ -6,24 +6,14 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 18:26:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 18:20:49by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:47:59 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// not implemented
 
-static char	*get_varname(char *str, int *i)
-{
-	int j;
 
-	j = 0;
-	while (ft_isalnum(str[j]))
-		j++;	
-	*i += j;
-	return (ft_substr(str, 0, j));
-}
 static void proc_var(t_list *env, t_list **varlist, char *str, int *i)
 {
 	char	*space;
@@ -46,28 +36,22 @@ static int	get_real_size(t_list *varlist, char *str)
 {
 	int i;
 	int	noc;
-	t_list	*lst;
 
 	i = 0;
 	noc = 0;
-	lst = varlist;
 	while (str[i])
 	{
 		if (str[i] == '\'')
 		{
-			while (str[++i] != '\'')
-				noc++;
-			i++;
-			noc += 2;
+			noc += get_quotelen(str + i);
+			i += get_quotelen(str + i);
 			continue ;
 		}
 		if (str[i] == '$')
 		{
-			i++;
-			while (ft_isalnum(str[i]))
-				i++;
-			noc += ft_strlen(lst->content.str);
-			lst = lst->next;
+			i = i + (get_varlen(str + ++i));
+			noc += ft_strlen(varlist->content.str);
+			varlist = varlist->next;
 			continue ;
 		}
 		noc++;
@@ -94,23 +78,10 @@ static char	*get_preprocesed_line(t_list *varlist, char *rstr)
 	while (rstr[counters[0]])
 	{
 		if (rstr[counters[0]] == '\'')
-		{
-			str[counters[1]++] = rstr[counters[0]++];
-			while (rstr[counters[0]] && rstr[counters[0]] != '\'')
-				str[counters[1]++] = rstr[counters[0]++];
-			str[counters[1]++] = rstr[counters[0]++];
-			continue ;
-		}
+			copy_simple_quoute(rstr, str, &counters[0], &counters[1]);
 		if (rstr[counters[0]] == '$')
 		{
-			counters[0]++;
-			if (rstr[counters[0]] == '?')
-			{
-				counters[0]++;
-				continue ;
-			}
-			while (ft_isalnum(rstr[counters[0]]))
-				counters[0]++;
+			counters[0] += get_varlen(rstr + ++counters[0]);
 			counters[1] = ft_strlcat(str, varlist->content.str, len);
 			varlist = varlist->next;
 			continue ;

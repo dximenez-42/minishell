@@ -1,10 +1,11 @@
 NAME = minishell
 
-SRCS 				= src/builtins/builtins.c\
-						src/exec/exec.c\
+SRCS 				= 	src/exec/exec.c\
 						src/parser/parse_phases/preprocesor.c\
+						src/parser/parse_phases/quotes.c\
 						src/parser/environment.c\
 						src/parser/parser.c\
+						src/parser/variables.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/paths.c\

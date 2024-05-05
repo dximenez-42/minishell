@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variables.c                                        :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/04 18:57:12 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/04 18:19:08 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/04 18:55:08 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		get_varlen(char *str)
+int get_quotelen(char *quote)
 {
-	int	i;
+	int	clen;
 
-	i = 0;
-	if (str[i] == '?')
-		return (1);
-	if (!isalpha(str[i]))
-		return (0);
-	while (ft_isalnum(str[i]))
-		i++;
-	return (i);
+	clen = 0;
+	++clen;
+	while (quote[clen] && quote[clen] != '\'')
+		clen++;
+	clen++;
+	return (clen);
+}
+void copy_simple_quoute(char *rstr, char *str, int *i, int *j)
+{
+	int	tcounter;
+
+	tcounter = get_quotelen(rstr);
+	*i += tcounter;
+	*j += tcounter;
+	ft_strlcat(str, rstr, tcounter + 1);
 }
 
-char	*get_varname(char *str, int *i)
-{
-	int j;
-
-	j = 0;
-	while (ft_isalnum(str[j]))
-		j++;	
-	*i += j;
-	return (ft_substr(str, 0, j));
-}
