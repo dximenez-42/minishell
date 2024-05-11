@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/11 18:33:20 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:09:07 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	exec_multiple(t_input *input, t_list *env)
 	init_pipes(input, &pipes);
 	while (i < input->noc)
 	{
-		redirs(input, i, pipes);
+		// redirs(input, i, pipes);
 		exec_command(input->cmds[i], env);
 		++i;
 	}

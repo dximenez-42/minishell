@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:04:06 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/11 18:40:05 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:08:11 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	redirs(t_input *input, int i, int **pipes)
 	if (i == 0)
 		redir_first(input, i, pipes);
 	else if (i == input->noc - 1)
-		redir_between(input, i, pipes);
-	else
 		redir_last(input, i, pipes);
+	else
+		redir_between(input, i, pipes);
 	dup2(input->cmds[i]->fds[FDERROR], STDERR_FILENO);
 	(close(pipes[i][FDIN]), close(pipes[i][FDOUT]));
 }

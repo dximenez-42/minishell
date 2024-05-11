@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/11 18:37:26 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:09:49 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 // {
 // 	(*input) = malloc(sizeof(t_input));
 // 	(*input)->noc = 1;
-// 	(*input)->cmds = malloc(1 * sizeof(t_command));
+// 	(*input)->cmds = malloc(sizeof(t_command *));
 	
-// 	(*input)->cmds[0].info = 1;
-// 	(*input)->cmds[0].args = ft_split(line, ' ');
-// 	(*input)->cmds[0].fds[FDIN] = FDIN;
-// 	(*input)->cmds[0].fds[FDOUT] = FDOUT;
-// 	(*input)->cmds[0].fds[FDERROR] = FDERROR;
+// 	(*input)->cmds[0] = malloc(sizeof(t_command));
+// 	(*input)->cmds[0]->info = 1;
+// 	(*input)->cmds[0]->args = ft_split(line, ' ');
+// 	(*input)->cmds[0]->fds[FDIN] = FDIN;
+// 	(*input)->cmds[0]->fds[FDOUT] = FDOUT;
+// 	(*input)->cmds[0]->fds[FDERROR] = FDERROR;
 // }
 
 void	init_input(t_input **input, char *line)
