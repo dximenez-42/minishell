@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/11 18:28:40 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:37:26 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	init_input(t_input **input, char *line)
 	(*input)->cmds[0]->info = 1;
 	(*input)->cmds[0]->args = malloc(3 * sizeof(char *));
 	(*input)->cmds[0]->args[0] = ft_strdup("ls");
-	(*input)->cmds[0]->args[1] = ft_strdup("-l");
-	(*input)->cmds[0]->args[2] = NULL;
+	(*input)->cmds[0]->args[1] = NULL;
 	(*input)->cmds[0]->fds[FDIN] = STDIN_FILENO;
 	(*input)->cmds[0]->fds[FDOUT] = STDOUT_FILENO;
 	(*input)->cmds[0]->fds[FDERROR] = STDERR_FILENO;
@@ -82,9 +81,9 @@ int	main(int argc, char *argv[], char *envp[])
 			// parse();
 			init_input(&input, line);
 			// if (input->noc == 1)
-			exec_one(input, env);
+			// exec_one(input, env);
 			// else
-			// exec_multiple(input, env);
+			exec_multiple(input, env);
 	// 	}
 	// }
 	return (0);

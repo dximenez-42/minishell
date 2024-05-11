@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/11 18:26:03 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:33:20 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,6 @@ void	exec_multiple(t_input *input, t_list *env)
 	while (i < input->noc)
 	{
 		redirs(input, i, pipes);
-		// if (input->cmds[i]->fds[FDIN] == STDIN_FILENO)
-		// 	dup2(pipes[i][FDIN], STDIN_FILENO);
-		// else
-		// 	dup2(input->cmds[i]->fds[FDIN], STDIN_FILENO);
-		// if (input->cmds[i]->fds[FDOUT] == STDOUT_FILENO)
-		// 	dup2(pipes[i][FDOUT], STDOUT_FILENO);
-		// else
-		// 	dup2(input->cmds[i]->fds[FDOUT], STDOUT_FILENO);
-		// (close(pipes[i][FDIN]), close(pipes[i][FDOUT]));
 		exec_command(input->cmds[i], env);
 		++i;
 	}

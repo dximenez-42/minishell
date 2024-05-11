@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 18:04:06 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/11 18:26:13 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:40:05 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	redir_first(t_input *input, int i, int **pipes)
 {
-	dup2(input->cmds[i]->fds[FDIN], STDIN_FILENO);
+	if (input->cmds[i]->fds[FDIN] != STDIN_FILENO)
+		dup2(input->cmds[i]->fds[FDIN], STDIN_FILENO);
 	if (input->cmds[i]->fds[FDOUT] == STDOUT_FILENO)
 		dup2(pipes[i][FDOUT], STDOUT_FILENO);
 	else
@@ -52,7 +53,7 @@ void	redirs(t_input *input, int i, int **pipes)
 	else
 		redir_last(input, i, pipes);
 	dup2(input->cmds[i]->fds[FDERROR], STDERR_FILENO);
-	// (close(pipes[i][FDIN]), close(pipes[i][FDOUT]));
+	(close(pipes[i][FDIN]), close(pipes[i][FDOUT]));
 }
 
 void	init_pipes(t_input *input, int ***pipes)
