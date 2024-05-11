@@ -2,7 +2,8 @@ NAME = minishell
 
 SRCS = environment.c main.c parser.c \
 		cleaners.c \
-		src/utils/paths.c src/exec/exec.c src/utils/commands.c
+		src/utils/paths.c src/utils/commands.c \
+		src/exec/exec.c src/exec/redirs.c
 OBJS = $(SRCS:.c=.o)
 LIBFT_PATH	= libft
 LIBFT_INC_PATH = $(LIBFT_PATH)/include

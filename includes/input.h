@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:09:44 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 16:17:55 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/09 16:26:18 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 typedef struct s_input
 {
 	__uint8_t	noc;
-	t_command	*cmds;
+	t_command	**cmds;
 	t_list		*env;
 	__uint8_t	info;
 }				t_input;
