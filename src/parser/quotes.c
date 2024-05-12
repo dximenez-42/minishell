@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variables.c                                        :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/07 11:55:14 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/12 17:24:28 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <minishell.h>
 
-int		get_varname_len(char *str)
+int get_quotelen(char *quote)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (*str == '\'' || *str == '"')
-		return (get_quotelen(str));
-	if (str[i] == '?')
-		return (1);
-	if (!ft_isalnum(str[i]))
-		return (0);
-	while (ft_isalnum(str[i]))
+	i++;
+	while (quote[i] && quote[i] != '\'')
 		i++;
-	return (i);
+	return (++i);
 }
 
-char	*get_varname(char *str, int *i)
+int expand_quote(char *quote)
 {
-	int j;
-
-	j = 0;
-	while (ft_isalnum(str[j]))
-		j++;	
-	*i += j;
-	return (ft_substr(str, 0, j));
+	return (0);
 }

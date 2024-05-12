@@ -1,11 +1,11 @@
 NAME = minishell
 
 SRCS 				= 	src/exec/exec.c\
-						src/parser/parse_phases/preprocesor.c\
-						src/parser/parse_phases/quotes.c\
 						src/parser/environment.c\
+						src/parser/parse_phases/split_commands.c\
 						src/parser/parser.c\
 						src/parser/variables.c\
+						src/parser/quotes.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/paths.c\
@@ -19,7 +19,7 @@ LIBFT_LIB_FILE		= $(LIBFT_LIB_PATH)/libft.a
 LIBFT_INC_FLAGS		= -I$(LIBFT_INC_PATH)
 LIBFT_LINK_FLAGS	= -L$(LIBFT_LIB_PATH) -lft
 CFLAGS 				= $(LIBFT_INC_FLAGS) -g3
-CC					= gcc
+CC					= gcc -Iincludes
 
 all:	$(NAME)
 

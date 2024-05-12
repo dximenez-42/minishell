@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/04 13:58:46 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:31:02 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,20 @@ t_list	*parse_env(char **envp)
 	}
 	return (env);
 }
+t_list	*split_raw_commands(char *line);
 t_input	*parse_line(t_list *env, char *line)
 
 {
 	t_input *result;
 	char	*pproc_line;
+	t_list	*splitted;
 
-	pproc_line = preprocesor(env, line);
-	printf("preprocesed: %s\n", pproc_line);
-	free(pproc_line);
+	splitted = split_raw_commands(line);
+	while (splitted)
+	{
+		printf("%s\n", splitted->content.str);
+		splitted = splitted->next;
+	}
+
 	return (NULL);
 }

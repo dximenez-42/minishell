@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:01:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/04 18:04:01 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:11:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		print_env(t_list *env, int fd);
 // auxiliar funcionts
 
 char	*get_varname(char *str, int *i);
-int		get_varlen(char *str);
+int		get_varname_len(char *str);
 
 #endif
