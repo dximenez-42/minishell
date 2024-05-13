@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/12 18:31:02 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/13 23:02:39 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_input	*parse_line(t_list *env, char *line)
 	char	*pproc_line;
 	t_list	*splitted;
 
-	splitted = split_raw_commands(line);
+	splitted = split_commands(line);
 	while (splitted)
 	{
 		printf("%s\n", splitted->content.str);

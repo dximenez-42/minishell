@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <minishell.h>
-int get_quotelen(char *quote); // .h is not updated yet.
-int	add_raw_command(t_list **clist, char *line, int cinit, int len)
+
+static int	add_raw_command(t_list **clist, char *line, int cinit, int len)
 {
 	t_list	*node;
 
@@ -22,7 +22,7 @@ int	add_raw_command(t_list **clist, char *line, int cinit, int len)
 	ft_lstadd_back(clist, node);
 	return (0);
 }
-t_list	*split_raw_commands(char *line)
+t_list *split_commands(char *line)
 {
 	int		i;
 	t_list	*raw_commands;
@@ -41,16 +41,12 @@ t_list	*split_raw_commands(char *line)
 		if (line [i] == '|')
 		{
 			if (add_raw_command(&raw_commands, line, ci, i - ci))
-				exit (1);
+				error(ERRMEM);
 			ci = i + 1;
 		}
 		i++;
 	}
 	if (add_raw_command(&raw_commands, line, ci, i - ci))
-		exit(1);
+		error(ERRMEM);
 	return (raw_commands);
-}
-
-t_command **split_commands(char *line)
-{
 }
