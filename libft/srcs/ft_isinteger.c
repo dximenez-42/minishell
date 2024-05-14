@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isinteger.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:26:55 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/03/24 21:29:37 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:45:42 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	check_overflow(char *str)
 
 int	ft_isinteger(char *str)
 {
-	if (ft_isnumber(str, 1) && check_overflow(str))
+	if (ft_isnumber(str) && check_overflow(str))
 		return (1);
 	else
 		return (0);

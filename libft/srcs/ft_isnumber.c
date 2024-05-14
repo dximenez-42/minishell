@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnumber.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borja <borja@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by borja             #+#    #+#             */
-/*   Updated: 2024/03/24 21:34:58 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/14 12:14:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	ft_isnumber(char *str, int sign)
+int	ft_isnumber(char *str)
 {
 	int	i;
 
@@ -21,11 +21,8 @@ int	ft_isnumber(char *str, int sign)
 	i = 0;
 	while (ft_isspace(str[i]))
 		i++;
-	if (sign == 1)
-	{
-		if (str[i] == '-')
+	if (str[i] == '-')
 			i++;
-	}
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]))
