@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/13 23:25:03 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:58:02 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ t_input	*parse_line(t_list *env, char *line);
 t_list *split_commands(char *line);
 /* 
 * separate the raw command in tokens (argument, variable or redirection)
-* splitted by not escaped space (ft_isspace))
 */
-t_list	*tokenize_raw(t_list *raw_command);
+t_content	tokenize_command(t_type type, t_content content);
+/*
+* delete a token
+*/
+void		del_token(t_type type, t_content content);
 /*
 * proccess all tokens and create t_command struct, can be a simplier function
 * called by ft_lstmap_type in the future if command list is accepted as t_list*

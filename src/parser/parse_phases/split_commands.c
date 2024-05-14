@@ -22,6 +22,7 @@ static int	add_raw_command(t_list **clist, char *line, int cinit, int len)
 	ft_lstadd_back(clist, node);
 	return (0);
 }
+
 t_list *split_commands(char *line)
 {
 	int		i;

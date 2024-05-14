@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/13 23:02:39 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/14 12:57:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ t_input	*parse_line(t_list *env, char *line)
 {
 	t_input *result;
 	char	*pproc_line;
-	t_list	*splitted;
+	t_list	*buffer;
+	t_list	*aux;
 
-	splitted = split_commands(line);
-	while (splitted)
-	{
-		printf("%s\n", splitted->content.str);
-		splitted = splitted->next;
-	}
+	buffer = split_commands(line);
+	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, del_token);
 
 	return (NULL);
 }
