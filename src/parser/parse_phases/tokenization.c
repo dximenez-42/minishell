@@ -14,15 +14,44 @@
 
 static char	*proc_arg_token(char *first_char, int *pos)
 {
+	int i;
 
-}
-static char	*proc_var_token(char *first_char, int *pos)
-{
-
+	i = 0;
+	while (first_char[i] &&!ft_isspace(first_char[i]))
+	{
+		if (ft_isquote(first_char[i]))
+		{
+			i += get_quotelen(first_char + i);
+			continue;
+		}
+		if (first_char[i] == '$')
+		{
+			i += get_varname_len(first_char + ++i);
+			continue ;	
+		}
+		if (ft_isredir(first_char[i]))
+			break ;
+		i++;
+	}
+	*pos += i;
+	return (ft_substr(first_char, 0, i));
 }
 
 static char *proc_redir_token(char *first_char, int *pos)
 {
+	int	i;
+
+	i = 0;
+	if (first_char[i] == '<' || first_char[i] == '>')
+		i++;
+	if (first_char[i] == '<' || first_char[i] == '>')
+		return(error(ERRFORMAT), NULL);
+	while (ft_isspace(first_char[i]))
+		i++;
+	while (first_char[i] && !ft_isspace(first_char[i]))
+		i++;
+	*pos += i;
+	return (ft_substr(first_char, 0, i));
 
 }
 
@@ -34,16 +63,12 @@ static int	process_token(t_list **tok_list, char *first_char, int *pos)
 	t_list	*node;
 	t_token *tok;
 
+	i = 0;
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (error(ERRMEM), 1);
 	tok->type = ARG;
-	if (first_char == '$')
-	{
-		buffer = proc_var_token(first_char, pos);
-		tok->type = VAR;
-	}
-	else if (ft_isredir(first_char))
+	if (ft_isredir(first_char[i]))
 	{
 		buffer = proc_redir_token(first_char, pos);
 		tok->type = RD;
@@ -53,10 +78,11 @@ static int	process_token(t_list **tok_list, char *first_char, int *pos)
 	if (!buffer)
 		return (free(tok), error(ERRMEM), 1);
 	tok->value = buffer;
+	ft_lstadd_back(tok_list, ft_lstnew_type(OTHER, (t_content) (void *) tok));
 	return (0);
 }
 
-t_content	tokenize_command(t_type type, t_content content)
+t_content	tokenize_command(t_content content,  t_type type)
 { 
 	int		i;
 	t_list	*tok_list;
@@ -70,7 +96,12 @@ t_content	tokenize_command(t_type type, t_content content)
 	while (raw_cmd[i])
 	{
 		if (!ft_isspace(raw_cmd[i]))
+		{
 			if (process_token(&tok_list, raw_cmd + i, &i))
 				return ((t_content) NULL);
+			continue ;
+		}
+		i++;
 	}
+	return ((t_content) (void *)tok_list);
 }

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/07 11:55:14 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:12:34by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int		get_varname_len(char *str)
 	int	i;
 
 	i = 0;
-	if (*str == '\'' || *str == '"')
-		return (get_quotelen(str));
 	if (str[i] == '?')
 		return (1);
 	if (!ft_isalnum(str[i]))

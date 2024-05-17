@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/14 12:58:02 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/15 17:09:51 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_list *split_commands(char *line);
 /* 
 * separate the raw command in tokens (argument, variable or redirection)
 */
-t_content	tokenize_command(t_type type, t_content content);
+t_content	tokenize_command(t_content content, t_type type);
 /*
 * delete a token
 */
@@ -60,6 +60,10 @@ void		del_token(t_type type, t_content content);
 */
 t_command	*create_command(t_list *tokeniced_command);
 //  quotes and var functions (quotes.c and variables.c)
+int		get_varname_len(char *str);
+int	ft_isquote(int c);
 int	get_quotelen(char *quote);
 int	expand_quote(char *quote);
+// redir functions
+int ft_isredir(int c);
 #endif

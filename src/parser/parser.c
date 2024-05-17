@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/14 12:57:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/15 12:43:22 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ t_list	*parse_env(char **envp)
 	return (env);
 }
 t_list	*split_raw_commands(char *line);
+void	print_token_node(t_content content, t_type type)
+{
+	t_token *tok;
+	
+	tok = content.oth;
+	printf("%i, %s\n", tok->type, tok->value);
+}
+void	print_token_list(t_content content, t_type type)
+{
+	t_list *ltok;
+
+	ltok = content.oth;
+	ft_lstiter_type(ltok, print_token_node);
+}
 t_input	*parse_line(t_list *env, char *line)
 
 {
@@ -49,7 +63,7 @@ t_input	*parse_line(t_list *env, char *line)
 	t_list	*aux;
 
 	buffer = split_commands(line);
-	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, del_token);
-
+	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
+	print_token_list(aux->content, aux->type);
 	return (NULL);
 }
