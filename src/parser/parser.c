@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/15 12:43:22 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/1 13:14:20 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	print_token_list(t_content content, t_type type)
 	ft_lstiter_type(ltok, print_token_node);
 }
 t_input	*parse_line(t_list *env, char *line)
-
 {
 	t_input *result;
 	char	*pproc_line;
@@ -64,6 +63,17 @@ t_input	*parse_line(t_list *env, char *line)
 
 	buffer = split_commands(line);
 	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
-	print_token_list(aux->content, aux->type);
+	int i = 0;
+	while (aux)
+	{
+		printf("command %i\n", i);
+		if ((!aux->content.ptr))
+		{
+			printf("error: %i\n", error(VIEW));
+		}
+		print_token_list(aux->content, aux->type);
+		i++;
+		aux = aux->next;
+	}
 	return (NULL);
 }

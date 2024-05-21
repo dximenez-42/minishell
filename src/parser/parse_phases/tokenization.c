@@ -42,14 +42,21 @@ static char *proc_redir_token(char *first_char, int *pos)
 	int	i;
 
 	i = 0;
-	if (first_char[i] == '<' || first_char[i] == '>')
+	while (ft_isredir(first_char[i]) && i < 2)
 		i++;
-	if (first_char[i] == '<' || first_char[i] == '>')
-		return(error(ERRFORMAT), NULL);
-	while (ft_isspace(first_char[i]))
+	while (first_char[i] && ft_isspace(first_char[i]))
 		i++;
+	if (!first_char[i] || ft_isredir(first_char[i]))
+		return (error(ERRFORMAT), NULL);
 	while (first_char[i] && !ft_isspace(first_char[i]))
+	{
+		if (first_char[i] == '<' || first_char[i] == '>')
+		{
+			*pos += i;
+			return(ft_substr(first_char, 0, i));
+		}
 		i++;
+	}
 	*pos += i;
 	return (ft_substr(first_char, 0, i));
 

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/01 17:26:29 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:28:13 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ enum
 //GENERAL ERRORS
 typedef enum e_error
 {
-	VIEW = 0,
-	NOT_IDENTIFIED = 1,
-	ERRMEM = 2,
-	ERRNFOUND = 3,
-	ERRFORMAT = 4
+	VIEW = 1,
+	NOT_IDENTIFIED = 2,
+	ERRMEM = 3,
+	ERRNFOUND = 4,
+	ERRFORMAT = 5,
+	ERROEMPTY = 6
 }			t_error;
-//ERROR FUNCTIONS
+// error fuctions
 t_error	error(t_error errnum);
+// end of error functions
 
 void	exec_one(t_command *cmd, t_list *env);
 void	exec_multiple(t_command **cmd, t_list *env);
