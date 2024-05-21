@@ -6,14 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/15 17:09:51 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:24:41 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 # include "minishell.h"
-
 
 /* Token type, can be:
 * ARG = argument
@@ -33,19 +32,19 @@ typedef struct s_token
 	char			*value;
 }				t_token;
 
-t_list	*parse_env(char **envp);
+t_list		*parse_env(char **envp);
 /*
 * Parse_line is the "main" function of line parser.
 * There are more information in input.h
 * RETURN:
 * t_input * that contain all comands and information for process then
 */
-t_input	*parse_line(t_list *env, char *line);
+t_input		*parse_line(t_list *env, char *line);
 // parse_line phases
 /*
 * Split commands by not scaped pipes (|)
 */
-t_list *split_commands(char *line);
+t_list		*split_commands(char *line);
 /* 
 * separate the raw command in tokens (argument, variable or redirection)
 */
@@ -60,10 +59,10 @@ void		del_token(t_type type, t_content content);
 */
 t_command	*create_command(t_list *tokeniced_command);
 //  quotes and var functions (quotes.c and variables.c)
-int		get_varname_len(char *str);
-int	ft_isquote(int c);
-int	get_quotelen(char *quote);
-int	expand_quote(char *quote);
+int			get_varname_len(char *str);
+int			ft_isquote(int c);
+int			get_quotelen(char *quote);
+int			expand_quote(char *quote);
 // redir functions
-int ft_isredir(int c);
+int			ft_isredir(int c);
 #endif
