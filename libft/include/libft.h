@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:54:00 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/14 12:44:38 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:26:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int			ft_isprint(int c);
 */
 int			ft_isspace(int c);
 /*
-* Returns 1 if the 'str' string is a sucession of digits with a sign (- or +) at start
+* Returns 1 if the 'str' string is a sucession of digits with a sign (- or +)
+* at start
 * Returns 0 if not
 */
 int			ft_isnumber(char *str);
