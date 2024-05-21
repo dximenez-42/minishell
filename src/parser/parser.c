@@ -39,21 +39,6 @@ t_list	*parse_env(char **envp)
 	}
 	return (env);
 }
-t_list	*split_raw_commands(char *line);
-void	print_token_node(t_content content, t_type type)
-{
-	t_token *tok;
-	
-	tok = content.oth;
-	printf("%i, %s\n", tok->type, tok->value);
-}
-void	print_token_list(t_content content, t_type type)
-{
-	t_list *ltok;
-
-	ltok = content.oth;
-	ft_lstiter_type(ltok, print_token_node);
-}
 t_input	*parse_line(t_list *env, char *line)
 {
 	t_input *result;
@@ -63,17 +48,8 @@ t_input	*parse_line(t_list *env, char *line)
 
 	buffer = split_commands(line);
 	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
-	int i = 0;
-	while (aux)
-	{
-		printf("command %i\n", i);
-		if ((!aux->content.ptr))
-		{
-			printf("error: %i\n", error(VIEW));
-		}
-		print_token_list(aux->content, aux->type);
-		i++;
-		aux = aux->next;
-	}
+	ft_lstclear(&buffer, free);
+	buffer = aux;
+	result = create_input(buffer);
 	return (NULL);
 }

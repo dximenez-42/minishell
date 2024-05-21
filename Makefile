@@ -4,6 +4,7 @@ SRCS 				= 	src/exec/exec.c\
 						src/parser/environment.c\
 						src/parser/parse_phases/split_commands.c\
 						src/parser/parse_phases/tokenization.c \
+						src/parser/parse_phases/create_input.c \
 						src/parser/parse_phases/redirections.c \
 						src/parser/parser.c\
 						src/parser/variables.c\
