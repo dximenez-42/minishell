@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/11 19:09:07 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/22 23:29:56 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,45 @@
 void	exec_builtin()
 {}
 
-static void	exec_command(t_command *cmd, t_list *env)
+static void	exec_command(t_input *input, int i, int **pipes)
 {
-	pid_t	pid;
-	int		status;
-	
+	pid_t		pid;
+
 	pid = fork();
 	if (pid == -1)
-		return ((void) printf("fork error\n"));
+		return ((void) printf("fork error\n"), exit(1));
 	if (pid == 0)
 	{
-		if (cmd->info == 0)
+		if (pipes != NULL)
+			redirs(input, i, pipes);
+		if (input->cmds[i]->info == 0)
 			exec_builtin();
-		else if (cmd->info > 0)
-			execve(get_cmd(cmd->args[0], env), cmd->args, NULL);
+		else if (input->cmds[i]->info > 0)
+			if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
+				(perror("Command not found"), exit(127));
 	}
-	waitpid(pid, &status, 0);
 }
 
-void	exec_one(t_input *input, t_list *env)
+void	exec_one(t_input *input)
 {
 	dup2(input->cmds[0]->fds[FDIN], STDIN_FILENO);
 	dup2(input->cmds[0]->fds[FDOUT], STDOUT_FILENO);
 	dup2(input->cmds[0]->fds[FDERROR], STDERR_FILENO);
-	exec_command(input->cmds[0], env);
+	exec_command(input, 0, NULL);
 }
 
-void	exec_multiple(t_input *input, t_list *env)
+void	exec_multiple(t_input *input)
 {
 	int	i;
 	int	**pipes;
 
-	i = 0;
+	i = -1;
 	init_pipes(input, &pipes);
-	while (i < input->noc)
-	{
-		// redirs(input, i, pipes);
-		exec_command(input->cmds[i], env);
-		++i;
-	}
-	//TODO free pipes
+	while (++i < input->noc)
+		exec_command(input, i, pipes);
+	close_pipes(pipes, input->noc);
+	i = -1;
+	while (++i < input->noc - 1)
+		wait(NULL);
+	free_pipes(pipes, input->noc);
 }

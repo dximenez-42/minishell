@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/11 18:08:43 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/22 23:23:53 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ enum
 	FDERROR = 2
 };
 
-void	exec_one(t_input *input, t_list *env);
-void	exec_multiple(t_input *input, t_list *env);
+void	exec_one(t_input *input);
+void	exec_multiple(t_input *input);
 
 void	redirs(t_input *input, int i, int **pipes);
-void	init_pipes(t_input *input, int ***pipes);
 
-char	*ft_joinpaths(char *p1, char *p2);
+void	init_pipes(t_input *input, int ***pipes);
+void	close_pipes(int **pipes, int noc);
+void	free_pipes(int **pipes, int noc);
 
 char	*get_cmd(char *cmd, t_list *env);
 
