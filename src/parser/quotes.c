@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:28 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/26 17:21:37 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 
-int	ft_isnumber(char *str)
+int	ft_isquote(int c)
 {
-	int	i;
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
+}
 
-	if (!str)
-		return (0);
+int get_quotelen(char *quote)
+{
+	int i;
+
 	i = 0;
-	while (ft_isspace(str[i]))
+	i++;
+	while (quote[i] && quote[i] != '\'')
 		i++;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	if (i == 0)
-		return (0);
-	return (1);
+	return (++i);
+}
+
+int expand_quote(char *quote)
+{
+	(void) quote;
+	return (0);
 }

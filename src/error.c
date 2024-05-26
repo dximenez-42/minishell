@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:28 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:15:42 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/21 13:00:24 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../includes/minishell.h"
 
-int	ft_isnumber(char *str)
+t_error	error(t_error errnum)
 {
-	int	i;
+	static t_error	current_error = 0;
+	t_error			result;
 
-	if (!str)
-		return (0);
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
+	if (errnum == VIEW)
 	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
+		result = current_error;
+		current_error = 0;
+		return (result);
 	}
-	if (i == 0)
-		return (0);
-	return (1);
+	result = current_error;
+	current_error = errnum;
+	return (result);
 }

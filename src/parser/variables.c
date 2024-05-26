@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:28 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/15 16:12:34by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../../includes/minishell.h"
 
-int	ft_isnumber(char *str)
+int		get_varname_len(char *str)
 {
 	int	i;
 
-	if (!str)
-		return (0);
 	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	if (i == 0)
+	if (str[i] == '?')
+		return (1);
+	if (!ft_isalnum(str[i]))
 		return (0);
-	return (1);
+	while (ft_isalnum(str[i]))
+		i++;
+	return (i);
+}
+
+char	*get_varname(char *str, int *i)
+{
+	int j;
+
+	j = 0;
+	while (ft_isalnum(str[j]))
+		j++;	
+	*i += j;
+	return (ft_substr(str, 0, j));
 }

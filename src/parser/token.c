@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 18:29:48 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/21 18:30:09 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/25 15:32:51 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/26 17:19:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include <minishell.h>
 
-int main(int argc, char *argv[], char *envp[])
+void	del_token(t_content content, t_type type)
 {
-	t_input *input;
-	t_list	*env;
-	char	*line;
-	char 	**envc;
+	t_token	*token;
 
-	env = parse_env(envp);
-	ft_putendl_fd(get_env_var(env, argv[1]), 1);
-	set_env_var(&env, argv[1], ft_strdup(argv[2]));
-	envc = ft_getenv(env);
-	for (int i = 0; envc[i]; i++)
-		printf("%s", envc[i]);
-	return (0);
+	(void)type;
+	token = content.oth;
+	free(token->value);
+	free(token);
 }

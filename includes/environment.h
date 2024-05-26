@@ -6,21 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:01:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/19 19:15:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:11:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 # include "minishell.h"
-
-enum
-{
-	MISSINGNO = 1,
-	MEMERROR = 2,
-	SYSERROR = 3,
-	NOT_FOUND = 4
-};
 
 typedef struct s_env_var
 {
@@ -59,5 +51,10 @@ char	**ft_getenv(t_list *env);
  * Print the environment
 */
 int		print_env(t_list *env, int fd);
+
+// auxiliar funcionts
+
+char	*get_varname(char *str, int *i);
+int		get_varname_len(char *str);
 
 #endif

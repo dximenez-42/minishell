@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 19:06:00 by bvelasco          #+#    #+#             */
-/*   Updated: 2023/09/24 01:37:20 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/04 13:49:52 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	if (!dstsize && !dst)
 		return (0);
+	if (!src)
+	{
+		return (ft_strlen(dst));
+	}
 	i = ft_strlen(dst);
 	dst_original_size = i;
 	j = 0;

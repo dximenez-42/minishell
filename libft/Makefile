@@ -69,7 +69,7 @@ OBJS_DIR	=	objs
 OBJS		=	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 LIB_DIR		=	lib
 NAME		=	$(LIB_DIR)/libft.a
-CC			=	clang
+CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -Iinclude 
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
