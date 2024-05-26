@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/03 15:34:25 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:19:30 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,9 @@ char	**ft_getenv(t_list *env)
 	int		i;
 	int		j;
 	int		len;
-	t_list	*current;
 	char	**ret;
 
 	i = 0;
-	current = env;
 	i = ft_lstsize(env);
 	ret = malloc((i + 1) * sizeof(char *));
 	j = 0;

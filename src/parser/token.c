@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:32:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/25 18:07:01 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:19:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	del_token(t_content content, t_type type)
 {
 	t_token	*token;
-	
+
+	(void)type;
 	token = content.oth;
 	free(token->value);
 	free(token);

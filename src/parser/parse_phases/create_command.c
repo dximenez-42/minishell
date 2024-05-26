@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 16:49:13 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:20:51 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	identify_redir_type(char *redir)
 			return (2);
 		return (3);
 	}
+	return (-1);
 }
 
 void	open_redirs(t_command *command, t_list *token_list)

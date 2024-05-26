@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 16:57:40 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:34:08 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static void	print_input(t_input *input)
 }
 static void	close_fds(t_command *cmd)
 {
-	if (cmd->fds[0] != 0)
+	if (cmd->fds[0] != 0 && cmd->fds[0] >= 0)
 		close(cmd->fds[0]);
-	if (cmd->fds[1] != 1)
+	if (cmd->fds[1] != 1 && cmd->fds[1] >= 0)
 		close(cmd->fds[1]);
-	if (cmd->fds[2] != 2)
+	if (cmd->fds[2] != 2 && cmd->fds[2] >= 0)
 		close(cmd->fds[2]);
 }
 static void	clear_input(t_input *input)
@@ -54,9 +54,21 @@ static void	clear_input(t_input *input)
 		close_fds(input->cmds[i]);
 		ft_free_ptr_array(input->cmds[i]->args);
 		free(input->cmds[i]);
+		i++;
 	}
 	free(input->cmds);
+	free(input);
+}
 
+int is_empty_line(char *line)
+{
+	while (line)	
+	{
+		if (!ft_isspace(*line))
+			return(1);
+		line++;
+	}
+	return (0);
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -65,18 +77,22 @@ int main(int argc, char *argv[], char *envp[])
 	t_input	*input;
 	char	*rawline;
 
+	(void) argc;
+	(void) argv;
 	env = parse_env(envp);
 	rawline = readline("mini$hell: ");
 	while (rawline)
 	{
-		add_history(rawline);
-		input = parse_line(env, rawline);
-		print_input(input);
-		//executer(input);
-		ft_free_ptr_array(input->cmds[0]->args);
-		free(input->cmds[0]);
-		free(input->cmds);
-		free(input);
+		if (rawline[0] != '\n')
+		{
+			add_history(rawline);
+			if (!is_empty_line(rawline))
+			{
+				input = parse_line(env, rawline);
+				print_input(input);
+				clear_input(input);
+			}
+		}
 		free(rawline);
 		rawline = readline("mini$hell: ");
 	}

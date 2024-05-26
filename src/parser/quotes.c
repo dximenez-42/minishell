@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/15 15:55:26 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:21:37 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int get_quotelen(char *quote)
 
 int expand_quote(char *quote)
 {
+	(void) quote;
 	return (0);
 }

@@ -1,7 +1,6 @@
 NAME = minishell
 
-SRCS 				= 	src/exec/exec.c\
-						src/parser/environment.c\
+SRCS 				=	src/parser/environment.c\
 						src/parser/token.c \
 						src/parser/parse_phases/split_commands.c\
 						src/parser/parse_phases/tokenization.c \
@@ -12,8 +11,6 @@ SRCS 				= 	src/exec/exec.c\
 						src/parser/variables.c\
 						src/parser/quotes.c\
 						src/utils/cleaners.c\
-						src/utils/commands.c\
-						src/utils/paths.c\
 						src/error.c\
 						src/main.c
 OBJS				= $(SRCS:.c=.o)
@@ -24,7 +21,7 @@ LIBFT_LIB_FILE		= $(LIBFT_LIB_PATH)/libft.a
 LIBFT_INC_FLAGS		= -I$(LIBFT_INC_PATH)
 LIBFT_LINK_FLAGS	= -L$(LIBFT_LIB_PATH) -lft
 CFLAGS 				= $(LIBFT_INC_FLAGS) -g3
-CC					= gcc -g3 -Iincludes
+CC					= gcc -Wall -Wextra -Werror -Iincludes
 
 all:	$(NAME)
 
