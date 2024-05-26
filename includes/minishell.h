@@ -6,13 +6,14 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:23:45 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/25 13:12:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 // system 
+# include <errno.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stdint.h>

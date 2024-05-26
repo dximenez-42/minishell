@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:08:53 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/12 18:23:44velasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 16:57:26 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	add_raw_command(t_list **clist, char *line, int cinit, int len)
 	return (0);
 }
 
-t_list *split_commands(char *line)
+t_list	*split_commands(char *line)
 {
 	int		i;
 	t_list	*raw_commands;
@@ -32,7 +32,7 @@ t_list *split_commands(char *line)
 	i = 0;
 	raw_commands = NULL;
 	ci = 0;
-	while (line[i]) 
+	while (line[i])
 	{
 		if (line[i] == '\'' || line[i] == '"')
 		{

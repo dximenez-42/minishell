@@ -39,6 +39,11 @@ t_list	*parse_env(char **envp)
 	}
 	return (env);
 }
+void	free_splitted_commands(t_content cnt, t_type type)
+{
+	free(cnt.str);
+}
+
 t_input	*parse_line(t_list *env, char *line)
 {
 	t_input *result;
@@ -47,9 +52,11 @@ t_input	*parse_line(t_list *env, char *line)
 	t_list	*aux;
 
 	buffer = split_commands(line);
+	printf("a %d\n", ft_lstsize(buffer));
 	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
-	ft_lstclear(&buffer, free);
+	ft_lstclear_type(&buffer, free_splitted_commands);
 	buffer = aux;
-	result = create_input(buffer);
-	return (NULL);
+	result = create_input(env, buffer);
+	ft_lstclear_type(&buffer, NULL);
+	return (result);
 }
