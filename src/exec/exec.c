@@ -26,11 +26,11 @@ static void	exec_command(t_input *input, int i, int **pipes)
 	{
 		if (pipes != NULL)
 			redirs(input, i, pipes);
-		if (input->cmds[i]->info == 0)
-			exec_builtin();
-		else if (input->cmds[i]->info > 0)
-			if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
-				(perror("Command not found"), exit(127));
+	//	if (input->cmds[i]->info == 0)
+	//		exec_builtin();
+		// else if (input->cmds[i]->info > 0)
+		if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
+			(perror("Command not found"), exit(127));
 	}
 }
 

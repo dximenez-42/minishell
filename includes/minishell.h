@@ -55,7 +55,7 @@ void	exec_multiple(t_input *input);
 char	*ft_joinpaths(char *p1, char *p2);
 char	*get_command_location(char *cmd, t_list *env);
 
-
+char	*get_cmd(char *cmd, t_list *env);
 void	redirs(t_input *input, int i, int **pipes);
 
 void	init_pipes(t_input *input, int ***pipes);
