@@ -22,6 +22,7 @@
 # include "input.h"
 # include "parser.h"
 # include "cleaners.h"
+# include <sys/wait.h>
 
 //FDS
 enum
