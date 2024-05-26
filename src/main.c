@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 17:34:08 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/26 17:59:14 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	clear_input(t_input *input)
 
 int is_empty_line(char *line)
 {
-	while (line)	
+	while (*line)	
 	{
 		if (!ft_isspace(*line))
 			return(1);
@@ -83,10 +83,10 @@ int main(int argc, char *argv[], char *envp[])
 	rawline = readline("mini$hell: ");
 	while (rawline)
 	{
-		if (rawline[0] != '\n')
+		if (rawline[0] != 0)
 		{
 			add_history(rawline);
-			if (!is_empty_line(rawline))
+			if (is_empty_line(rawline))
 			{
 				input = parse_line(env, rawline);
 				print_input(input);
