@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:28 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/04/29 22:27:44 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/04/29 22:28:30 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../../includes/cleaners.h"
 
-int	ft_isnumber(char *str)
+void	clear_env_list(t_content cnt, t_type type)
 {
-	int	i;
+	const t_env_var	*var = cnt.oth;
 
-	if (!str)
-		return (0);
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	if (i == 0)
-		return (0);
-	return (1);
+	if (type != OTHER)
+		return ;
+	if (!var)
+		return ;
+	free(var->name);
+	free(var->value);
+	free((void *)var);
 }

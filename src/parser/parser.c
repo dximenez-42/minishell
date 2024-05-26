@@ -6,11 +6,11 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 13:37:10 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/24 14:58:09 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/1 13:14:20 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_list	*parse_env(char **envp)
 {
@@ -38,4 +38,25 @@ t_list	*parse_env(char **envp)
 		i++;
 	}
 	return (env);
+}
+void	free_splitted_commands(t_content cnt, t_type type)
+{
+	(void) type;
+	free(cnt.str);
+}
+
+t_input	*parse_line(t_list *env, char *line)
+{
+	t_input *result;
+	t_list	*buffer;
+	t_list	*aux;
+
+	buffer = split_commands(line);
+	printf("a %d\n", ft_lstsize(buffer));
+	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
+	ft_lstclear_type(&buffer, free_splitted_commands);
+	buffer = aux;
+	result = create_input(env, buffer);
+	ft_lstclear_type(&buffer, NULL);
+	return (result);
 }

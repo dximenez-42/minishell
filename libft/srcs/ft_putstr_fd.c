@@ -17,7 +17,7 @@ int	ft_putstr_fd(char *s, int fd)
 	int	strlen;
 
 	if (s == 0)
-		return (ft_putstr_fd("(null)", fd));
+		return (ft_putstr_fd("(nil)", fd));
 	strlen = ft_strlen(s);
 	write(fd, s, strlen);
 	return (strlen);

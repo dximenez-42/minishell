@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnumber.c                                      :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/21 16:34:32 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:28 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/25 15:32:51 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/26 17:19:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 
-int	ft_isnumber(char *str)
+void	del_token(t_content content, t_type type)
 {
-	int	i;
+	t_token	*token;
 
-	if (!str)
-		return (0);
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]))
-			i++;
-		else
-			return (0);
-	}
-	if (i == 0)
-		return (0);
-	return (1);
+	(void)type;
+	token = content.oth;
+	free(token->value);
+	free(token);
 }
