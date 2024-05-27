@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 23:29:56 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:11:40 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
 			(perror("Command not found"), exit(127));
 	}
+	if (pipes == NULL)
+		waitpid(pid, NULL, 0);
 }
 
 void	exec_one(t_input *input)
@@ -53,7 +55,7 @@ void	exec_multiple(t_input *input)
 		exec_command(input, i, pipes);
 	close_pipes(pipes, input->noc);
 	i = -1;
-	while (++i < input->noc - 1)
+	while (++i < input->noc)
 		wait(NULL);
 	free_pipes(pipes, input->noc);
 }
