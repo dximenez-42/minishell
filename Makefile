@@ -11,6 +11,10 @@ SRCS 				=	src/parser/environment.c\
 						src/parser/variables.c\
 						src/parser/quotes.c\
 						src/utils/cleaners.c\
+						src/utils/commands.c\
+						src/utils/pipes.c\
+						src/exec/exec.c\
+						src/exec/redirs.c\
 						src/error.c\
 						src/main.c
 OBJS				= $(SRCS:.c=.o)

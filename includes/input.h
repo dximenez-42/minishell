@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:09:44 by bvelasco          #+#    #+#             */
 /*   Updated: 2024/05/11 16:07:41 by bvelasco         ###   ########.fr       */

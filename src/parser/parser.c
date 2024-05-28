@@ -52,7 +52,6 @@ t_input	*parse_line(t_list *env, char *line)
 	t_list	*aux;
 
 	buffer = split_commands(line);
-	printf("a %d\n", ft_lstsize(buffer));
 	aux = ft_lstmap_type(buffer, OTHER, tokenize_command, NULL);
 	ft_lstclear_type(&buffer, free_splitted_commands);
 	buffer = aux;

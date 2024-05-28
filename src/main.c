@@ -13,28 +13,28 @@
 #include "../includes/minishell.h"
 
 //for debug pruporses
-static void	print_input(t_input *input)
-{
-	int i;
-	int	j;
-	int	k;
+// static void	print_input(t_input *input)
+// {
+// 	int i;
+// 	int	j;
+// 	int	k;
 
-	i = 0;
-	printf("PROCESED INPUT:\n");
-	printf("COMMANDS: %d\n", input->noc);
-	while (i < input->noc)
-	{
-		j = 0;
-		k = 0;
-		printf("Command %i: \n", i);
-		while (input->cmds[i]->args[j] != NULL)
-			printf(" %s\n", input->cmds[i]->args[j++]);
-		while (k < 3)
-			printf(" %i", input->cmds[i]->fds[k++]);
-		printf("\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	printf("PROCESED INPUT:\n");
+// 	printf("COMMANDS: %d\n", input->noc);
+// 	while (i < input->noc)
+// 	{
+// 		j = 0;
+// 		k = 0;
+// 		printf("Command %i: \n", i);
+// 		while (input->cmds[i]->args[j] != NULL)
+// 			printf(" %s\n", input->cmds[i]->args[j++]);
+// 		while (k < 3)
+// 			printf(" %i", input->cmds[i]->fds[k++]);
+// 		printf("\n");
+// 		i++;
+// 	}
+// }
 static void	close_fds(t_command *cmd)
 {
 	if (cmd->fds[0] != 0 && cmd->fds[0] >= 0)
@@ -89,7 +89,11 @@ int main(int argc, char *argv[], char *envp[])
 			if (is_empty_line(rawline))
 			{
 				input = parse_line(env, rawline);
-				print_input(input);
+				// print_input(input);
+				if (input->noc == 1)
+					exec_one(input);
+				else
+					exec_multiple(input);
 				clear_input(input);
 			}
 		}
