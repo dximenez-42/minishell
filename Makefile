@@ -15,7 +15,6 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/pipes.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
-						src/error.c\
 						src/main.c
 OBJS				= $(SRCS:.c=.o)
 LIBFT_PATH			= libft
