@@ -17,6 +17,9 @@ int		get_varname_len(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] != '$')
+		return (0);
+	i++;
 	if (str[i] == '?')
 		return (1);
 	if (!ft_isalnum(str[i]))
@@ -31,8 +34,11 @@ char	*get_varname(char *str, int *i)
 	int j;
 
 	j = 0;
+	if (str[j] != '$')
+		return (NULL);
+	j++;
 	while (ft_isalnum(str[j]))
 		j++;	
 	*i += j;
-	return (ft_substr(str, 0, j));
+	return (ft_substr(str, 1, j - 1));
 }

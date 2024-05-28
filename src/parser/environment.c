@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 17:19:30 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:05:34 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,18 @@ char	**ft_getenv(t_list *env)
 	return (ret);
 }
 
-int	print_env(t_list *env, int fd)
+int	get_env_var_len(t_list *env, char *varname)
 {
-	t_list		*current;
 	t_env_var	*var;
 
-	current = env;
-	while (current)
+	while (env)
 	{
-		var = current->content.oth;
-		ft_putstr_fd(var->name, fd);
-		ft_putchar_fd('=', fd);
-		ft_putendl_fd(var->value, fd);
-		current = current->next;
+		var = env->content.oth;
+		if (!ft_strncmp(varname, var->name, ft_strlen(varname) + 1))
+		{
+			return (ft_strlen(var->value));
+		}
+		env = env->next;
 	}
 	return (0);
 }
