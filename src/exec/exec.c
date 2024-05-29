@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 14:55:26 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:30:54 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,35 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		return ((void) printf("fork error\n"), exit(1));
 	if (pid == 0)
 	{
-		if (pipes != NULL)
-			redirs(input, i, pipes);
+		redirs(input, i, pipes);
 	//	if (input->cmds[i]->info == 0)
 	//		exec_builtin();
 		// else if (input->cmds[i]->info > 0)
 		if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
 			(perror("Command not found"), exit(127));
 	}
-	if (pipes == NULL)
-		waitpid(pid, NULL, 0);
 }
 
 void	exec_one(t_input *input)
 {
-	dup2(input->cmds[0]->fds[FDIN], STDIN_FILENO);
-	dup2(input->cmds[0]->fds[FDOUT], STDOUT_FILENO);
-	dup2(input->cmds[0]->fds[FDERROR], STDERR_FILENO);
-	exec_command(input, 0, NULL);
+	pid_t		pid;
+
+	pid = fork();
+	if (pid == -1)
+		return ((void) printf("fork error\n"), exit(1));
+	if (pid == 0)
+	{
+		dup2(input->cmds[0]->fds[FDIN], STDIN_FILENO);
+		dup2(input->cmds[0]->fds[FDOUT], STDOUT_FILENO);
+		dup2(input->cmds[0]->fds[FDERROR], STDERR_FILENO);
+	//	if (input->cmds[i]->info == 0)
+	//		exec_builtin();
+		// else if (input->cmds[i]->info > 0)
+		if (execve(get_cmd(input->cmds[0]->args[0], input->env), input->cmds[0]->args, ft_getenv(input->env)) == -1)
+			(perror("Command not found"), exit(127));
+	}
+	wait(NULL);
+
 }
 
 void	exec_multiple(t_input *input)
