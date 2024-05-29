@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:53:06 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 17:20:38 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:05:56 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*proc_redir_token(char *first_char, int *pos)
 	while (first_char[i] && ft_isspace(first_char[i]))
 		i++;
 	if (!first_char[i] || ft_isredir(first_char[i]))
-		return (error(ERRFORMAT), NULL);
+		return (NULL);
 	while (first_char[i] && !ft_isspace(first_char[i]))
 	{
 		if (first_char[i] == '<' || first_char[i] == '>')
@@ -71,7 +71,7 @@ static int	process_token(t_list **tok_list, char *first_char, int *pos)
 	i = 0;
 	tok = malloc(sizeof(t_token));
 	if (!tok)
-		return (error(ERRMEM), 1);
+		return (ERRMEM);
 	tok->type = ARG;
 	if (ft_isredir(first_char[i]))
 	{
@@ -81,7 +81,7 @@ static int	process_token(t_list **tok_list, char *first_char, int *pos)
 	else
 		buffer = proc_arg_token(first_char, pos);
 	if (!buffer)
-		return (free(tok), error(ERRMEM), 1);
+		return (free(tok), ERRMEM);
 	tok->value = buffer;
 	ft_lstadd_back(tok_list, ft_lstnew_type(OTHER, (t_content)(void *) tok));
 	return (0);
