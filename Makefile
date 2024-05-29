@@ -7,6 +7,7 @@ SRCS 				=	src/parser/environment.c\
 						src/parser/parse_phases/create_command.c \
 						src/parser/parse_phases/create_input.c \
 						src/parser/parse_phases/redirections.c \
+						src/parser/parse_phases/expansor.c \
 						src/parser/parser.c\
 						src/parser/variables.c\
 						src/parser/quotes.c\
@@ -15,7 +16,6 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/pipes.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
-						src/error.c\
 						src/main.c
 OBJS				= $(SRCS:.c=.o)
 LIBFT_PATH			= libft
@@ -25,7 +25,7 @@ LIBFT_LIB_FILE		= $(LIBFT_LIB_PATH)/libft.a
 LIBFT_INC_FLAGS		= -I$(LIBFT_INC_PATH)
 LIBFT_LINK_FLAGS	= -L$(LIBFT_LIB_PATH) -lft
 CFLAGS 				= $(LIBFT_INC_FLAGS) -g3
-CC					= gcc -Wall -Wextra -Werror -Iincludes
+CC					= gcc -Wall -Wextra  -Iincludes
 
 all:	$(NAME)
 

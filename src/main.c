@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 17:59:14 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:09:32 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int main(int argc, char *argv[], char *envp[])
 	rawline = readline("mini$hell: ");
 	while (rawline)
 	{
+		//ft_printf("%s\n", string_expansor(env, rawline));
+		
 		if (rawline[0] != 0)
 		{
 			add_history(rawline);

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:01:58 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/05 19:11:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:00:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int		rem_env_var(t_list **env, char *name);
  * Get the environment with the same format of getenv 
 */
 char	**ft_getenv(t_list *env);
+
 /*
- * Print the environment
+* returns the len of the value of envirnoment variable thats name is varname
+* if not exists returns 0
 */
-int		print_env(t_list *env, int fd);
-
+int		get_env_var_len(t_list *env, char *varname);
 // auxiliar funcionts
-
 char	*get_varname(char *str, int *i);
 int		get_varname_len(char *str);
 

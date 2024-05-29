@@ -6,14 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/26 17:20:51 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:46:39 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 //separe args from redirs
-
 static t_list	**separe_tokens(t_list *token_list)
 {
 	t_list	**result;
@@ -90,26 +89,28 @@ void	open_redirs(t_command *command, t_list *token_list)
 		tok = token_list->content.oth;
 		redir_type = identify_redir_type(tok->value);
 		while (tok->value[i] && ft_isredir(tok->value[i]))
-			i++;	
+			i++;
 		while (tok->value[i] && ft_isspace(tok->value[i]))
 			i++;
 		if (redir_type == 0)
-			printf("WARNING: << is not implemented, will be ignored\n");
-//			command->fds[0] = process_heredoc();
+			printf("<< Not implemented\n");//command->fds[0] = process_heredoc();
 		else if (redir_type == 1)
 			command->fds[0] = open(tok->value + i, O_RDONLY);
 		else if (redir_type == 2)
-			command->fds[1] = open(tok->value + i, O_WRONLY | O_APPEND);
+			command->fds[1] = open(tok->value + i, O_CREAT | O_RDWR
+					| O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		else if (redir_type == 3)
-			command->fds[1] = open(tok->value + i, O_WRONLY);
+			command->fds[1] = open(tok->value + i, O_CREAT | O_RDWR | O_TRUNC
+					, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		token_list = token_list->next;
 	}
 }
+
 t_command	*create_command(t_list *token_list)
 {
 	t_command	*result;
 	t_list		**token_lists;
-	
+
 	result = ft_calloc(1, sizeof(t_command));
 	result->fds[1] = 1;
 	result->fds[2] = 2;
