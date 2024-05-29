@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 15:46:39 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:04:40 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_list	**separe_tokens(t_list *token_list)
 
 	result = ft_calloc(2, sizeof(void *));
 	if (!result)
-		return (error(ERRMEM), NULL);
+		return (NULL);
 	while (token_list)
 	{
 		tok = token_list->content.oth;
