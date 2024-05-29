@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/28 17:43:47 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:34:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			ft_isquote(int c);
 int			get_quotelen(char *quote);
 int			expand_quote(char *quote);
 // expansions
-char	*string_expansor(t_list *env, char *str);
+char		*string_expansor(t_list *env, char *str);
 // redir functions
 int			ft_isredir(int c);
 #endif

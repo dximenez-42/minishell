@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/28 17:54:08 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:40:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ size_t	get_real_len(t_list *varlist, char *str)
 {	
 	int	i;
 	int	result;
-	
+
 	i = 0;
 	result = 0;
-
 	while (varlist)
 	{
 		result += ft_strlen(varlist->content.str);
@@ -71,12 +70,12 @@ char	*string_expansor(t_list *env, char *str)
 	char	*result;
 	int		i;
 	int		j;
-	
+
 	i = 0;
 	j = 0;
 	vars = get_varlist(env, str);
 	real_len = get_real_len(env, str) + 1;
-	result = ft_calloc( real_len, 1);
+	result = ft_calloc(real_len, 1);
 	if (errno == ENOMEM)
 		return (ft_lstclear(&vars, free), free(result), NULL);
 	while (str[i])
@@ -86,7 +85,7 @@ char	*string_expansor(t_list *env, char *str)
 			i += get_varname_len(str + i);
 			j = ft_strlcat(result, vars->content.str, real_len);
 			vars = vars->next;
-			continue;
+			continue ;
 		}
 		result[j++] = str[i++];
 	}

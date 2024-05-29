@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:09:44 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/11 16:07:41 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:24:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_H
 # define INPUT_H
 # include "minishell.h"
+# include <sys/stat.h>
 
 /*
  * NOC is the number of commands (command + arguments)
