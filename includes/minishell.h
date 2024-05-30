@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:06:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:21:07 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "input.h"
 # include "parser.h"
 # include "cleaners.h"
-# include <sys/wait.h>
+# include "builtins.h"
 
 //FDS
 enum

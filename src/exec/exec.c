@@ -6,14 +6,24 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/29 18:30:54 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:34:24 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	exec_builtin()
-{}
+void	exec_builtin(t_input *input, int i)
+{
+	t_command	*cmd;
+
+	cmd = input->cmds[i];
+	if (ft_strncmp(cmd->args[0], "echo", 4) == 0)
+		echo_builtin(input, i);
+	else if (ft_strncmp(cmd->args[0], "cd", 2) == 0)
+		cd_builtin(input, i);
+	else if (ft_strncmp(cmd->args[0], "pwd", 3) == 0)
+		pwd_builtin(input, i);
+}
 
 static void	exec_command(t_input *input, int i, int **pipes)
 {
@@ -26,7 +36,7 @@ static void	exec_command(t_input *input, int i, int **pipes)
 	{
 		redirs(input, i, pipes);
 	//	if (input->cmds[i]->info == 0)
-	//		exec_builtin();
+	//		exec_builtin(input, i);
 		// else if (input->cmds[i]->info > 0)
 		if (execve(get_cmd(input->cmds[i]->args[0], input->env), input->cmds[i]->args, ft_getenv(input->env)) == -1)
 			(perror("Command not found"), exit(127));
@@ -46,7 +56,7 @@ void	exec_one(t_input *input)
 		dup2(input->cmds[0]->fds[FDOUT], STDOUT_FILENO);
 		dup2(input->cmds[0]->fds[FDERROR], STDERR_FILENO);
 	//	if (input->cmds[i]->info == 0)
-	//		exec_builtin();
+			// exec_builtin(input, 0);
 		// else if (input->cmds[i]->info > 0)
 		if (execve(get_cmd(input->cmds[0]->args[0], input->env), input->cmds[0]->args, ft_getenv(input->env)) == -1)
 			(perror("Command not found"), exit(127));
