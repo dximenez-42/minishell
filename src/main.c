@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:06:17 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 11:49:04 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	env = parse_env(envp);
-	rawline = readline("mini$hell: ");
+	rawline = readline("minishell: ");
 	while (rawline)
 	{
 		//ft_printf("%s\n", string_expansor(env, rawline));
@@ -100,7 +100,7 @@ int main(int argc, char *argv[], char *envp[])
 			}
 		}
 		free(rawline);
-		rawline = readline("mini$hell: ");
+		rawline = readline("minishell: ");
 	}
 	ft_lstclear_type(&env, clear_env_list);
 	return (0);
