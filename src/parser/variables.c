@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/15 16:12:34by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:11:04 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		get_varname_len(char *str)
+int	get_varname_len(char *str)
 {
 	int	i;
 
@@ -31,14 +31,14 @@ int		get_varname_len(char *str)
 
 char	*get_varname(char *str, int *i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (str[j] != '$')
 		return (NULL);
 	j++;
 	while (ft_isalnum(str[j]))
-		j++;	
+		j++;
 	*i += j;
 	return (ft_substr(str, 1, j - 1));
 }

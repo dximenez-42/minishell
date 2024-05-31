@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 20:46:16 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:08:49 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ static void	close_fds(t_command *cmd)
 	if (cmd->fds[2] != 2 && cmd->fds[2] >= 0)
 		close(cmd->fds[2]);
 }
+
 static void	clear_input(t_input *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < input->noc)
@@ -60,39 +61,35 @@ static void	clear_input(t_input *input)
 	free(input);
 }
 
-int is_empty_line(char *line)
+int	is_empty_line(char *line)
 {
-	while (*line)	
+	while (*line)
 	{
 		if (!ft_isspace(*line))
-			return(1);
+			return (1);
 		line++;
 	}
 	return (0);
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*env;
 	t_input	*input;
 	char	*rawline;
 	int		status;
 
-	(void) argc;
-	(void) argv;
+	((void) argc, (void) argv);
 	env = parse_env(envp);
 	rawline = readline("minishell: ");
 	while (rawline)
 	{
-		//ft_printf("%s\n", string_expansor(env, rawline));
-		
 		if (rawline[0] != 0)
 		{
 			add_history(rawline);
 			if (is_empty_line(rawline))
 			{
 				input = parse_line(env, rawline);
-				// print_input(input);
 				if (input->noc == 1)
 					exec_one(input, &status);
 				else

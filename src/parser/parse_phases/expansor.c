@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 15:40:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 21:11:43 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list	*get_varlist(t_list *env, char *str)
 }
 
 size_t	get_real_len(t_list *varlist, char *str)
-{	
+{
 	int	i;
 	int	result;
 
