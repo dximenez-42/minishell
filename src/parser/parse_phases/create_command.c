@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:35:44 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:40:14 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static __int8_t	get_type(char **args)
 {
 	int			i;
 	const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset",
-		"env", "exit", NULL};
+		"env", NULL};
 
 	i = 0;
 	if (args == NULL)
