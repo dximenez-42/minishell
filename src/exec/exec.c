@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/31 19:01:45 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:14:26 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	exec_builtin(t_input *input, int i)
 		cd_builtin(input, i);
 	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
 		pwd_builtin(input, i);
+	// else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
+	// 	env_builtin(input, i);
+	// else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+	// 	export_builtin(input, i);
+	// else if (ft_strncmp(cmd->args[0], "unset", 7) == 0)
+	// 	unset_builtin(input, i);
 }
 
 static void	exec_command(t_input *input, int i, int **pipes)
