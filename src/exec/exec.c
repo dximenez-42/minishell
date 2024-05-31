@@ -17,11 +17,11 @@ void	exec_builtin(t_input *input, int i)
 	t_command	*cmd;
 
 	cmd = input->cmds[i];
-	if (ft_strncmp(cmd->args[0], "echo", 4) == 0)
+	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
 		echo_builtin(input, i);
-	else if (ft_strncmp(cmd->args[0], "cd", 2) == 0)
+	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
 		cd_builtin(input, i);
-	else if (ft_strncmp(cmd->args[0], "pwd", 3) == 0)
+	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
 		pwd_builtin(input, i);
 }
 

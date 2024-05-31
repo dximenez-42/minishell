@@ -16,15 +16,19 @@ void	echo_builtin(t_input *input, int i)
 {
 	int	j;
 
-	if (ft_strncmp(input->cmds[i]->args[1], "-n", 2) == 0)
+	if (input->cmds[i]->args[1] != NULL
+		&& ft_strncmp(input->cmds[i]->args[1], "-n", 3) == 0)
 		j = 2;
 	else
 		j = 1;
 	while (input->cmds[i]->args[j] != NULL)
 	{
 		printf("%s", input->cmds[i]->args[j]);
+		if (input->cmds[i]->args[j + 1])
+			printf(" ");
 		++j;
 	}
-	if (ft_strncmp(input->cmds[i]->args[1], "-n", 2) != 0)
+	if (input->cmds[i]->args[1] == NULL
+		|| ft_strncmp(input->cmds[i]->args[1], "-n", 3) != 0)
 		printf("\n");
 }
