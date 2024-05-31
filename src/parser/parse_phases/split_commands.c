@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:08:53 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:03:07 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:59:26 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_list	*split_commands(char *line)
 		}
 		if (line [i] == '|')
 		{
+			add_raw_command(&raw_commands, line, ci, i - ci);
 			ci = i + 1;
 		}
 		i++;
