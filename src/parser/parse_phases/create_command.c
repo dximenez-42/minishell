@@ -6,38 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:04:40 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:35:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//separe args from redirs
-static t_list	**separe_tokens(t_list *token_list)
-{
-	t_list	**result;
-	t_list	*temp;
-	t_token	*tok;
-
-	result = ft_calloc(2, sizeof(void *));
-	if (!result)
-		return (NULL);
-	while (token_list)
-	{
-		tok = token_list->content.oth;
-		temp = token_list->next;
-		token_list->next = NULL;
-		token_list->prev = NULL;
-		if (tok->type == ARG)
-			ft_lstadd_back(result, token_list);
-		if (tok->type == RD)
-			ft_lstadd_back(result + 1, token_list);
-		token_list = temp;
-	}
-	return (result);
-}
-
-static char	**tokeniced_to_args(t_list *token_list)
+static int	tokeniced_to_args(t_list *token_list, char ***args)
 {
 	int			noa;
 	int			i;
@@ -47,7 +22,7 @@ static char	**tokeniced_to_args(t_list *token_list)
 	i = 0;
 	noa = ft_lstsize(token_list);
 	if (noa == 0)
-		return (NULL);
+		return (*args = NULL, 0);
 	result = malloc((noa + 1) * sizeof(void *));
 	result[noa] = NULL;
 	while (i < noa)
@@ -57,7 +32,8 @@ static char	**tokeniced_to_args(t_list *token_list)
 		token_list = token_list->next;
 		i++;
 	}
-	return (result);
+	*args = result;
+	return (noa);
 }
 
 int	identify_redir_type(char *redir)
@@ -93,17 +69,37 @@ void	open_redirs(t_command *command, t_list *token_list)
 		while (tok->value[i] && ft_isspace(tok->value[i]))
 			i++;
 		if (redir_type == 0)
-			printf("<< Not implemented\n");//command->fds[0] = process_heredoc();
+			printf("<< Not implemented\n");
 		else if (redir_type == 1)
 			command->fds[0] = open(tok->value + i, O_RDONLY);
 		else if (redir_type == 2)
 			command->fds[1] = open(tok->value + i, O_CREAT | O_RDWR
 					| O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		else if (redir_type == 3)
-			command->fds[1] = open(tok->value + i, O_CREAT | O_RDWR | O_TRUNC
-					, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			command->fds[1] = open(tok->value + i, O_CREAT | O_RDWR | O_TRUNC,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		token_list = token_list->next;
 	}
+}
+
+static __int8_t	get_type(char **args)
+{
+	int			i;
+	const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset",
+		"env", "exit", NULL};
+
+	i = 0;
+	if (args == NULL)
+		return (-1);
+	while (builtins[i])
+	{
+		if (!ft_strncmp(args[0], builtins[i], ft_strlen(builtins[i]) + 1))
+			return (0);
+		i++;
+	}
+	if (args[0][0] == '.' || args[0][0] == '/')
+		return (1);
+	return (2);
 }
 
 t_command	*create_command(t_list *token_list)
@@ -115,9 +111,9 @@ t_command	*create_command(t_list *token_list)
 	result->fds[1] = 1;
 	result->fds[2] = 2;
 	token_lists = separe_tokens(token_list);
-	result->args = tokeniced_to_args(token_lists[0]);
+	result->argc = tokeniced_to_args(token_lists[0], &result->args);
 	open_redirs(result, token_lists[1]);
-	result->info = 0;
+	result->info = get_type(result->args);
 	ft_lstclear_type(&token_lists[0], del_token);
 	ft_lstclear_type(&token_lists[1], del_token);
 	free(token_lists);
