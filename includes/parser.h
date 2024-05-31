@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 15:34:06 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:01:34 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		del_token(t_content content, t_type type);
 * proccess all tokens and create t_command struct, can be a simplier function
 * called by ft_lstmap_type in the future if command list is accepted as t_list*
 */
+t_list		**separe_tokens(t_list *token_list);
 t_command	*create_command(t_list *token_list);
 // create input
 t_input		*create_input(t_list *env, t_list *commands);
