@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:06:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 18:53:24 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "input.h"
 # include "parser.h"
 # include "cleaners.h"
-# include <sys/wait.h>
+# include "builtins.h"
 
 //FDS
 enum
@@ -53,7 +53,7 @@ void	exec_multiple(t_input *input);
 char	*ft_joinpaths(char *p1, char *p2);
 char	*get_command_location(char *cmd, t_list *env);
 
-char	*get_cmd(char *cmd, t_list *env);
+char	*get_cmd(const t_command *cmd, t_input *input);
 void	redirs(t_input *input, int i, int **pipes);
 
 void	init_pipes(t_input *input, int ***pipes);

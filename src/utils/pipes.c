@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 23:13:25 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/22 23:23:24 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 19:03:02 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	close_pipes(int **pipes, int noc)
 
 void	free_pipes(int **pipes, int noc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < noc - 1)
