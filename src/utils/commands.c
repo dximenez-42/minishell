@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/31 20:25:43 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:57:37 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ char	*get_cmd(const t_command *cmd, t_input *input)
 		free(temp);
 		if (access(location, F_OK | X_OK) == 0)
 		{
-			ft_free_ptr_array(env_split);	//TODO check leaks
+			ft_free_ptr_array(env_split);
 			return (location);
 		}
 		free(location);
 		++i;
 	}
-	ft_free_ptr_array(env_split);	//TODO check leaks
+	ft_free_ptr_array(env_split);
 	return (cmd->args[0]);
 }

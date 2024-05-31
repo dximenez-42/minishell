@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/31 20:14:26 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:54:56 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void	exec_command(t_input *input, int i, int **pipes)
 {
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[i];
+	char			**args;
 
+	args = cmd->args;
 	pid = fork();
 	if (pid == -1)
 		return ((void) printf("fork error\n"), exit(1));
@@ -45,16 +47,18 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		if (cmd->info == 0)
 			exec_builtin(input, i);
 		else if (cmd->info > 0)
-			if (execve(get_cmd(cmd, input), cmd->args, ft_getenv(input->env)) == -1)
+			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
 	}
 }
 
-void	exec_one(t_input *input)
+void	exec_one(t_input *input, int *status)
 {
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[0];
+	char			**args;
 
+	args = cmd->args;
 	pid = fork();
 	if (pid == -1)
 		return ((void) printf("fork error\n"), exit(1));
@@ -66,13 +70,13 @@ void	exec_one(t_input *input)
 		if (cmd->info == 0)
 			exec_builtin(input, 0);
 		else if (cmd->info > 0)
-			if (execve(get_cmd(cmd, input), cmd->args, ft_getenv(input->env)) == -1)
+			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
 	}
-	wait(NULL);
+	waitpid(-1, status, 0);
 }
 
-void	exec_multiple(t_input *input)
+void	exec_multiple(t_input *input, int *status)
 {
 	int	i;
 	int	**pipes;
@@ -84,6 +88,6 @@ void	exec_multiple(t_input *input)
 	close_pipes(pipes, input->noc);
 	i = -1;
 	while (++i < input->noc)
-		wait(NULL);
+		waitpid(-1, status, 0);
 	free_pipes(pipes, input->noc);
 }

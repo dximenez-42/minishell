@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 19:53:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:46:16 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int main(int argc, char *argv[], char *envp[])
 	t_list	*env;
 	t_input	*input;
 	char	*rawline;
+	int		status;
 
 	(void) argc;
 	(void) argv;
@@ -93,9 +94,9 @@ int main(int argc, char *argv[], char *envp[])
 				input = parse_line(env, rawline);
 				// print_input(input);
 				if (input->noc == 1)
-					exec_one(input);
+					exec_one(input, &status);
 				else
-					exec_multiple(input);
+					exec_multiple(input, &status);
 				clear_input(input);
 			}
 		}
@@ -103,5 +104,4 @@ int main(int argc, char *argv[], char *envp[])
 		rawline = readline("minishell: ");
 	}
 	ft_lstclear_type(&env, clear_env_list);
-	return (0);
 }
