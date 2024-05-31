@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:53:06 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:05:56 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:00:43 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ static int	process_token(t_list **tok_list, char *first_char, int *pos)
 	tok->value = buffer;
 	ft_lstadd_back(tok_list, ft_lstnew_type(OTHER, (t_content)(void *) tok));
 	return (0);
+}
+
+t_list	**separe_tokens(t_list *token_list)
+{
+	t_list	**result;
+	t_list	*temp;
+	t_token	*tok;
+
+	result = ft_calloc(2, sizeof(void *));
+	if (!result)
+		return (NULL);
+	while (token_list)
+	{
+		tok = token_list->content.oth;
+		temp = token_list->next;
+		token_list->next = NULL;
+		token_list->prev = NULL;
+		if (tok->type == ARG)
+			ft_lstadd_back(result, token_list);
+		if (tok->type == RD)
+			ft_lstadd_back(result + 1, token_list);
+		token_list = temp;
+	}
+	return (result);
 }
 
 t_content	tokenize_command(t_content content, t_type type)
