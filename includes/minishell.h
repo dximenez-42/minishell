@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 18:53:24 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/05/31 20:43:19 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ typedef enum e_error
 	ERROEMPTY = 6
 }			t_error;
 // end of error functions
-void	exec_one(t_input *input);
-void	exec_multiple(t_input *input);
-char	*ft_joinpaths(char *p1, char *p2);
-char	*get_command_location(char *cmd, t_list *env);
+void	exec_one(t_input *input, int *status);
+void	exec_multiple(t_input *input, int *status);
 
 char	*get_cmd(const t_command *cmd, t_input *input);
 void	redirs(t_input *input, int i, int **pipes);
