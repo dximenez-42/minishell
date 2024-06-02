@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:40:14 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:51:23 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	tokeniced_to_args(t_list *token_list, char ***args)
 	return (noa);
 }
 
+int	creat_heredoc(char *delimitor, __int8_t type);
 int	identify_redir_type(char *redir)
 {
 	if (*redir == '<')
@@ -69,7 +70,7 @@ void	open_redirs(t_command *command, t_list *token_list)
 		while (tok->value[i] && ft_isspace(tok->value[i]))
 			i++;
 		if (redir_type == 0)
-			printf("<< Not implemented\n");
+			command->fds[0] = creat_heredoc(tok->value + i, 0);
 		else if (redir_type == 1)
 			command->fds[0] = open(tok->value + i, O_RDONLY);
 		else if (redir_type == 2)
