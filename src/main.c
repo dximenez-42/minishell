@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/01 12:43:43 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:33:59 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int	is_empty_line(char *line)
 	return (0);
 }
 
-static void	executor(t_input *input)
+static void	executor(t_input *input, int *status)
 {
 	__int8_t	code;	
 
 	if (input->noc == 1)
 	{
-		if (input->cmds[0]->args[0] &&
+		if (input->cmds[0]->args && input->cmds[0]->args[0] &&
 			!ft_strncmp(input->cmds[0]->args[0], "exit", 5))
 		{
 			if (input->cmds[0]->argc < 2)
@@ -72,10 +72,10 @@ static void	executor(t_input *input)
 				printf("exit\n");
 				exit(code);
 		}
-		exec_one(input);
+		exec_one(input, status);
 	}	
 	else
-		exec_multiple(input);
+		exec_multiple(input, status);
 }
 
 
@@ -98,7 +98,7 @@ int main(int argc, char *argv[], char *envp[])
 			{
 
 				input = parse_line(env, rawline);
-				executor(input);
+				executor(input, &status);
 				clear_input(input);
 			}
 		}
