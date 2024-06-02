@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/31 20:54:56 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/02 11:39:02 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		else if (cmd->info > 0)
 			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
+		exit (0);
 	}
 }
 
@@ -72,6 +73,7 @@ void	exec_one(t_input *input, int *status)
 		else if (cmd->info > 0)
 			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
+		exit (0);
 	}
 	waitpid(-1, status, 0);
 }
