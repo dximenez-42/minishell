@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/03 16:53:18 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:09:41 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ static void	exec_command(t_input *input, int i, int **pipes)
 {
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[i];
-	char			*location;
+	char			**args;
 
 	pid = fork();
+	args = cmd->args;
 	if (pid == -1)
 		return ((void) printf("fork error\n"), exit(1));
 	if (pid == 0)
@@ -66,12 +67,8 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		if (cmd->info == 0 || cmd->info == 1)
 			exec_builtin_child(input, i);
 		else if (cmd->info >= 2)
-		{
-			location = get_cmd(cmd, input);
-			if (execve(location, cmd->args, ft_getenv(input->env)) == -1)
+			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
-			free(location);
-		}
 	}
 }
 
@@ -79,11 +76,12 @@ void	exec_one(t_input *input, int *status)
 {
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[0];
-	char			*location;
+	char			**args;
 
 	if (cmd->info == 1)
 		return (exec_builtin_parent(input, 0, status));
 	pid = fork();
+	args = cmd->args;
 	if (pid == -1)
 		return ((void) printf("fork error\n"), exit(1));
 	if (pid == 0)
@@ -94,12 +92,8 @@ void	exec_one(t_input *input, int *status)
 		if (cmd->info == 0)
 			exec_builtin_child(input, 0);
 		else if (cmd->info >= 2)
-		{
-			location = get_cmd(cmd, input);
-			if (execve(location, cmd->args, ft_getenv(input->env)) == -1)
+			if (execve(get_cmd(cmd, input), args, ft_getenv(input->env)) == -1)
 				(perror("Command not found"), exit(127));
-			free(location);
-		}
 	}
 	waitpid(-1, status, 0);
 }
