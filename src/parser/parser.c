@@ -39,6 +39,7 @@ t_list	*parse_env(char **envp)
 	}
 	return (env);
 }
+
 void	free_splitted_commands(t_content cnt, t_type type)
 {
 	(void) type;
@@ -47,7 +48,7 @@ void	free_splitted_commands(t_content cnt, t_type type)
 
 t_input	*parse_line(t_list *env, char *line)
 {
-	t_input *result;
+	t_input	*result;
 	t_list	*buffer;
 	t_list	*aux;
 

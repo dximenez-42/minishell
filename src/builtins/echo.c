@@ -6,13 +6,13 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:54:43 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/30 14:19:40 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/01 13:42:36 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	echo_builtin(t_input *input, int i)
+int	echo_builtin(t_input *input, int i)
 {
 	int	j;
 
@@ -31,4 +31,5 @@ void	echo_builtin(t_input *input, int i)
 	if (input->cmds[i]->args[1] == NULL
 		|| ft_strncmp(input->cmds[i]->args[1], "-n", 3) != 0)
 		printf("\n");
+	return (0);
 }

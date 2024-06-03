@@ -6,32 +6,36 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/05/01 14:50:27 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:40:56 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_cmd(char *cmd, t_list *env)
+char	*get_cmd(const t_command *cmd, t_input *input)
 {
 	int		i;
 	char	**env_split;
-	char	**cmd_split;
 	char	*location;
+	char	*temp;
 
 	i = 0;
-	env_split = ft_split(get_env_var(env, "PATH"), ':');
-	cmd_split = ft_split(cmd, ' ');
+	if (cmd->info == 2)
+		return (cmd->args[0]);
+	env_split = ft_split(get_env_var(input->env, "PATH"), ':');
 	while (env_split[i])
 	{
-		location = ft_strjoin(ft_strjoin(env_split[i], "/"), cmd_split[0]);
+		temp = ft_strjoin(env_split[i], "/");
+		location = ft_strjoin(temp, cmd->args[0]);
+		free(temp);
 		if (access(location, F_OK | X_OK) == 0)
-        {
-            //TODO free splits (env_split & cmd_split)
+		{
+			ft_free_ptr_array(env_split);
 			return (location);
-        }
+		}
+		free(location);
 		++i;
 	}
-    //TODO free splits (env_split & cmd_split)
-	return (cmd);
+	ft_free_ptr_array(env_split);
+	return (cmd->args[0]);
 }

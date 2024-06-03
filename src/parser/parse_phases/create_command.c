@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:40:14 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:37:40 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,22 @@ void	open_redirs(t_command *command, t_list *token_list)
 static __int8_t	get_type(char **args)
 {
 	int			i;
-	const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset",
-		"env", NULL};
+	const char	*redir[] = {"echo", "pwd", "env", NULL};
+	const char	*noredir[] = {"cd", "export", "unset", "exit", NULL};
 
-	i = 0;
+	i = -1;
 	if (args == NULL)
 		return (-1);
-	while (builtins[i])
-	{
-		if (!ft_strncmp(args[0], builtins[i], ft_strlen(builtins[i]) + 1))
+	while (redir[++i])
+		if (!ft_strncmp(args[0], redir[i], ft_strlen(redir[i]) + 1))
 			return (0);
-		i++;
-	}
+	i = -1;
+	while (noredir[++i])
+		if (!ft_strncmp(args[0], noredir[i], ft_strlen(noredir[i]) + 1))
+			return (1);
 	if (args[0][0] == '.' || args[0][0] == '/')
-		return (1);
-	return (2);
+		return (2);
+	return (3);
 }
 
 t_command	*create_command(t_list *token_list)
