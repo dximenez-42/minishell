@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/02 11:33:59 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:39:20 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,22 @@ static void	executor(t_input *input, int *status)
 
 	if (input->noc == 1)
 	{
-		if (input->cmds[0]->args && input->cmds[0]->args[0] &&
-			!ft_strncmp(input->cmds[0]->args[0], "exit", 5))
+		if (input->cmds[0]->args && input->cmds[0]->args[0]
+			&& !ft_strncmp(input->cmds[0]->args[0], "exit", 5))
 		{
 			if (input->cmds[0]->argc < 2)
 				code = 0;
 			else if (input->cmds[0]->argc > 2)
-					return ((void)printf("exit: too many args\n"));
+				return ((void)printf("exit: too many args\n"));
+			else
+			{
+				if (ft_isnumber(input->cmds[0]->args[1]))
+					code = ft_atoi(input->cmds[0]->args[1]);
 				else
-				{
-					if (ft_isnumber(input->cmds[0]->args[1]))
-						code = ft_atoi(input->cmds[0]->args[1]);
-					else
-						return ((void)printf("The argument must be numeric\n"));
-				}
-				printf("exit\n");
-				exit(code);
+					return ((void)printf("The argument must be numeric\n"));
+			}
+			printf("exit\n");
+			exit(code);
 		}
 		exec_one(input, status);
 	}	
@@ -78,8 +78,7 @@ static void	executor(t_input *input, int *status)
 		exec_multiple(input, status);
 }
 
-
-int main(int argc, char *argv[], char *envp[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*env;
 	t_input	*input;
@@ -96,7 +95,6 @@ int main(int argc, char *argv[], char *envp[])
 			add_history(rawline);
 			if (is_empty_line(rawline))
 			{
-
 				input = parse_line(env, rawline);
 				executor(input, &status);
 				clear_input(input);

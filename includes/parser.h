@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:01:34 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:33:43 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		del_token(t_content content, t_type type);
 * called by ft_lstmap_type in the future if command list is accepted as t_list*
 */
 t_list		**separe_tokens(t_list *token_list);
-t_command	*create_command(t_list *token_list);
+t_command	*create_command(t_list *env, t_list *token_list);
 // create input
 t_input		*create_input(t_list *env, t_list *commands);
 //  quotes and var functions (quotes.c and variables.c)
@@ -70,4 +70,5 @@ int			expand_quote(char *quote);
 char		*string_expansor(t_list *env, char *str);
 // redir functions
 int			ft_isredir(int c);
+int			creat_heredoc(t_list *env, char *delim);
 #endif
