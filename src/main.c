@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 21:08:49 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:32:37 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@
 // 		i++;
 // 	}
 // }
+
+void check_status(int status) {
+	if (WIFEXITED(status)) {
+		int exit_status = WEXITSTATUS(status);
+		printf("Process exited with status %d\n", exit_status);
+	} else if (WIFSIGNALED(status)) {
+		int signal_number = WTERMSIG(status);
+		printf("Process was terminated by signal %d\n", signal_number);
+	} else if (WIFSTOPPED(status)) {
+		int stop_signal = WSTOPSIG(status);
+		printf("Process was stopped by signal %d\n", stop_signal);
+	} else if (WIFCONTINUED(status)) {
+		printf("Process was resumed by SIGCONT\n");
+	}
+}
+
 static void	close_fds(t_command *cmd)
 {
 	if (cmd->fds[0] != 0 && cmd->fds[0] >= 0)
@@ -98,6 +114,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 		}
 		free(rawline);
+		check_status(status);
 		rawline = readline("minishell: ");
 	}
 	ft_lstclear_type(&env, clear_env_list);
