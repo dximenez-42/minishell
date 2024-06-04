@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 20:43:19 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:03:12 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/wait.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <signal.h>
 // external libraries
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -53,6 +54,8 @@ void	exec_multiple(t_input *input, int *status);
 
 char	*get_cmd(const t_command *cmd, t_input *input);
 void	redirs(t_input *input, int i, int **pipes);
+
+void	signals(void);
 
 void	init_pipes(t_input *input, int ***pipes);
 void	close_pipes(int **pipes, int noc);

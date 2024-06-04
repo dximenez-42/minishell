@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/03 12:32:37 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/04 20:11:06 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void check_status(int status) {
 	if (WIFEXITED(status)) {
 		int exit_status = WEXITSTATUS(status);
-		printf("Process exited with status %d\n", exit_status);
+		printf("Process exited with status %d (%d)\n", exit_status, status);
 	} else if (WIFSIGNALED(status)) {
 		int signal_number = WTERMSIG(status);
-		printf("Process was terminated by signal %d\n", signal_number);
+		printf("Process was terminated by signal %d (%d)\n", signal_number, status);
 	} else if (WIFSTOPPED(status)) {
 		int stop_signal = WSTOPSIG(status);
-		printf("Process was stopped by signal %d\n", stop_signal);
+		printf("Process was stopped by signal %d (%d)\n", stop_signal, status);
 	} else if (WIFCONTINUED(status)) {
-		printf("Process was resumed by SIGCONT\n");
+		printf("Process was resumed by SIGCONT (%d)\n", status);
 	}
 }
 
@@ -100,7 +100,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*rawline;
 	int		status;
 
-	((void) argc, (void) argv);
+	((void) argc, (void) argv, signals());
 	env = parse_env(envp);
 	rawline = readline("minishell: ");
 	while (rawline)
