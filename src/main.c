@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
 /*   Updated: 2024/06/03 12:32:37 by dximenez         ###   ########.fr       */
@@ -11,30 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//for debug pruporses
-// static void	print_input(t_input *input)
-// {
-// 	int i;
-// 	int	j;
-// 	int	k;
-
-// 	i = 0;
-// 	printf("PROCESED INPUT:\n");
-// 	printf("COMMANDS: %d\n", input->noc);
-// 	while (i < input->noc)
-// 	{
-// 		j = 0;
-// 		k = 0;
-// 		printf("Command %i: \n", i);
-// 		while (input->cmds[i]->args[j] != NULL)
-// 			printf(" %s\n", input->cmds[i]->args[j++]);
-// 		while (k < 3)
-// 			printf(" %i", input->cmds[i]->fds[k++]);
-// 		printf("\n");
-// 		i++;
-// 	}
-// }
 
 void check_status(int status) {
 	if (WIFEXITED(status)) {
@@ -88,6 +64,35 @@ int	is_empty_line(char *line)
 	return (0);
 }
 
+static void	executor(t_input *input, int *status)
+{
+	__int8_t	code;	
+
+	if (input->noc == 1)
+	{
+		if (input->cmds[0]->args && input->cmds[0]->args[0]
+			&& !ft_strncmp(input->cmds[0]->args[0], "exit", 5))
+		{
+			if (input->cmds[0]->argc < 2)
+				code = 0;
+			else if (input->cmds[0]->argc > 2)
+				return ((void)printf("exit: too many args\n"));
+			else
+			{
+				if (ft_isnumber(input->cmds[0]->args[1]))
+					code = ft_atoi(input->cmds[0]->args[1]);
+				else
+					return ((void)printf("The argument must be numeric\n"));
+			}
+			printf("exit\n");
+			exit(code);
+		}
+		exec_one(input, status);
+	}	
+	else
+		exec_multiple(input, status);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*env;
@@ -106,10 +111,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (is_empty_line(rawline))
 			{
 				input = parse_line(env, rawline);
-				if (input->noc == 1)
-					exec_one(input, &status);
-				else
-					exec_multiple(input, &status);
+				executor(input, &status);
 				clear_input(input);
 			}
 		}
@@ -117,5 +119,5 @@ int	main(int argc, char *argv[], char *envp[])
 		check_status(status);
 		rawline = readline("minishell: ");
 	}
-	ft_lstclear_type(&env, clear_env_list);
+	return (ft_lstclear_type(&env, clear_env_list), 0);
 }

@@ -53,7 +53,7 @@ int	identify_redir_type(char *redir)
 	return (-1);
 }
 
-void	open_redirs(t_command *command, t_list *token_list)
+void	open_redirs(t_list *env, t_command *command, t_list *token_list)
 {
 	t_token	*tok;
 	int		redir_type;
@@ -69,7 +69,7 @@ void	open_redirs(t_command *command, t_list *token_list)
 		while (tok->value[i] && ft_isspace(tok->value[i]))
 			i++;
 		if (redir_type == 0)
-			printf("<< Not implemented\n");
+			command->fds[0] = creat_heredoc(env, tok->value + i);
 		else if (redir_type == 1)
 			command->fds[0] = open(tok->value + i, O_RDONLY);
 		else if (redir_type == 2)
@@ -103,7 +103,7 @@ static __int8_t	get_type(char **args)
 	return (3);
 }
 
-t_command	*create_command(t_list *token_list)
+t_command	*create_command(t_list *env, t_list *token_list)
 {
 	t_command	*result;
 	t_list		**token_lists;
@@ -113,7 +113,7 @@ t_command	*create_command(t_list *token_list)
 	result->fds[2] = 2;
 	token_lists = separe_tokens(token_list);
 	result->argc = tokeniced_to_args(token_lists[0], &result->args);
-	open_redirs(result, token_lists[1]);
+	open_redirs(env, result, token_lists[1]);
 	result->info = get_type(result->args);
 	ft_lstclear_type(&token_lists[0], del_token);
 	ft_lstclear_type(&token_lists[1], del_token);

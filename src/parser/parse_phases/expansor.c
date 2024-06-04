@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 21:11:43 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:33:47 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_list	*get_varlist(t_list *env, char *str)
 			if (!node)
 				return (free(value), ft_lstclear(&result, free), NULL);
 			ft_lstadd_back(&result, node);
+			free(varname);
 			continue ;
 		}
 		i++;
@@ -56,6 +57,7 @@ size_t	get_real_len(t_list *varlist, char *str)
 		if (str[i] == '$')
 		{
 			i += get_varname_len(str + i);
+			continue ;
 		}
 		result++;
 		i++;
@@ -66,28 +68,27 @@ size_t	get_real_len(t_list *varlist, char *str)
 char	*string_expansor(t_list *env, char *str)
 {
 	t_list	*vars;
+	t_list	*aux;
 	size_t	real_len;
 	char	*result;
-	int		i;
-	int		j;
+	int		cnts[2];
 
-	i = 0;
-	j = 0;
+	ft_bzero(cnts, 2 * sizeof(int));
 	vars = get_varlist(env, str);
 	real_len = get_real_len(env, str) + 1;
 	result = ft_calloc(real_len, 1);
-	if (errno == ENOMEM)
-		return (ft_lstclear(&vars, free), free(result), NULL);
-	while (str[i])
+	while (str[cnts[0]])
 	{
-		if (str[i] == '$')
+		if (str[cnts[0]] == '$')
 		{
-			i += get_varname_len(str + i);
-			j = ft_strlcat(result, vars->content.str, real_len);
+			aux = vars;
+			cnts[0] += get_varname_len(str + cnts[0]);
+			cnts[1] = ft_strlcat(result, vars->content.str, real_len);
 			vars = vars->next;
+			ft_lstdelone(aux, free);
 			continue ;
 		}
-		result[j++] = str[i++];
+		result[cnts[1]++] = str[cnts[0]++];
 	}
 	return (result);
 }
