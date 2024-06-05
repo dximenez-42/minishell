@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 13:05:09 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/01 13:34:38 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:01:56 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	env_builtin(t_input *input, int i)
 {
 	char	**env;
 	int		j;
-	
+
 	if (input->cmds[i]->argc != 1)
 		return (1);
 	j = 0;
