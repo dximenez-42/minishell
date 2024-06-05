@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/03 19:35:03 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:29:38 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	creat_ext_heredoc(t_list *env, char *delimitor)
 	char	*ext;
 
 	pipe(fds);
+	signal(SIGINT, sigint_handler_heredoc);
 	line = readline("> ");
 	while (line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
 	{

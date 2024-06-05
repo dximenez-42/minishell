@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:43:32 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 20:10:22 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:59:48 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 void	sigint_handler(void)
 {
-	rl_replace_line("", 0);
-	ft_putchar_fd('\n', STDOUT_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	sigint_handler_heredoc(int signal)
+{
+	(void)signal;
+	// close(STDIN_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_replace_line("", 0);
 }
 
 static void	sigquit_handler(void)
