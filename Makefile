@@ -12,6 +12,7 @@ SRCS 				=	src/parser/environment.c\
 						src/parser/parser.c\
 						src/parser/variables.c\
 						src/parser/quotes.c\
+						src/utils/lists.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/02 15:37:40 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:04:32 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ t_command	*create_command(t_list *env, t_list *token_list)
 	result = ft_calloc(1, sizeof(t_command));
 	result->fds[1] = 1;
 	result->fds[2] = 2;
-	token_lists = separe_tokens(token_list);
 	result->argc = tokeniced_to_args(token_lists[0], &result->args);
 	open_redirs(env, result, token_lists[1]);
 	result->info = get_type(result->args);

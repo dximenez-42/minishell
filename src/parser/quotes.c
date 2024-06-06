@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 21:10:20 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/06 16:15:31 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,28 @@ int	ft_isquote(int c)
 	return (0);
 }
 
-int	get_quotelen(char *quote)
+size_t	get_quotelen(t_list *env, char *raw_quote)
+{
+
+}
+
+int	get_unexpanded_quotelen(char *quote)
 {
 	int	i;
 
 	i = 0;
-	i++;
-	while (quote[i] && quote[i] != '\'')
+	if (quote[i] == '\'')
+	{
 		i++;
+		while (quote[i] && quote[i] != '\'')
+			i++;
+	}
+	else if (quote[i] == '"')
+	{
+		i++;
+		while (quote[i] && quote[i] != '"')
+			i++;
+	}
 	return (++i);
 }
 

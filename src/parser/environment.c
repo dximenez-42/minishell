@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/28 14:05:34 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:15:43 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ char	**ft_getenv(t_list *env)
 	return (ret);
 }
 
-int	get_env_var_len(t_list *env, char *varname)
+size_t	get_env_var_len(t_list *env, char *varname)
 {
 	t_env_var	*var;
+
 
 	while (env)
 	{
