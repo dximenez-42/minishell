@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:43:32 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/05 14:13:20 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:26:56 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	sigint_handler(void)
 {
 	ft_putchar_fd('\n', STDERR_FILENO);
-	rl_on_new_line();
-	rl_replace_line("", 0);
 	// rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 }
 
