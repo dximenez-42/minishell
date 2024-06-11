@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/06 19:04:32 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:59:32 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,30 @@ static __int8_t	get_type(char **args)
 	return (3);
 }
 
+t_list	**separe_tokens(t_list *token_list)
+{
+	t_list	**result;
+	t_list	*temp;
+	t_token	*tok;
+
+	result = ft_calloc(2, sizeof(void *));
+	if (!result)
+		return (NULL);
+	while (token_list)
+	{
+		tok = token_list->content.oth;
+		temp = token_list->next;
+		token_list->next = NULL;
+		token_list->prev = NULL;
+		if (tok->type == ARG)
+			ft_lstadd_back(result, token_list);
+		if (tok->type == RD)
+			ft_lstadd_back(result + 1, token_list);
+		token_list = temp;
+	}
+	return (result);
+}
+
 t_command	*create_command(t_list *env, t_list *token_list)
 {
 	t_command	*result;
@@ -111,6 +135,7 @@ t_command	*create_command(t_list *env, t_list *token_list)
 	result = ft_calloc(1, sizeof(t_command));
 	result->fds[1] = 1;
 	result->fds[2] = 2;
+	token_lists = separe_tokens(token_list);
 	result->argc = tokeniced_to_args(token_lists[0], &result->args);
 	open_redirs(env, result, token_lists[1]);
 	result->info = get_type(result->args);

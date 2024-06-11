@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 13:57:32 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:41:26 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,15 @@ int	get_unexpanded_quotelen(char *quote)
 
 char	*expand_simple_quote(char *quote)
 {
-	return (NULL);
+	char	*close_quote;
+	
+	close_quote = ft_strchr(quote + 1, '\'');
+	
+	if (!close_quote)
+		return (ft_strdup(quote + 1));
+	if (close_quote == quote + 1)
+		return (NULL);
+	return(ft_substr(quote, 1, close_quote - quote - 1));
 }
 
 char	*expand_quote(t_list *env, char *quote)
@@ -78,6 +86,6 @@ char	*expand_quote(t_list *env, char *quote)
 
 	i = 0;
 	if (quote[i] == '\'')
-		return (expand_simple_quote);
+		return (expand_simple_quote(quote));
 	return (0);
 }

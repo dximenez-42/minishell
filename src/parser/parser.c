@@ -54,7 +54,6 @@ t_input	*parse_line(t_list *env, char *line)
 
 	buffer = split_commands(line);
 	aux = ft_lstmap_env(env, buffer, create_token_list, NULL);
-	exit(0);
 	ft_lstclear_type(&buffer, free_splitted_commands);
 	buffer = aux;
 	result = create_input(env, buffer);

@@ -53,13 +53,33 @@ size_t	get_real_token_size(t_list *env, char *rawtoken)
 		i++;
 		len++;
 	}
-	return (len);
+	return (++len);
 }
 
 char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 {
-	printf("%li\n", get_real_token_size(env, raw_value));
-	expand_quote(env, raw_value);
+	const size_t	real_size = get_real_token_size(env, raw_value);
+	int				i;
+	int				j;
+	char			*result;
+	char			*aux;
+
+	i = 0;
+	j = 0;
+	result = ft_calloc(real_size, 1);
+	if (type == HD)
+		return (0);
+	while (raw_value[i])
+	{
+		if (ft_isquote(raw_value[i]))
+		{
+			aux = expand_quote(env, raw_value + i);
+			j = ft_strlcat(result, aux, real_size);
+			i += get_unexpanded_quotelen(raw_value + i);
+		}
+		result[j++] = raw_value[i++];
+	}
+	return (result);
 }
 
 t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
