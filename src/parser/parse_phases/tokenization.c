@@ -40,13 +40,15 @@ size_t	get_real_token_size(t_list *env, char *rawtoken)
 		if (ft_isquote(rawtoken[i]))
 		{
 			len += get_quotelen(env, rawtoken + i);
-//			i += qet_unexpanded_quotelen(env, rawtoken + i);
+			i += get_unexpanded_quotelen(rawtoken + i);
+			continue ;
 		}
 		else if (rawtoken[i] == '$')
 		{
 			varname = get_varname(rawtoken);
 			len += get_env_var_len(env, varname);
 			i += get_varname_len(rawtoken + i);
+			continue ;
 		}
 		i++;
 		len++;
@@ -57,6 +59,7 @@ size_t	get_real_token_size(t_list *env, char *rawtoken)
 char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 {
 	printf("%li\n", get_real_token_size(env, raw_value));
+	expand_quote(env, raw_value);
 }
 
 t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
@@ -75,7 +78,7 @@ t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
 	tok->type = identify_token_type(substr);
 	tok->value = expand_token(env, tok->type, substr);
 	free(substr);
-	if (tok->value)
+	if (!tok->value)
 		return (free(tok), 1);
 	node = ft_lstnew_type(OTHER, (t_content)(void *)tok);
 	if (!node)
@@ -87,7 +90,6 @@ t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
 /* Converts a "raw_command" in t_token list (use with ft_lstmap_env) */
 t_content	create_token_list(t_list *env, t_content line)
 {
-	char	*str;
 	t_token	*tok;
 	t_list	*toklist;
 	int		i;
@@ -95,23 +97,22 @@ t_content	create_token_list(t_list *env, t_content line)
 	
 	i = 0;
 	tok_info[0] = 0;
-	str = line.str;
 	toklist = NULL;
-	while (str[i])
+	while (line.str[i])
 	{
-		if (tok_info[0] == 0 && !ft_isspace(str[i]))
+		if (tok_info[0] == 0 && !ft_isspace(line.str[i]))
 		{
 			tok_info[0] = 1;
 			tok_info[1] = i;
 		}
-		else if (tok_info[0] == 1 && ft_isspace(str[i]))	
+		else if (tok_info[0] == 1 && ft_isspace(line.str[i]))	
 		{
 			tok_info[0] = 0;
-			create_token(env, str, tok_info[1], i - tok_info[1], &toklist);
+			create_token(env, line.str, tok_info[1], i - tok_info[1], &toklist);
 		}
 		i++;
 	}
 	if (tok_info[0] == 1)
-		create_token(env, str, tok_info[1], i - tok_info[1], &toklist);
+		create_token(env, line.str, tok_info[1], i - tok_info[1], &toklist);
 	return (((t_content)(void *) toklist));
 }

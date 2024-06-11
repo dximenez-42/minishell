@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 16:08:53 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/06 19:32:14 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:49:02 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_list	*split_commands(char *line)
 	{
 		if (line[i] == '\'' || line[i] == '"')
 		{
-			//i += get_quotelen(line + i);
+			i += get_unexpanded_quotelen(line + i);
 			continue ;
 		}
 		if (line [i] == '|')
