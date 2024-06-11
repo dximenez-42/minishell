@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 14:41:26 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:38:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ int	get_unexpanded_quotelen(char *quote)
 	int	i;
 
 	i = 0;
-	if (quote[i] == '\'')
+	if (quote[i++] == '\'')
 	{
-		i++;
 		while (quote[i] && quote[i] != '\'')
 			i++;
 	}

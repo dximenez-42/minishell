@@ -68,7 +68,7 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 	j = 0;
 	result = ft_calloc(real_size, 1);
 	if (type == HD)
-		return (0);
+		return (ft_strdup(raw_value));
 	while (raw_value[i])
 	{
 		if (ft_isquote(raw_value[i]))
@@ -77,7 +77,8 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 			j = ft_strlcat(result, aux, real_size);
 			i += get_unexpanded_quotelen(raw_value + i);
 		}
-		result[j++] = raw_value[i++];
+		else
+			result[j++] = raw_value[i++];
 	}
 	return (result);
 }
