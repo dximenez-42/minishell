@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 14:59:32 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:47:05 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_list	**separe_tokens(t_list *token_list)
 		token_list->prev = NULL;
 		if (tok->type == ARG)
 			ft_lstadd_back(result, token_list);
-		if (tok->type == RD)
+		if (tok->type == RD || tok->type == HD)
 			ft_lstadd_back(result + 1, token_list);
 		token_list = temp;
 	}

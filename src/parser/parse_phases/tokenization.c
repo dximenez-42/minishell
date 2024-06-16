@@ -76,6 +76,7 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 			aux = expand_quote(env, raw_value + i);
 			j = ft_strlcat(result, aux, real_size);
 			i += get_unexpanded_quotelen(raw_value + i);
+			free(aux);
 		}
 		else
 			result[j++] = raw_value[i++];
@@ -83,7 +84,7 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 	return (result);
 }
 
-t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
+t_token	*create_token(t_list *env, char *start, size_t len,
 		t_list **list)
 {
 	t_list	*node;
@@ -93,7 +94,7 @@ t_token	*create_token(t_list *env, char *rawstr, size_t start, size_t len,
 	tok = malloc(sizeof(t_token));
 	if (!tok)
 		return (1);
-	substr = ft_substr(rawstr, start, len);
+	substr = ft_substr(start, 0, len);
 	if (!substr)
 		return (free(tok), 1);
 	tok->type = identify_token_type(substr);
@@ -114,26 +115,20 @@ t_content	create_token_list(t_list *env, t_content line)
 	t_token	*tok;
 	t_list	*toklist;
 	int		i;
-	size_t	tok_info[2];
+	int		toklen;
 	
 	i = 0;
-	tok_info[0] = 0;
 	toklist = NULL;
 	while (line.str[i])
 	{
-		if (tok_info[0] == 0 && !ft_isspace(line.str[i]))
+		if (!ft_isspace(line.str[i]))
 		{
-			tok_info[0] = 1;
-			tok_info[1] = i;
-		}
-		else if (tok_info[0] == 1 && ft_isspace(line.str[i]))	
-		{
-			tok_info[0] = 0;
-			create_token(env, line.str, tok_info[1], i - tok_info[1], &toklist);
+			toklen = get_rawtoken_len(line.str + i);
+			create_token(env, line.str + i, toklen, &toklist);
+			i += toklen;
+			continue ;
 		}
 		i++;
 	}
-	if (tok_info[0] == 1)
-		create_token(env, line.str, tok_info[1], i - tok_info[1], &toklist);
 	return (((t_content)(void *) toklist));
 }

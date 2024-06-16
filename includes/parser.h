@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 13:50:04 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/16 14:46:01 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ t_input		*parse_line(t_list *env, char *line);
 * Split commands by not scaped pipes (|)
 */
 t_list		*split_commands(char *line);
+/*
+* return the len of the first token find in "s"
+*/
+int			get_rawtoken_len(char *s);
 /* 
 * delete a token
 */
@@ -79,5 +83,6 @@ char*		expand_quote(t_list *env, char *quote);
 char		*string_expansor(t_list *env, char *str);
 // redir functions
 int			ft_isredir(int c);
+int	ft_hd_pipe(int	*i_pipe);
 int			creat_heredoc(t_list *env, char *delim);
 #endif

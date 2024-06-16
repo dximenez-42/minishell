@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 16:38:44 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:21:31y bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ size_t	get_quotelen(t_list *env, char *raw_quote)
 			if (!varname)
 				return (0);
 			len += get_env_var_len(env, varname);
-			i += ft_strlen(varname) + 1;
+			i += get_varname_len(raw_quote + i);
 			free(varname);
+			continue;
 		}
 		i++;
 		len++;
@@ -51,18 +52,21 @@ int	get_unexpanded_quotelen(char *quote)
 	int	i;
 
 	i = 0;
-	if (quote[i++] == '\'')
+	if (quote[i] == '\'')
 	{
+		i++;
 		while (quote[i] && quote[i] != '\'')
 			i++;
 	}
-	else if (quote[i] == '"')
+	else if (quote[i] == '\"')
 	{
 		i++;
 		while (quote[i] && quote[i] != '"')
 			i++;
 	}
-	return (++i);
+	if (quote[i])
+		i++;
+	return (i);
 }
 
 char	*expand_simple_quote(char *quote)
@@ -78,13 +82,42 @@ char	*expand_simple_quote(char *quote)
 	return(ft_substr(quote, 1, close_quote - quote - 1));
 }
 
+char	*expand_var(t_list *env, char *varstart)
+{
+	char	*varname;
+	char	*result;
+
+	varname = get_varname(varstart);
+	result = get_env_var(env, varname);
+	free(varname);
+	return (result);
+}
+
 char	*expand_quote(t_list *env, char *quote)
 {
-	int	i;
-	char	result;
+	const size_t	size = get_quotelen(env, quote) + 1;
+	int				i;
+	int				j;
+	char			*result;
+	char			*aux;
 
 	i = 0;
+	j = 0;
 	if (quote[i] == '\'')
 		return (expand_simple_quote(quote));
-	return (0);
+	i++;
+	result = ft_calloc(size, 1);
+	while (quote[i] && quote[i] != '"')
+	{
+		if (quote[i] == '$')
+		{
+			aux = expand_var(env, quote + i);
+			j = ft_strlcat(result, aux, size);
+			free(aux);
+			i += get_varname_len(quote + i);
+		}
+		else
+			result[j++] = quote[i++];
+	}
+	return (result);
 }
