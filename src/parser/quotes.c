@@ -12,6 +12,7 @@
 
 #include <minishell.h>
 
+char	*expand_var(t_list *env, char *var);
 int	ft_isquote(int c)
 {
 	if (c == '\'' || c == '"')
@@ -80,17 +81,6 @@ char	*expand_simple_quote(char *quote)
 	if (close_quote == quote + 1)
 		return (NULL);
 	return(ft_substr(quote, 1, close_quote - quote - 1));
-}
-
-char	*expand_var(t_list *env, char *varstart)
-{
-	char	*varname;
-	char	*result;
-
-	varname = get_varname(varstart);
-	result = get_env_var(env, varname);
-	free(varname);
-	return (result);
 }
 
 char	*expand_quote(t_list *env, char *quote)

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 15:32:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/15 17:03:09 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/16 19:32:42 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	get_rawtoken_len(char *s)
 			i += get_unexpanded_quotelen(s + i);
 		else if (ft_isredir(s[i]))
 			return (i);
+		else if (s[i] == '$')
+			i += get_varname_len(s + i);
 		else
 			i++;
 	}

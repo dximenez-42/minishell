@@ -48,12 +48,26 @@ size_t	get_real_token_size(t_list *env, char *rawtoken)
 			varname = get_varname(rawtoken);
 			len += get_env_var_len(env, varname);
 			i += get_varname_len(rawtoken + i);
+			free(varname);
 			continue ;
 		}
 		i++;
 		len++;
 	}
 	return (++len);
+}
+
+char	*expand_var(t_list *env, char *var)
+{
+	char	*result;
+	char	*varname;
+
+	varname = get_varname(var);
+	if (!varname)
+		return (NULL);
+	result = get_env_var(env, varname);
+	free(varname);
+	return (result);
 }
 
 char	*expand_token(t_list *env, t_token_type type, char *raw_value)
@@ -71,15 +85,23 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 		return (ft_strdup(raw_value));
 	while (raw_value[i])
 	{
+		if (!ft_isquote(raw_value[i]) && raw_value[i] != '$')
+		{
+			result[j++] = raw_value[i++];
+			continue ;
+		}
 		if (ft_isquote(raw_value[i]))
 		{
 			aux = expand_quote(env, raw_value + i);
-			j = ft_strlcat(result, aux, real_size);
 			i += get_unexpanded_quotelen(raw_value + i);
-			free(aux);
 		}
-		else
-			result[j++] = raw_value[i++];
+		else if (raw_value[i])
+		{
+			aux = expand_var(env, raw_value + i);
+			i += get_varname_len(raw_value + i);
+		}
+		j = ft_strlcat(result, aux, real_size);
+		free(aux);
 	}
 	return (result);
 }
