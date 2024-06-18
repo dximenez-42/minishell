@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lists.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:58:57 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/06 15:11:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:19:42 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*ft_lstmap_env(t_list *env, t_list *lst,
 	t_list		*result;
 	t_content	tmp_content;
 
-	if (!lst || !env || !f)
+	if (!lst || !f)
 		return (0);
 	result = 0;
 	errno = 0;
