@@ -16,6 +16,7 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\
+						src/utils/signals.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
 						src/builtins/env.c\

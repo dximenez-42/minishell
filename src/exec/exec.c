@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 16:33:40 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:23:32 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	exec_one(t_input *input, int *status)
 		dup2(cmd->fds[FDIN], STDIN_FILENO);
 		dup2(cmd->fds[FDOUT], STDOUT_FILENO);
 		dup2(cmd->fds[FDERROR], STDERR_FILENO);
-		if (cmd->info == 0)
+		if (cmd->info == 0 || cmd->argc == 0)
 			exec_builtin_child(input, 0);
 		else if (cmd->info >= 2)
 		{
