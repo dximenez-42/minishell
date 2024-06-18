@@ -20,6 +20,21 @@ int	ft_isquote(int c)
 	return (0);
 }
 
+size_t	get_singlequote_len(char *quote)
+{
+	int i;
+	size_t	len;
+	len = 0;
+
+	i = 1;
+	while (quote[i] && quote[i] != '\'')
+	{
+		len++;
+		i++;
+	}
+	return (len);
+}
+
 size_t	get_quotelen(t_list *env, char *raw_quote)
 {
 	size_t	len;
@@ -29,7 +44,7 @@ size_t	get_quotelen(t_list *env, char *raw_quote)
 	i = 0;
 	len = 0;
 	if (raw_quote[i++] == '\'')
-		return (get_unexpanded_quotelen(raw_quote) - 2);
+		return (get_singlequote_len(raw_quote));
 	while (raw_quote[i] && raw_quote[i] != '"')
 	{
 		if (raw_quote[i] == '$')

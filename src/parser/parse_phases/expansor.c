@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/06 19:32:27 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:55:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_list	*get_varlist(t_list *env, char *str)
 				return (free(value), ft_lstclear(&result, free), NULL);
 			ft_lstadd_back(&result, node);
 			free(varname);
+			i += get_varname_len(str + i);
 			continue ;
 		}
 		i++;

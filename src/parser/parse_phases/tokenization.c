@@ -80,9 +80,9 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 
 	i = 0;
 	j = 0;
-	result = ft_calloc(real_size, 1);
 	if (type == HD)
 		return (ft_strdup(raw_value));
+	result = ft_calloc(real_size, 1);
 	while (raw_value[i])
 	{
 		if (!ft_isquote(raw_value[i]) && raw_value[i] != '$')
@@ -106,7 +106,7 @@ char	*expand_token(t_list *env, t_token_type type, char *raw_value)
 	return (result);
 }
 
-t_token	*create_token(t_list *env, char *start, size_t len,
+size_t create_token(t_list *env, char *start, size_t len,
 		t_list **list)
 {
 	t_list	*node;
@@ -134,7 +134,6 @@ t_token	*create_token(t_list *env, char *start, size_t len,
 /* Converts a "raw_command" in t_token list (use with ft_lstmap_env) */
 t_content	create_token_list(t_list *env, t_content line)
 {
-	t_token	*tok;
 	t_list	*toklist;
 	int		i;
 	int		toklen;
