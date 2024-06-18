@@ -6,26 +6,11 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/18 18:20:10 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:51:28 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void check_status(int status) {
-	if (WIFEXITED(status)) {
-		int exit_status = WEXITSTATUS(status);
-		printf("Process exited with status %d (%d)\n", exit_status, status);
-	} else if (WIFSIGNALED(status)) {
-		int signal_number = WTERMSIG(status);
-		printf("Process was terminated by signal %d (%d)\n", signal_number, status);
-	} else if (WIFSTOPPED(status)) {
-		int stop_signal = WSTOPSIG(status);
-		printf("Process was stopped by signal %d (%d)\n", stop_signal, status);
-	} else if (WIFCONTINUED(status)) {
-		printf("Process was resumed by SIGCONT (%d)\n", status);
-	}
-}
 
 static void	close_fds(t_command *cmd)
 {
@@ -53,7 +38,7 @@ static void	clear_input(t_input *input)
 	free(input);
 }
 
-int	is_empty_line(char *line)
+static int	is_empty_line(char *line)
 {
 	while (*line)
 	{
@@ -116,7 +101,6 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 		}
 		free(rawline);
-		check_status(status);
 		rawline = readline("minishell: ");
 	}
 	return (ft_lstclear_type(&env, clear_env_list), 0);

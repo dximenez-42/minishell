@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 16:47:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:47:47 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	tokeniced_to_args(t_list *token_list, char ***args)
 	return (noa);
 }
 
-int	identify_redir_type(char *redir)
+static int	identify_redir_type(char *redir)
 {
 	if (*redir == '<')
 	{
@@ -53,7 +53,7 @@ int	identify_redir_type(char *redir)
 	return (-1);
 }
 
-void	open_redirs(t_list *env, t_command *command, t_list *token_list)
+static void	open_redirs(t_list *env, t_command *command, t_list *token_list)
 {
 	t_token	*tok;
 	int		redir_type;
@@ -101,30 +101,6 @@ static __int8_t	get_type(char **args)
 	if (args[0][0] == '.' || args[0][0] == '/')
 		return (2);
 	return (3);
-}
-
-t_list	**separe_tokens(t_list *token_list)
-{
-	t_list	**result;
-	t_list	*temp;
-	t_token	*tok;
-
-	result = ft_calloc(2, sizeof(void *));
-	if (!result)
-		return (NULL);
-	while (token_list)
-	{
-		tok = token_list->content.oth;
-		temp = token_list->next;
-		token_list->next = NULL;
-		token_list->prev = NULL;
-		if (tok->type == ARG)
-			ft_lstadd_back(result, token_list);
-		if (tok->type == RD || tok->type == HD)
-			ft_lstadd_back(result + 1, token_list);
-		token_list = temp;
-	}
-	return (result);
 }
 
 t_command	*create_command(t_list *env, t_list *token_list)

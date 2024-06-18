@@ -40,7 +40,7 @@ t_list	*parse_env(char **envp)
 	return (env);
 }
 
-void	free_splitted_commands(t_content cnt, t_type type)
+static void	free_splitted_commands(t_content cnt, t_type type)
 {
 	(void) type;
 	free(cnt.str);

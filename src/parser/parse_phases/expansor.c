@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/18 14:55:44 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:48:26 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_list	*get_varlist(t_list *env, char *str)
+static t_list	*get_varlist(t_list *env, char *str)
 {
 	t_list	*result;
 	t_list	*node;
@@ -41,7 +41,7 @@ t_list	*get_varlist(t_list *env, char *str)
 	return (result);
 }
 
-size_t	get_real_len(t_list *varlist, char *str)
+static size_t	get_real_len(t_list *varlist, char *str)
 {
 	int	i;
 	int	result;
@@ -93,4 +93,3 @@ char	*string_expansor(t_list *env, char *str)
 	}
 	return (result);
 }
-
