@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:54:00 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/21 15:26:09 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:31:15 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void		*ft_memmove(void *dst, const void *src, size_t len);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlcat(char *dst, const char *src, size_t dstsize);
 char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_substr(const char *s, unsigned int start, size_t len);
+char		*ft_substr(const char *s, size_t start, size_t len);
 char		*ft_strdup(const char *s1);
 // Fuctions Pointers Functions
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));

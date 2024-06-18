@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 17:10:46 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/03 19:33:47 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:55:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ t_list	*get_varlist(t_list *env, char *str)
 	{
 		if (str[i] == '$')
 		{
-			varname = get_varname(str + i, &i);
+			varname = get_varname(str + i);
 			value = get_env_var(env, varname);
 			node = ft_lstnew_type(STR, (t_content) value);
 			if (!node)
 				return (free(value), ft_lstclear(&result, free), NULL);
 			ft_lstadd_back(&result, node);
 			free(varname);
+			i += get_varname_len(str + i);
 			continue ;
 		}
 		i++;
@@ -92,3 +93,4 @@ char	*string_expansor(t_list *env, char *str)
 	}
 	return (result);
 }
+

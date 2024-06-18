@@ -6,130 +6,150 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:53:06 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:00:43 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:25:52by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*proc_arg_token(char *first_char, int *pos)
+t_token_type	identify_token_type(char *value)
 {
 	int	i;
 
 	i = 0;
-	while (first_char[i] &&!ft_isspace(first_char[i]))
+	if (!ft_isredir(value[i]))
+		return (ARG);
+	if (value[0] == '<')
 	{
-		if (ft_isquote(first_char[i]))
-		{
-			i += get_quotelen(first_char + i);
-			continue ;
-		}
-		if (first_char[i] == '$')
-		{
-			++i;
-			i += get_varname_len(first_char + i);
-			continue ;
-		}
-		if (ft_isredir(first_char[i]))
-			break ;
-		i++;
+		if (value[1] && value[1] == '<')
+			return(HD);
 	}
-	*pos += i;
-	return (ft_substr(first_char, 0, i));
+	return(RD);
 }
 
-static char	*proc_redir_token(char *first_char, int *pos)
+size_t	get_real_token_size(t_list *env, char *rawtoken)
 {
-	int	i;
+	size_t	i;
+	size_t	len;
+	char	*varname;
 
 	i = 0;
-	while (ft_isredir(first_char[i]) && i < 2)
-		i++;
-	while (first_char[i] && ft_isspace(first_char[i]))
-		i++;
-	if (!first_char[i] || ft_isredir(first_char[i]))
-		return (NULL);
-	while (first_char[i] && !ft_isspace(first_char[i]))
+	len = 0;
+	while (rawtoken[i])
 	{
-		if (first_char[i] == '<' || first_char[i] == '>')
+		if (ft_isquote(rawtoken[i]))
 		{
-			*pos += i;
-			return (ft_substr(first_char, 0, i));
+			len += get_quotelen(env, rawtoken + i);
+			i += get_unexpanded_quotelen(rawtoken + i);
+			continue ;
+		}
+		else if (rawtoken[i] == '$')
+		{
+			varname = get_varname(rawtoken);
+			len += get_env_var_len(env, varname);
+			i += get_varname_len(rawtoken + i);
+			free(varname);
+			continue ;
 		}
 		i++;
+		len++;
 	}
-	*pos += i;
-	return (ft_substr(first_char, 0, i));
+	return (++len);
 }
 
-static int	process_token(t_list **tok_list, char *first_char, int *pos)
+char	*expand_var(t_list *env, char *var)
 {
-	int		i;
-	char	*buffer;
-	t_token	*tok;
+	char	*result;
+	char	*varname;
+
+	varname = get_varname(var);
+	if (!varname)
+		return (NULL);
+	result = get_env_var(env, varname);
+	free(varname);
+	return (result);
+}
+
+char	*expand_token(t_list *env, t_token_type type, char *raw_value)
+{
+	const size_t	real_size = get_real_token_size(env, raw_value);
+	int				i;
+	int				j;
+	char			*result;
+	char			*aux;
 
 	i = 0;
-	tok = malloc(sizeof(t_token));
-	if (!tok)
-		return (ERRMEM);
-	tok->type = ARG;
-	if (ft_isredir(first_char[i]))
+	j = 0;
+	if (type == HD)
+		return (ft_strdup(raw_value));
+	result = ft_calloc(real_size, 1);
+	while (raw_value[i])
 	{
-		buffer = proc_redir_token(first_char, pos);
-		tok->type = RD;
-	}
-	else
-		buffer = proc_arg_token(first_char, pos);
-	if (!buffer)
-		return (free(tok), ERRMEM);
-	tok->value = buffer;
-	ft_lstadd_back(tok_list, ft_lstnew_type(OTHER, (t_content)(void *) tok));
-	return (0);
-}
-
-t_list	**separe_tokens(t_list *token_list)
-{
-	t_list	**result;
-	t_list	*temp;
-	t_token	*tok;
-
-	result = ft_calloc(2, sizeof(void *));
-	if (!result)
-		return (NULL);
-	while (token_list)
-	{
-		tok = token_list->content.oth;
-		temp = token_list->next;
-		token_list->next = NULL;
-		token_list->prev = NULL;
-		if (tok->type == ARG)
-			ft_lstadd_back(result, token_list);
-		if (tok->type == RD)
-			ft_lstadd_back(result + 1, token_list);
-		token_list = temp;
+		if (!ft_isquote(raw_value[i]) && raw_value[i] != '$')
+		{
+			result[j++] = raw_value[i++];
+			continue ;
+		}
+		if (ft_isquote(raw_value[i]))
+		{
+			aux = expand_quote(env, raw_value + i);
+			i += get_unexpanded_quotelen(raw_value + i);
+		}
+		else if (raw_value[i])
+		{
+			aux = expand_var(env, raw_value + i);
+			i += get_varname_len(raw_value + i);
+		}
+		j = ft_strlcat(result, aux, real_size);
+		free(aux);
 	}
 	return (result);
 }
 
-t_content	tokenize_command(t_content content, t_type type)
+size_t create_token(t_list *env, char *start, size_t len,
+		t_list **list)
 {
-	int		i;
-	t_list	*tok_list;
-	char	*raw_cmd;
+	t_list	*node;
+	t_token *tok;
+	char	*substr;
 
-	(void) type;
+	tok = malloc(sizeof(t_token));
+	if (!tok)
+		return (1);
+	substr = ft_substr(start, 0, len);
+	if (!substr)
+		return (free(tok), 1);
+	tok->type = identify_token_type(substr);
+	tok->value = expand_token(env, tok->type, substr);
+	free(substr);
+	if (!tok->value)
+		return (free(tok), 1);
+	node = ft_lstnew_type(OTHER, (t_content)(void *)tok);
+	if (!node)
+		return (free(tok->value), free(tok), 1);
+	ft_lstadd_back(list, node);
+	return (0);
+};
+
+/* Converts a "raw_command" in t_token list (use with ft_lstmap_env) */
+t_content	create_token_list(t_list *env, t_content line)
+{
+	t_list	*toklist;
+	int		i;
+	int		toklen;
+	
 	i = 0;
-	tok_list = NULL;
-	raw_cmd = content.str;
-	while (raw_cmd[i])
+	toklist = NULL;
+	while (line.str[i])
 	{
-		if (!ft_isspace(raw_cmd[i]))
+		if (!ft_isspace(line.str[i]))
 		{
-			if (process_token(&tok_list, raw_cmd + i, &i))
-				return ((t_content) NULL);
+			toklen = get_rawtoken_len(line.str + i);
+			create_token(env, line.str + i, toklen, &toklist);
+			i += toklen;
 			continue ;
 		}
 		i++;
 	}
-	return ((t_content)(void *)tok_list);
+	return (((t_content)(void *) toklist));
 }
