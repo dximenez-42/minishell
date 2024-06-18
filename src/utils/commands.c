@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/03 17:03:40 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:33:02 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*get_cmd(const t_command *cmd, t_input *input)
 	if (cmd->info == 2)
 		return (cmd->args[0]);
 	env_var = get_env_var(input->env, "PATH");
+	if (env_var == NULL)
+		return (cmd->args[0]);
 	env_split = ft_split(env_var, ':');
 	free(env_var);
 	while (env_split[i])
