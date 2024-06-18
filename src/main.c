@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/18 17:00:32 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:20:10 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static void	executor(t_input *input, int *status)
 		}
 		exec_one(input, status);
 	}
-	else
+	else if (input->noc > 1)
 		exec_multiple(input, status);
 }
 
