@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/10 20:23:32 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:45:23 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static void	exec_command(t_input *input, int i, int **pipes)
 		return ((void) printf("fork error\n"), exit(1));
 	if (pid == 0)
 	{
-		redirs(input, i, pipes);
+		if (cmd->argc != 0)
+			redirs(input, i, pipes);
 		if (cmd->info == 0 || cmd->info == 1)
 			exec_builtin_child(input, i);
 		else if (cmd->info >= 2)
@@ -112,11 +113,12 @@ void	exec_multiple(t_input *input, int *status)
 	i = -1;
 	init_pipes(input, &pipes);
 	while (++i < input->noc)
-		exec_command(input, i, pipes);
+		if (input->cmds[i]->argc != 0)
+			exec_command(input, i, pipes);
 	close_pipes(pipes, input->noc);
 	i = -1;
 	while (++i < input->noc)
-		waitpid(-1, status, 0);
-		// if (input->cmds[i]->info >= 0 && input->cmds[i]->info != 1)
+		if (input->cmds[i]->argc != 0)
+			waitpid(-1, status, 0);
 	free_pipes(pipes, input->noc);
 }
