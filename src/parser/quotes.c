@@ -3,29 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 15:58:11 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/11 17:21:31y bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:50:19 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	*expand_var(t_list *env, char *var);
-int	ft_isquote(int c)
+static size_t	get_singlequote_len(char *quote)
 {
-	if (c == '\'' || c == '"')
-		return (1);
-	return (0);
-}
-
-size_t	get_singlequote_len(char *quote)
-{
-	int i;
+	int		i;
 	size_t	len;
-	len = 0;
 
+	len = 0;
 	i = 1;
 	while (quote[i] && quote[i] != '\'')
 	{
@@ -55,7 +47,7 @@ size_t	get_quotelen(t_list *env, char *raw_quote)
 			len += get_env_var_len(env, varname);
 			i += get_varname_len(raw_quote + i);
 			free(varname);
-			continue;
+			continue ;
 		}
 		i++;
 		len++;
@@ -85,17 +77,16 @@ int	get_unexpanded_quotelen(char *quote)
 	return (i);
 }
 
-char	*expand_simple_quote(char *quote)
+static char	*expand_simple_quote(char *quote)
 {
 	char	*close_quote;
-	
+
 	close_quote = ft_strchr(quote + 1, '\'');
-	
 	if (!close_quote)
 		return (ft_strdup(quote + 1));
 	if (close_quote == quote + 1)
 		return (NULL);
-	return(ft_substr(quote, 1, close_quote - quote - 1));
+	return (ft_substr(quote, 1, close_quote - quote - 1));
 }
 
 char	*expand_quote(t_list *env, char *quote)

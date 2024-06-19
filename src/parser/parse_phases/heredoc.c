@@ -6,13 +6,13 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/05 13:29:38 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:48:42 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	creat_ext_heredoc(t_list *env, char *delimitor)
+static int	creat_ext_heredoc(t_list *env, char *delimitor)
 {
 	int		fds[2];
 	char	*line;
@@ -35,7 +35,7 @@ int	creat_ext_heredoc(t_list *env, char *delimitor)
 	return (fds[0]);
 }
 
-int	creat_not_ext_heredoc(char *delimitor)
+static int	creat_not_ext_heredoc(char *delimitor)
 {
 	int		fds[2];
 	char	*line;

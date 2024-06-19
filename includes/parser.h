@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/16 14:46:01 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 00:54:29 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct s_token
 }				t_token;
 
 //utils
+
+char		*expand_var(t_list *env, char *var);
+
 /*
 * Create a new list created with the return of function (f)
 * in al nodes of the list
@@ -78,11 +81,11 @@ int			get_varname_len(char *str);
 int			ft_isquote(int c);
 int			get_unexpanded_quotelen(char *quote);
 size_t		get_quotelen(t_list *env, char *raw_quote);
-char*		expand_quote(t_list *env, char *quote);
+char		*expand_quote(t_list *env, char *quote);
 // expansions
 char		*string_expansor(t_list *env, char *str);
 // redir functions
 int			ft_isredir(int c);
-int	ft_hd_pipe(int	*i_pipe);
+int			ft_hd_pipe(int	*i_pipe);
 int			creat_heredoc(t_list *env, char *delim);
 #endif

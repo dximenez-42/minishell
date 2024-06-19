@@ -4,6 +4,8 @@ SRCS 				=	src/parser/environment.c\
 						src/parser/token.c \
 						src/parser/parse_phases/split_commands.c\
 						src/parser/parse_phases/tokenization.c \
+						src/parser/parse_phases/expand_token.c \
+						src/parser/parse_phases/separate_tokens.c \
 						src/parser/parse_phases/create_command.c \
 						src/parser/parse_phases/create_input.c \
 						src/parser/parse_phases/redirections.c \
@@ -13,6 +15,7 @@ SRCS 				=	src/parser/environment.c\
 						src/parser/variables.c\
 						src/parser/quotes.c\
 						src/utils/lists.c\
+						src/utils/ft_isquote.c\
 						src/utils/cleaners.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\
