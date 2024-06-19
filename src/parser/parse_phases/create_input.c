@@ -6,13 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 15:28:54 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/03 13:20:20 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:06:11 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_input	*create_input(t_list *env, t_list *tokenized_commands)
+t_input	*create_input(t_list **env, t_list *tokenized_commands)
 {
 	t_input		*result;
 	t_command	**commands;
@@ -25,7 +25,7 @@ t_input	*create_input(t_list *env, t_list *tokenized_commands)
 	commands = malloc(noc * sizeof(void *));
 	while (i < noc)
 	{
-		commands[i] = create_command(env, tokenized_commands->content.oth);
+		commands[i] = create_command(*env, tokenized_commands->content.oth);
 		tokenized_commands = tokenized_commands->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 16:04:20 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:11:24 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	exec_command(t_input *input, int i, int **pipes)
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[i];
 	char			*location;
-	const char		**env = (const char **) ft_getenv(input->env);
+	const char		**env = (const char **) ft_getenv(*input->env);
 
 	pid = fork();
 	if (pid == -1)
@@ -83,10 +83,10 @@ void	exec_one(t_input *input, int *status)
 	pid_t			pid;
 	const t_command	*cmd = input->cmds[0];
 	char			*location;
-	const char		**env = (const char **) ft_getenv(input->env);
+	const char		**env = (const char **) ft_getenv(*input->env);
 
 	if (cmd->info == 1)
-		return (exec_builtin_parent(input, 0, status));
+		return (exec_builtin_parent(input, 0, status), ft_free_ptr_array(env));
 	pid = fork();
 	if (pid == -1)
 		return ((void) printf("fork error\n"), exit(1));
@@ -94,7 +94,7 @@ void	exec_one(t_input *input, int *status)
 	{
 		(dup2(cmd->fds[FDIN], FDIN), dup2(cmd->fds[FDOUT], FDOUT));
 		if (cmd->info == 0 || cmd->argc == 0)
-			exec_builtin_child(input, 0);
+			(exec_builtin_child(input, 0), ft_free_ptr_array(env));
 		else if (cmd->info >= 2)
 		{
 			location = get_cmd(cmd, input);
@@ -102,9 +102,9 @@ void	exec_one(t_input *input, int *status)
 				(perror("Command not found"), exit(127));
 			free(location);
 		}
+		ft_free_ptr_array(env);
 	}
-	ft_free_ptr_array(env);
-	waitpid(-1, status, 0);
+	(ft_free_ptr_array(env), waitpid(-1, status, 0));
 }
 
 void	exec_multiple(t_input *input, int *status)

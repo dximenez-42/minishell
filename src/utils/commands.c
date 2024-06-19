@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/18 22:13:47 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:03:33 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_cmd(const t_command *cmd, t_input *input)
 	i = 0;
 	if (cmd->info == 2)
 		return (cmd->args[0]);
-	env_var = get_env_var(input->env, "PATH");
+	env_var = get_env_var(*input->env, "PATH");
 	if (env_var == NULL)
 		return (cmd->args[0]);
 	env_split = ft_split(env_var, ':');

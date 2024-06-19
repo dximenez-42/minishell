@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:01:24 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 16:10:06 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:17:11 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ void	sigint_handler_heredoc(int signal);
 void	init_pipes(t_input *input, int ***pipes);
 void	close_pipes(int **pipes, int noc);
 void	free_pipes(int **pipes, int noc);
-//anarchy rainbow
-void	set_qtmark(t_list *env, int status);
+//anarchy rainbow, find "norminette made me do it" code
+void	set_qtmark(t_list **env, int status);
 #endif

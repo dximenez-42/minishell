@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 15:53:11 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 19:29:26 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_env_var(t_list *env, char *name)
 	t_env_var	*var;
 	t_list		*current;
 
-	if (!name)
+	if (!env || !name)
 		return (NULL);
 	current = env;
 	while (current)
@@ -72,12 +72,15 @@ int	rem_env_var(t_list **env, char *name)
 			if (current->prev)
 				current->prev->next = current->next;
 			if (current->next)
+			{
 				current->next->prev = current->prev;
-			free(var->name);
-			free(var->value);
-			free((void *)var);
-			free(current);
-			return (0);
+				if (*env == current)
+					*env = current->next;
+			}
+			if (!current->next && !current->prev)
+				*env = NULL;
+			(free(var->name), free(var->value));
+			return (free((void *)var), free(current), 0);
 		}
 		current = current->next;
 	}
@@ -92,21 +95,23 @@ char	**ft_getenv(t_list *env)
 	char	**ret;
 
 	i = 0;
-	i = ft_lstsize(env) - 1;
-	ret = malloc((i + 1) * sizeof(char *));
+	i = ft_lstsize(env);
+	ret = ft_calloc((i + 1), sizeof(char *));
 	j = 0;
 	while (j < i)
 	{
+		if (ft_strncmp(((t_env_var *)env->content.oth)->name, "?", 2))
+		{
 		len = ft_strlen(((t_env_var *)env->content.oth)->name)
 			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 2;
-		ret[j] = ft_calloc(len, 1);
+		ret[j] = malloc(len);
 		ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
 		ft_strlcat(ret[j], "=", len);
 		ft_strlcat(ret[j], ((t_env_var *) env->content.oth)->value, len);
+		}
 		env = env->next;
 		j++;
 	}
-	ret[j] = NULL;
 	return (ret);
 }
 

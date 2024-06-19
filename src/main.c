@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 16:10:46 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:36:19 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(rawline);
 			if (is_empty_line(rawline))
 			{
-				input = parse_line(env, rawline);
+				input = parse_line(&env, rawline);
 				executor(input, &status);
+				set_qtmark(&env, status);
 				clear_input(input);
-				set_qtmark(env, status);
 			}
 		}
 		free(rawline);
