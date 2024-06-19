@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 16:53:06 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 20:36:45 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:40:18 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_token_type	identify_token_type(char *value)
 		return (IN);
 	while (ft_isredir(value[i]))
 		i++;
-	if (i >= 2)
+	if (i > 2)
 		return (IN);
 	return (RD);
 }
