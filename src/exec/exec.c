@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:51:48 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 19:11:24 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:18:29 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,23 @@ void	exec_builtin_child(t_input *input, int i)
 
 	cmd = input->cmds[i];
 	status = 1;
-	if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
-		status = echo_builtin(input, i);
-	else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
-		status = 0;
-	else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
-		status = pwd_builtin(input, i);
-	else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
-		status = env_builtin(input, i);
-	else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
-		status = 0;
-	else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
-		status = 0;
-	else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
-		status = 0;
+	if (cmd->args)
+	{
+		if (ft_strncmp(cmd->args[0], "echo", 5) == 0)
+			status = echo_builtin(input, i);
+		else if (ft_strncmp(cmd->args[0], "cd", 3) == 0)
+			status = 0;
+		else if (ft_strncmp(cmd->args[0], "pwd", 4) == 0)
+			status = pwd_builtin(input, i);
+		else if (ft_strncmp(cmd->args[0], "env", 4) == 0)
+			status = env_builtin(input, i);
+		else if (ft_strncmp(cmd->args[0], "export", 7) == 0)
+			status = 0;
+		else if (ft_strncmp(cmd->args[0], "unset", 6) == 0)
+			status = 0;
+		else if (ft_strncmp(cmd->args[0], "exit", 5) == 0)
+			status = 0;
+	}
 	exit(status);
 }
 

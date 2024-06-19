@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 17:05:46 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:02:55 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef enum e_token_type
 {
 	ARG,
 	RD,
-	HD
+	HD,
+	IN
 }			t_token_type;
 
 typedef struct s_token
