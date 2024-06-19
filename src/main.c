@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 00:51:28 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:10:46 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ static void	executor(t_input *input, int *status)
 			if (input->cmds[0]->argc < 2)
 				code = 0;
 			else if (input->cmds[0]->argc > 2)
-				return ((void)printf("exit: too many args\n"));
+				return ((void)perror("exit: too many args\n"));
 			else
 			{
 				if (ft_isnumber(input->cmds[0]->args[1]))
 					code = ft_atoi(input->cmds[0]->args[1]);
 				else
-					return ((void)printf("The argument must be numeric\n"));
+					return ((void)perror("The argument must be numeric\n"));
 			}
 			printf("exit\n");
 			exit(code);
@@ -98,6 +98,7 @@ int	main(int argc, char *argv[], char *envp[])
 				input = parse_line(env, rawline);
 				executor(input, &status);
 				clear_input(input);
+				set_qtmark(env, status);
 			}
 		}
 		free(rawline);

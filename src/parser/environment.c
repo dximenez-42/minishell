@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/18 22:16:23 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:53:11 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ char	**ft_getenv(t_list *env)
 	char	**ret;
 
 	i = 0;
-	i = ft_lstsize(env);
+	i = ft_lstsize(env) - 1;
 	ret = malloc((i + 1) * sizeof(char *));
 	j = 0;
 	while (j < i)
 	{
 		len = ft_strlen(((t_env_var *)env->content.oth)->name)
 			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 2;
-		ret[j] = malloc(len);
+		ret[j] = ft_calloc(len, 1);
 		ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
 		ft_strlcat(ret[j], "=", len);
 		ft_strlcat(ret[j], ((t_env_var *) env->content.oth)->value, len);

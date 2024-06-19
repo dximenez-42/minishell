@@ -20,6 +20,7 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\
 						src/utils/signals.c\
+						src/utils/set_qtmark.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
 						src/builtins/env.c\
@@ -29,6 +30,7 @@ SRCS 				=	src/parser/environment.c\
 						src/builtins/echo.c\
 						src/builtins/pwd.c\
 						src/main.c
+
 OBJS				= $(SRCS:.c=.o)
 LIBFT_PATH			= libft
 LIBFT_INC_PATH		= $(LIBFT_PATH)/include
