@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 12:44:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 20:28:03 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:03:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ t_command	*create_command(t_list *env, t_list *token_list)
 	if (result->fds[0] < 0 || result->fds[1] < 0 || result->fds[2] < 0)
 	{
 		perror("");
+		(ft_free_ptr_array(result->args), free(result));
 		return (NULL);
 	}
 	return (result);

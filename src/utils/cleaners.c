@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:27:44 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 20:35:02 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:04:25 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	clear_input(t_input *input)
 	i = 0;
 	if (!input)
 		return ;
-	while (i < input->noc)
+	while (input->cmds && input->cmds[i])
 	{
 		close_fds(input->cmds[i]);
 		ft_free_ptr_array(input->cmds[i]->args);

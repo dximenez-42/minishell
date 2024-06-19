@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 20:34:02 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:10:17 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	executor(t_input *input, int *status)
 {
 	__int8_t	code;	
 
+	*status = 127;
 	if (input && input->noc == 1)
 	{
 		if (input->cmds[0]->args && input->cmds[0]->args[0]
@@ -43,8 +44,7 @@ static void	executor(t_input *input, int *status)
 				else
 					return ((void)perror("The argument must be numeric\n"));
 			}
-			printf("exit\n");
-			exit(code);
+			(printf("exit\n"), exit(code));
 		}
 		exec_one(input, status);
 	}
