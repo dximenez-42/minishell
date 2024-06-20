@@ -6,12 +6,21 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/20 02:43:31 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/20 11:56:35 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+extern int	g_signum;
+
+static void	heredoc_signal(int signum)
+{
+	g_signum = signum;
+	rl_replace_line("", 0);
+	rl_done = 1;
+	return ;
+}
 static int	creat_ext_heredoc(t_list *env, char *delimitor)
 {
 	int		fds[2];
@@ -20,7 +29,7 @@ static int	creat_ext_heredoc(t_list *env, char *delimitor)
 
 	pipe(fds);
 	line = readline("> ");
-	while (line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
+	while (g_signum != SIGINT  && line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
 	{
 		ext = string_expansor(env, line);
 		ft_putendl_fd(ext, fds[1]);
@@ -31,6 +40,8 @@ static int	creat_ext_heredoc(t_list *env, char *delimitor)
 	close(fds[1]);
 	if (line)
 		free(line);
+	if (g_signum == SIGINT)
+		return (close(fds[0]), close(fds[1]), -2);
 	return (fds[0]);
 }
 
@@ -100,9 +111,13 @@ int	creat_heredoc(t_list *env, char *delim)
 {
 	int	fd;
 
+	g_signum = 0;
+	signal(SIGINT, heredoc_signal);
 	if (has_quotes(delim))
 		fd = creat_not_ext_heredoc(remove_quotes(delim));
 	else
 		fd = creat_ext_heredoc(env, delim);
+	g_signum = 0;
+	signals();
 	return (fd);
 }
