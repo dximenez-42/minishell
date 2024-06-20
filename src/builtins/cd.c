@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 17:02:48 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:12:47 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	go_home(t_input *input)
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (perror("getcwd() error"), 1);
 	set_env_var(input->env, "PWD", cwd);
+	free(home);
 	return (0);
 }
 

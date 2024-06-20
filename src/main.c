@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/20 02:46:54 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:07:56 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static int	is_empty_line(char *line)
 	return (0);
 }
 
-void sigint_handler_notty(int signal);
 static void	executor(t_input *input, int *status)
 {
 	__int8_t	code;	
@@ -40,12 +39,10 @@ static void	executor(t_input *input, int *status)
 			else if (input->cmds[0]->argc > 2)
 				return ((void)perror("exit: too many args\n"));
 			else
-			{
-				if (ft_isnumber(input->cmds[0]->args[1]))
-					code = ft_atoi(input->cmds[0]->args[1]);
-				else
-					return ((void)perror("The argument must be numeric\n"));
-			}
+				if (!ft_isnumber(input->cmds[0]->args[1]))
+					return ((void)printf("The argument must be numeric\n"));
+			else
+				code = ft_atoi(input->cmds[0]->args[1]);
 			(printf("exit\n"), exit(code));
 		}
 		exec_one(input, status);
