@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   hd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 22:10:35 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 17:50:48 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/06/20 13:33:59 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/06/20 13:37:54 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	heredoc_signal(int signum)
 {
-	t_list	*last;
-
-	if (!lst || !new)
-		return ;
-	if (!(*lst))
-	{
-		*lst = new;
-		return ;
-	}
-	last = ft_lstlast(*lst);
-	new->prev = last;
-	if (!last)
-		return ;
-	last->next = new;
+	g_signum = signum;
+	close(0);
+	return ;
 }

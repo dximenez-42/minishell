@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/02 15:58:21 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:12:47 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ int	go_home(t_input *input)
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (perror("getcwd() error"), 1);
-	home = get_env_var(input->env, "HOME");
+	home = get_env_var(*input->env, "HOME");
 	if (home == NULL)
 		return (perror("HOME not set"), 1);
 	if (chdir(home) == -1)
 		return (perror(home), 1);
-	set_env_var(&input->env, "OLDPWD", cwd);
+	set_env_var(input->env, "OLDPWD", cwd);
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (perror("getcwd() error"), 1);
-	set_env_var(&input->env, "PWD", cwd);
+	set_env_var(input->env, "PWD", cwd);
+	free(home);
 	return (0);
 }
 
@@ -36,15 +37,15 @@ int	go_old(t_input *input)
 	char	cwd[PATH_MAX];
 	char	*old;
 
-	old = get_env_var(input->env, "OLDPWD");
+	old = get_env_var(*input->env, "OLDPWD");
 	if (old == NULL)
 		return (perror("OLDPWD not set"), 1);
 	if (chdir(old) == -1)
 		return (perror(old), 1);
-	set_env_var(&input->env, "OLDPWD", get_env_var(input->env, "PWD"));
+	set_env_var(input->env, "OLDPWD", get_env_var(*input->env, "PWD"));
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (perror("getcwd() error"), 1);
-	set_env_var(&input->env, "PWD", cwd);
+	set_env_var(input->env, "PWD", cwd);
 	return (0);
 }
 
@@ -62,10 +63,10 @@ int	cd_builtin(t_input *input, int i)
 			return (perror("getcwd() error"), 1);
 		if (chdir(input->cmds[i]->args[1]) == -1)
 			return (perror(input->cmds[i]->args[1]), 1);
-		set_env_var(&input->env, "OLDPWD", cwd);
+		set_env_var(input->env, "OLDPWD", cwd);
 		if (getcwd(cwd, PATH_MAX) == NULL)
 			return (perror("getcwd() error"), 1);
-		set_env_var(&input->env, "PWD", cwd);
+		set_env_var(input->env, "PWD", cwd);
 	}
 	return (0);
 }

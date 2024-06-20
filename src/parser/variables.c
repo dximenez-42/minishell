@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 22:09:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/12 15:35:50 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:42:42 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*get_varname(char *str)
 	if (str[i] != '$')
 		return (NULL);
 	i++;
+	if (str[i] == '?')
+		return (ft_strdup("?"));
 	while (ft_isalnum(str[i]))
 		i++;
 	return (ft_substr(str, 1, i - 1));

@@ -46,14 +46,14 @@ static void	free_splitted_commands(t_content cnt, t_type type)
 	free(cnt.str);
 }
 
-t_input	*parse_line(t_list *env, char *line)
+t_input	*parse_line(t_list **env, char *line)
 {
 	t_input	*result;
 	t_list	*buffer;
 	t_list	*aux;
 
 	buffer = split_commands(line);
-	aux = ft_lstmap_env(env, buffer, create_token_list, NULL);
+	aux = ft_lstmap_env(*env, buffer, create_token_list, NULL);
 	ft_lstclear_type(&buffer, free_splitted_commands);
 	buffer = aux;
 	result = create_input(env, buffer);

@@ -20,6 +20,8 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\
 						src/utils/signals.c\
+						src/utils/set_qtmark.c\
+						src/utils/hd_utils.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
 						src/builtins/env.c\
@@ -29,6 +31,7 @@ SRCS 				=	src/parser/environment.c\
 						src/builtins/echo.c\
 						src/builtins/pwd.c\
 						src/main.c
+
 OBJS				= $(SRCS:.c=.o)
 LIBFT_PATH			= libft
 LIBFT_INC_PATH		= $(LIBFT_PATH)/include
@@ -36,8 +39,8 @@ LIBFT_LIB_PATH		= $(LIBFT_PATH)/lib
 LIBFT_LIB_FILE		= $(LIBFT_LIB_PATH)/libft.a
 LIBFT_INC_FLAGS		= -I$(LIBFT_INC_PATH)
 LIBFT_LINK_FLAGS	= -L$(LIBFT_LIB_PATH) -lft
-CFLAGS 				= $(LIBFT_INC_FLAGS) -g3
-CC					= gcc -Wall -Wextra  -Iincludes
+CFLAGS 				= $(LIBFT_INC_FLAGS)
+CC					= gcc -Wall -Wextra -Werror  -Iincludes
 
 all:	$(NAME)
 

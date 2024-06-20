@@ -3,58 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 00:48:42 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:05:05 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	creat_ext_heredoc(t_list *env, char *delimitor)
+static void	creat_ext_heredoc(t_list *env, char *delimitor, int fd)
 {
-	int		fds[2];
 	char	*line;
 	char	*ext;
 
-	pipe(fds);
-	signal(SIGINT, sigint_handler_heredoc);
 	line = readline("> ");
 	while (line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
 	{
 		ext = string_expansor(env, line);
-		ft_putendl_fd(ext, fds[1]);
+		ft_putendl_fd(ext, fd);
 		free(ext);
 		free(line);
 		line = readline("> ");
 	}
-	close(fds[1]);
+	close(fd);
 	if (line)
 		free(line);
-	return (fds[0]);
 }
 
-static int	creat_not_ext_heredoc(char *delimitor)
+static void	creat_not_ext_heredoc(char *delimitor, int fd)
 {
-	int		fds[2];
 	char	*line;
 
 	if (!delimitor)
-		return (-1);
-	pipe(fds);
+		return ;
 	line = readline("> ");
 	while (line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
 	{
-		ft_putendl_fd(line, fds[1]);
+		ft_putendl_fd(line, fd);
 		free(line);
 		line = readline("> ");
 	}
-	close(fds[1]);
+	close(fd);
 	if (line)
 		free(line);
 	free(delimitor);
-	return (fds[0]);
 }
 
 static char	*remove_quotes(char *str)
@@ -99,11 +92,27 @@ static __uint8_t	has_quotes(char	*str)
 
 int	creat_heredoc(t_list *env, char *delim)
 {
-	int	fd;
+	int		fds[2];
+	pid_t	pid;
 
-	if (has_quotes(delim))
-		fd = creat_not_ext_heredoc(remove_quotes(delim));
-	else
-		fd = creat_ext_heredoc(env, delim);
-	return (fd);
+	g_signum = 0;
+	signal(SIGINT, sigint_handler_notty);
+	pipe(fds);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(fds[0]);
+		signal(SIGINT, heredoc_signal);
+		if (has_quotes(delim))
+			creat_not_ext_heredoc(remove_quotes(delim), fds[1]);
+		else
+			creat_ext_heredoc(env, delim, fds[1]);
+		exit(0);
+	}
+	close(fds[1]);
+	wait(NULL);
+	if (g_signum == SIGINT)
+		(close(fds[0]), fds[0] = -2);
+	g_signum = 0;
+	return (fds[0]);
 }

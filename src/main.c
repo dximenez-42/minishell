@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 00:51:28 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:07:56 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static void	close_fds(t_command *cmd)
-{
-	if (cmd->fds[0] != 0 && cmd->fds[0] >= 0)
-		close(cmd->fds[0]);
-	if (cmd->fds[1] != 1 && cmd->fds[1] >= 0)
-		close(cmd->fds[1]);
-	if (cmd->fds[2] != 2 && cmd->fds[2] >= 0)
-		close(cmd->fds[2]);
-}
-
-static void	clear_input(t_input *input)
-{
-	int	i;
-
-	i = 0;
-	while (i < input->noc)
-	{
-		close_fds(input->cmds[i]);
-		ft_free_ptr_array(input->cmds[i]->args);
-		free(input->cmds[i]);
-		i++;
-	}
-	free(input->cmds);
-	free(input);
-}
 
 static int	is_empty_line(char *line)
 {
@@ -53,7 +27,9 @@ static void	executor(t_input *input, int *status)
 {
 	__int8_t	code;	
 
-	if (input->noc == 1)
+	signal(SIGINT, sigint_handler_notty);
+	*status = 127;
+	if (input && input->noc == 1)
 	{
 		if (input->cmds[0]->args && input->cmds[0]->args[0]
 			&& !ft_strncmp(input->cmds[0]->args[0], "exit", 5))
@@ -61,21 +37,19 @@ static void	executor(t_input *input, int *status)
 			if (input->cmds[0]->argc < 2)
 				code = 0;
 			else if (input->cmds[0]->argc > 2)
-				return ((void)printf("exit: too many args\n"));
+				return ((void)perror("exit: too many args\n"));
 			else
-			{
-				if (ft_isnumber(input->cmds[0]->args[1]))
-					code = ft_atoi(input->cmds[0]->args[1]);
-				else
+				if (!ft_isnumber(input->cmds[0]->args[1]))
 					return ((void)printf("The argument must be numeric\n"));
-			}
-			printf("exit\n");
-			exit(code);
+			else
+				code = ft_atoi(input->cmds[0]->args[1]);
+			(printf("exit\n"), exit(code));
 		}
 		exec_one(input, status);
 	}
-	else if (input->noc > 1)
+	else if (input && input->noc > 1)
 		exec_multiple(input, status);
+	signals();
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -95,8 +69,9 @@ int	main(int argc, char *argv[], char *envp[])
 			add_history(rawline);
 			if (is_empty_line(rawline))
 			{
-				input = parse_line(env, rawline);
+				input = parse_line(&env, rawline);
 				executor(input, &status);
+				set_qtmark(&env, status);
 				clear_input(input);
 			}
 		}

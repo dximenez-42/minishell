@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:13:19 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/18 22:16:23 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:18:48 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_env_var(t_list *env, char *name)
 	t_env_var	*var;
 	t_list		*current;
 
-	if (!name)
+	if (!env || !name)
 		return (NULL);
 	current = env;
 	while (current)
@@ -72,12 +72,15 @@ int	rem_env_var(t_list **env, char *name)
 			if (current->prev)
 				current->prev->next = current->next;
 			if (current->next)
+			{
 				current->next->prev = current->prev;
-			free(var->name);
-			free(var->value);
-			free((void *)var);
-			free(current);
-			return (0);
+				if (*env == current)
+					*env = current->next;
+			}
+			if (!current->next && !current->prev)
+				*env = NULL;
+			(free(var->name), free(var->value));
+			return (free((void *)var), free(current), 0);
 		}
 		current = current->next;
 	}
@@ -93,20 +96,22 @@ char	**ft_getenv(t_list *env)
 
 	i = 0;
 	i = ft_lstsize(env);
-	ret = malloc((i + 1) * sizeof(char *));
+	ret = ft_calloc((i + 1), sizeof(char *));
 	j = 0;
 	while (j < i)
 	{
-		len = ft_strlen(((t_env_var *)env->content.oth)->name)
-			+ ft_strlen(((t_env_var *)env->content.oth)->value) + 2;
-		ret[j] = malloc(len);
-		ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
-		ft_strlcat(ret[j], "=", len);
-		ft_strlcat(ret[j], ((t_env_var *) env->content.oth)->value, len);
+		if (ft_strncmp(((t_env_var *)env->content.oth)->name, "?", 2))
+		{
+			len = ft_strlen(((t_env_var *)env->content.oth)->name)
+				+ ft_strlen(((t_env_var *)env->content.oth)->value) + 2;
+			ret[j] = malloc(len);
+			ft_strlcpy(ret[j], ((t_env_var *)env->content.oth)->name, len);
+			ft_strlcat(ret[j], "=", len);
+			ft_strlcat(ret[j], ((t_env_var *) env->content.oth)->value, len);
+		}
 		env = env->next;
 		j++;
 	}
-	ret[j] = NULL;
 	return (ret);
 }
 

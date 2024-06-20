@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
+/*   set_qtmark.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/01 22:10:35 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 17:50:48 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/06/19 16:07:40 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/06/19 19:12:21 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <minishell.h>
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	set_qtmark(t_list **env, int status)
 {
-	t_list	*last;
+	char	*value;
 
-	if (!lst || !new)
-		return ;
-	if (!(*lst))
-	{
-		*lst = new;
-		return ;
-	}
-	last = ft_lstlast(*lst);
-	new->prev = last;
-	if (!last)
-		return ;
-	last->next = new;
+	value = ft_itoa(status % 256);
+	set_env_var(env, "?", value);
+	free(value);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:53:25 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 00:54:29 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:02:55 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ typedef enum e_token_type
 {
 	ARG,
 	RD,
-	HD
+	HD,
+	IN
 }			t_token_type;
 
 typedef struct s_token
@@ -53,7 +54,7 @@ t_list		*parse_env(char **envp);
 * RETURN:
 * t_input * that contain all comands and information for process then
 */
-t_input		*parse_line(t_list *env, char *line);
+t_input		*parse_line(t_list **env, char *line);
 // parse_line phases
 /*
 * Split commands by not scaped pipes (|)
@@ -75,7 +76,7 @@ void		del_token(t_content content, t_type type);
 t_list		**separe_tokens(t_list *token_list);
 t_command	*create_command(t_list *env, t_list *token_list);
 // create input
-t_input		*create_input(t_list *env, t_list *commands);
+t_input		*create_input(t_list **env, t_list *commands);
 //  quotes and var functions (quotes.c and variables.c)
 int			get_varname_len(char *str);
 int			ft_isquote(int c);

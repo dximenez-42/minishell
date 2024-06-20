@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:09:44 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/31 12:08:39 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:01:47 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_input
 {
 	__uint8_t	noc;
 	t_command	**cmds;
-	t_list		*env;
+	t_list		**env;
 	__int8_t	info;
 }				t_input;
 
