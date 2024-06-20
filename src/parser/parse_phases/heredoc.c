@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 00:48:42 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:43:31 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	creat_ext_heredoc(t_list *env, char *delimitor)
 	char	*ext;
 
 	pipe(fds);
-	signal(SIGINT, sigint_handler_heredoc);
 	line = readline("> ");
 	while (line && ft_strncmp(line, delimitor, ft_strlen(delimitor) + 1))
 	{

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/19 21:10:17 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:46:54 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ static int	is_empty_line(char *line)
 	return (0);
 }
 
+void sigint_handler_notty(int signal);
 static void	executor(t_input *input, int *status)
 {
 	__int8_t	code;	
 
+	signal(SIGINT, sigint_handler_notty);
 	*status = 127;
 	if (input && input->noc == 1)
 	{
@@ -50,6 +52,7 @@ static void	executor(t_input *input, int *status)
 	}
 	else if (input && input->noc > 1)
 		exec_multiple(input, status);
+	signals();
 }
 
 int	main(int argc, char *argv[], char *envp[])

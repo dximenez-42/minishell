@@ -6,13 +6,13 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:43:32 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 00:51:18 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:43:54 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	sigint_handler(void)
+static void	sigint_handler_tty(void)
 {
 	ft_putchar_fd('\n', STDERR_FILENO);
 	rl_replace_line("", 0);
@@ -20,7 +20,7 @@ static void	sigint_handler(void)
 	rl_redisplay();
 }
 
-void	sigint_handler_heredoc(int signal)
+void	sigint_handler_notty(int signal)
 {
 	(void)signal;
 	ft_putchar_fd('\n', STDERR_FILENO);
@@ -36,7 +36,7 @@ static void	sigquit_handler(void)
 static void	sig_handler(int status)
 {
 	if (status == SIGINT)
-		sigint_handler();
+		sigint_handler_tty();
 	else if (status == SIGQUIT)
 		sigquit_handler();
 }
