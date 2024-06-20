@@ -39,8 +39,8 @@ LIBFT_LIB_PATH		= $(LIBFT_PATH)/lib
 LIBFT_LIB_FILE		= $(LIBFT_LIB_PATH)/libft.a
 LIBFT_INC_FLAGS		= -I$(LIBFT_INC_PATH)
 LIBFT_LINK_FLAGS	= -L$(LIBFT_LIB_PATH) -lft
-CFLAGS 				= $(LIBFT_INC_FLAGS) -g3
-CC					= gcc -Wall -Wextra  -Iincludes
+CFLAGS 				= $(LIBFT_INC_FLAGS)
+CC					= gcc -Wall -Wextra -Werror  -Iincludes
 
 all:	$(NAME)
 
