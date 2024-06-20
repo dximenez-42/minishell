@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:43:32 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/20 13:38:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:29:28 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	sigint_handler_notty(int signum)
 
 static void	sigquit_handler(void)
 {
-	if (isatty(STDIN_FILENO))
-		rl_on_new_line();
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 static void	sig_handler(int status)
