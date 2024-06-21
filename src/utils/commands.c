@@ -3,29 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:31:36 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 17:03:33 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:23:40 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_cmd(const t_command *cmd, t_input *input)
+static	char	*get_route_path(const t_command *cmd, t_input *input)
 {
-	int		i;
 	char	**env_split;
-	char	*location;
+	int		i;
 	char	*temp;
+	char	*location;
 	char	*env_var;
 
 	i = 0;
-	if (cmd->info == 2)
-		return (cmd->args[0]);
 	env_var = get_env_var(*input->env, "PATH");
-	if (env_var == NULL)
-		return (cmd->args[0]);
 	env_split = ft_split(env_var, ':');
 	free(env_var);
 	while (env_split[i])
@@ -38,5 +34,15 @@ char	*get_cmd(const t_command *cmd, t_input *input)
 		free(location);
 		++i;
 	}
-	return (ft_free_ptr_array(env_split), cmd->args[0]);
+	ft_free_ptr_array(env_split);
+	return ("");
+}
+
+char	*get_cmd(const t_command *cmd, t_input *input)
+{
+	if (cmd->info == 2)
+		return (cmd->args[0]);
+	else if (cmd->info == 3)
+		return (get_route_path(cmd, input));
+	return ("");
 }
