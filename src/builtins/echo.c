@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:54:43 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/04 14:21:01 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:06:14 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_flag(char *str)
 	{
 		while (str[i] == 'n')
 			++i;
-		if (str[i] == '\0')
+		if (str[i] == '\0' && i != 1)
 			return (1);
 	}
 	return (0);
