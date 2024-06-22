@@ -22,6 +22,7 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/signals.c\
 						src/utils/set_qtmark.c\
 						src/utils/hd_utils.c\
+						src/utils/get_cwd.c\
 						src/exec/exec.c\
 						src/exec/redirs.c\
 						src/builtins/env.c\
