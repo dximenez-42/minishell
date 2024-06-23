@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/23 18:42:49 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 19:10:48 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ static void	executor(t_input *input, int *status)
 			&& !ft_strncmp(input->cmds[0]->args[0], "exit", 5))
 		{
 			if (input->cmds[0]->argc < 2)
-				code = 0;
+				code = 2;
 			else if (input->cmds[0]->argc > 2)
-				return ((void)perror("exit: too many args\n"));
+				return ((void)printf("exit: too many args\n"));
 			else
 				if (!ft_isnumber(input->cmds[0]->args[1]))
-					return ((void)printf("The argument must be numeric\n"));
+					return ((void)printf("The argument must be numeric\n"),
+						exit(2));
 			else
 				code = ft_atoi(input->cmds[0]->args[1]);
 			(printf("exit\n"), exit(code));

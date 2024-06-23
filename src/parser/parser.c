@@ -58,6 +58,11 @@ t_input	*parse_line(t_list **env, char *line)
 		set_qtmark(env, 130);
 		g_signum = 0;
 	}
+	if (g_signum == 3)
+	{
+		set_qtmark(env, 131);
+		g_signum = 0;
+	}
 	buffer = split_commands(line);
 	aux = ft_lstmap_env(*env, buffer, create_token_list, NULL);
 	ft_lstclear_type(&buffer, free_splitted_commands);
