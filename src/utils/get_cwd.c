@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 15:30:29 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/22 22:42:45 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:40:47 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 char	*get_cwd(void)
 {
 	static char	cwd[PATH_MAX];
+	char		_cwd[PATH_MAX];
 
-	if (getcwd(cwd, PATH_MAX) == NULL)
+	if (getcwd(_cwd, PATH_MAX) == NULL)
 	{
-		if (cwd != NULL)
+		if (_cwd != NULL)
 			return (cwd);
 		return (NULL);
 	}
+	ft_memcpy(cwd, _cwd, PATH_MAX);
 	return (cwd);
 }
