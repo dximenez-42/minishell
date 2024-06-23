@@ -6,11 +6,11 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/20 14:07:56 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 11:59:36 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include <minishell.h>
 
 static int	is_empty_line(char *line)
 {
@@ -28,7 +28,6 @@ static void	executor(t_input *input, int *status)
 	__int8_t	code;	
 
 	signal(SIGINT, sigint_handler_notty);
-	*status = 127;
 	if (input && input->noc == 1)
 	{
 		if (input->cmds[0]->args && input->cmds[0]->args[0]
@@ -52,6 +51,11 @@ static void	executor(t_input *input, int *status)
 	signals();
 }
 
+int	ft_wexitstatus(int	raw_status)
+{
+	return ((raw_status & 0xFF00) >> 8);
+}
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*env;
@@ -71,7 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				input = parse_line(&env, rawline);
 				executor(input, &status);
-				set_qtmark(&env, status);
+				set_qtmark(&env, ft_wexitstatus(status));
 				clear_input(input);
 			}
 		}
