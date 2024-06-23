@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   get_cwd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 14:20:18 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/22 15:42:28 by dximenez         ###   ########.fr       */
+/*   Created: 2024/06/22 15:30:29 by dximenez          #+#    #+#             */
+/*   Updated: 2024/06/23 16:40:47 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include <minishell.h>
 
-# include "input.h"
+/**
+ * @brief Get the current working directory
+ * @param cwd The destination string
+ * @return 1 if success, 0 if error
+ */
+char	*get_cwd(void)
+{
+	static char	cwd[PATH_MAX];
+	char		_cwd[PATH_MAX];
 
-char	*get_cwd(void);
-
-int		env_builtin(t_input *input, int i);
-int		export_builtin(t_input *input, int i);
-int		unset_builtin(t_input *input, int i);
-int		echo_builtin(t_input *input, int i);
-int		cd_builtin(t_input *input, int i);
-int		pwd_builtin(t_input *input, int i);
-
-#endif
+	if (getcwd(_cwd, PATH_MAX) == NULL)
+	{
+		if (_cwd != NULL)
+			return (cwd);
+		return (NULL);
+	}
+	ft_memcpy(cwd, _cwd, PATH_MAX);
+	return (cwd);
+}

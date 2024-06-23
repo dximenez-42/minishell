@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/23 18:35:52 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:42:49 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*rawline;
 	int		status;
 
-	((void) argc, (void) argv, signals_tty());
+	((void) argc, (void) argv, signals_tty(), get_cwd());
 	env = parse_env(envp);
 	rawline = readline("minishell: ");
 	while (rawline)
