@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 13:05:22 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/23 16:13:17 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:35:17 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	export_builtin(t_input *input, int i)
 		{
 			if (!isvalid(input->cmds[i]->args[j - 1]))
 				printf("Invalid varname: %s\n", input->cmds[i]->args[j - 1]);
-			continue;
+			continue ;
 		}
 		if (!isvalid(split[0]))
 			printf("Invalid varname: %s\n", split[0]);

@@ -20,6 +20,7 @@ SRCS 				=	src/parser/environment.c\
 						src/utils/commands.c\
 						src/utils/pipes.c\
 						src/utils/signals.c\
+						src/utils/no_tty_signals.c\
 						src/utils/set_qtmark.c\
 						src/utils/hd_utils.c\
 						src/exec/exec.c\
