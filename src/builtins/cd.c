@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/23 00:16:53 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/23 12:45:52 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	go_home(t_input *input)
 
 int	go_old(t_input *input)
 {
-	char	cwd[PATH_MAX];
+	char	*cwd;
 	char	*old;
 	char	*pwd;
 
@@ -47,7 +47,8 @@ int	go_old(t_input *input)
 	pwd = get_env_var(*input->env, "PWD");
 	set_env_var(input->env, "OLDPWD", pwd);
 	free(pwd);
-	if (getcwd(cwd, PATH_MAX) == NULL)
+	cwd = get_cwd();
+	if (cwd == NULL)
 		return (perror("getcwd() error"), 1);
 	set_env_var(input->env, "PWD", cwd);
 	pwd_builtin(input, 0);
@@ -56,7 +57,7 @@ int	go_old(t_input *input)
 
 int	cd_builtin(t_input *input, int i)
 {
-	char	cwd[PATH_MAX];
+	char	*cwd;
 
 	if (input->cmds[i]->args[1] == NULL)
 		return (go_home(input));
@@ -64,12 +65,14 @@ int	cd_builtin(t_input *input, int i)
 		return (go_old(input));
 	else
 	{
-		if (getcwd(cwd, PATH_MAX) == NULL)
+		cwd = get_cwd();
+		if (cwd == NULL)
 			return (perror("getcwd() error"), 1);
 		if (chdir(input->cmds[i]->args[1]) == -1)
 			return (perror(input->cmds[i]->args[1]), 1);
 		set_env_var(input->env, "OLDPWD", cwd);
-		if (getcwd(cwd, PATH_MAX) == NULL)
+		cwd = get_cwd();
+		if (cwd == NULL)
 			return (perror("getcwd() error"), 1);
 		set_env_var(input->env, "PWD", cwd);
 	}
