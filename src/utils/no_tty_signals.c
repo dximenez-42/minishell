@@ -1,46 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   no_tty_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 17:43:32 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/23 18:34:21 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/06/23 18:16:14 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/06/23 18:34:32 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include <minishell.h>
 
-int	g_signum = 0;
-
-static void	sigint_handler_tty(int signum)
+static void	sigint_handler_notty(int signum)
 {
 	g_signum = signum;
 	ft_putchar_fd('\n', STDERR_FILENO);
 	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
 }
 
-static void	sigquit_handler_tty(int signum)
+static void	sigquit_handler_notty(int signum)
 {
 	g_signum = signum;
-	rl_on_new_line();
-	rl_redisplay();
+	return ;
 }
 
-static void	sig_handler_tty(int status)
+static void	sig_handler_notty(int status)
 {
 	g_signum = status;
 	if (status == SIGINT)
-		sigint_handler_tty(status);
+		sigint_handler_notty(status);
 	else if (status == SIGQUIT)
-		sigquit_handler_tty(status);
+		sigquit_handler_notty(status);
 }
 
-void	signals_tty(void)
+void	signals_notty(void)
 {
-	signal(SIGINT, sig_handler_tty);
-	signal(SIGQUIT, sig_handler_tty);
+	signal(SIGINT, sig_handler_notty);
+	signal(SIGQUIT, sig_handler_notty);
 }

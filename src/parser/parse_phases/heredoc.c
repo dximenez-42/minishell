@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:50:22 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/20 14:05:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:32:55 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	creat_heredoc(t_list *env, char *delim)
 	pid_t	pid;
 
 	g_signum = 0;
-	signal(SIGINT, sigint_handler_notty);
+	signals_notty();
 	pipe(fds);
 	pid = fork();
 	if (pid == 0)

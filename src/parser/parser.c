@@ -37,6 +37,7 @@ t_list	*parse_env(char **envp)
 		ft_lstadd_back(&env, node);
 		i++;
 	}
+	set_qtmark(&env, 0);
 	return (env);
 }
 
@@ -52,6 +53,16 @@ t_input	*parse_line(t_list **env, char *line)
 	t_list	*buffer;
 	t_list	*aux;
 
+	if (g_signum == SIGINT)
+	{
+		set_qtmark(env, 130);
+		g_signum = 0;
+	}
+	if (g_signum == 3)
+	{
+		set_qtmark(env, 131);
+		g_signum = 0;
+	}
 	buffer = split_commands(line);
 	aux = ft_lstmap_env(*env, buffer, create_token_list, NULL);
 	ft_lstclear_type(&buffer, free_splitted_commands);
