@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 13:05:09 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/19 17:03:00 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:11:33 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	env_builtin(t_input *input, int i)
 	int		j;
 
 	if (input->cmds[i]->argc != 1)
-		return (1);
+		return (1 << 8);
 	j = 0;
 	env = ft_getenv(*input->env);
 	while (env[j] != NULL)

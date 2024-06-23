@@ -6,7 +6,7 @@
 /*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 21:26:57 by dximenez          #+#    #+#             */
-/*   Updated: 2024/06/23 12:45:52 by dximenez         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:11:03 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,20 @@ int	cd_builtin(t_input *input, int i)
 	char	*cwd;
 
 	if (input->cmds[i]->args[1] == NULL)
-		return (go_home(input));
+		return (go_home(input) << 8);
 	else if (ft_strncmp(input->cmds[i]->args[1], "-", 2) == 0)
-		return (go_old(input));
+		return (go_old(input) << 8);
 	else
 	{
 		cwd = get_cwd();
 		if (cwd == NULL)
-			return (perror("getcwd() error"), 1);
+			return (perror("getcwd() error"), 1 << 8);
 		if (chdir(input->cmds[i]->args[1]) == -1)
-			return (perror(input->cmds[i]->args[1]), 1);
+			return (perror(input->cmds[i]->args[1]), 1 << 8);
 		set_env_var(input->env, "OLDPWD", cwd);
 		cwd = get_cwd();
 		if (cwd == NULL)
-			return (perror("getcwd() error"), 1);
+			return (perror("getcwd() error"), 1 << 8);
 		set_env_var(input->env, "PWD", cwd);
 	}
 	get_cwd();
