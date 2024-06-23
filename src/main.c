@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: dximenez <dximenez@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:49:21 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/06/20 14:07:56 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/06/22 15:45:23 by dximenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*rawline;
 	int		status;
 
-	((void) argc, (void) argv, signals());
+	((void) argc, (void) argv, signals(), get_cwd());
 	env = parse_env(envp);
 	rawline = readline("minishell: ");
 	while (rawline)
